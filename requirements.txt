@@ -1,0 +1,9 @@
+pdfplumber
+nltk
+scikit-learn
+datasketch
+numpy
+pandas
+streamlit
+matplotlib
+seaborn
