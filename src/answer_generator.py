@@ -3,10 +3,12 @@ Answer Generator Module
 ========================
 Generates answers from retrieved chunks using:
 1. Extractive method (sentence-level TF-IDF matching) — default
-2. LLM-based generation (OpenAI API) — optional
+2. Local LLM (Qwen2.5-3B-Instruct via HuggingFace) — runs on Apple Silicon MPS
+3. OpenAI API (GPT-4o-mini) — optional, requires API key
 """
 
 import os
+import gc
 import nltk
 from nltk.tokenize import sent_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -22,27 +24,110 @@ except LookupError:
     nltk.download("punkt_tab", quiet=True)
 
 
+# ---------------------------------------------------------------------------
+# System prompt for grounded academic QA
+# ---------------------------------------------------------------------------
+
+SYSTEM_PROMPT = """You are an academic policy assistant for NUST (National University of Sciences & Technology). Your role is to answer student questions about academic policies based ONLY on the provided handbook excerpts.
+
+Rules:
+1. ONLY use information from the provided context — do not make up information
+2. Cite specific sections and page numbers when possible (e.g., "According to Section 3.2, page 15...")
+3. If the context doesn't contain enough information to fully answer, say so clearly
+4. Be concise but thorough — students need precise policy information
+5. Use bullet points for multiple rules or requirements"""
+
+
 class AnswerGenerator:
     """
     Generates answers from retrieved chunks.
 
-    Supports two modes:
-    - Extractive: Selects most relevant sentences from chunks
-    - LLM: Uses OpenAI API with retrieved context (if API key provided)
+    Supports three modes:
+    - Extractive: Selects most relevant sentences from chunks (default, no model needed)
+    - Local LLM: Uses Qwen2.5-3B-Instruct running locally on Apple Silicon MPS
+    - OpenAI: Uses GPT-4o-mini via API (requires key)
     """
 
-    def __init__(self, use_llm: bool = False, api_key: str | None = None):
-        self.use_llm = use_llm
+    def __init__(
+        self,
+        mode: str = "extractive",
+        api_key: str | None = None,
+        local_model_name: str = "Qwen/Qwen2.5-3B-Instruct",
+    ):
+        """
+        Args:
+            mode: One of "extractive", "local_llm", "openai"
+            api_key: OpenAI API key (only for mode="openai")
+            local_model_name: HuggingFace model ID for local LLM
+        """
+        self.mode = mode
         self.api_key = api_key or os.environ.get("OPENAI_API_KEY")
-        self._client = None
+        self.local_model_name = local_model_name
 
-        if self.use_llm and self.api_key:
+        # Lazy-loaded resources
+        self._openai_client = None
+        self._local_model = None
+        self._local_tokenizer = None
+        self._device = None
+
+        # Initialize based on mode
+        if self.mode == "openai":
+            self._init_openai()
+        elif self.mode == "local_llm":
+            # Model is loaded lazily on first generate() call to avoid
+            # blocking the UI startup
+            pass
+
+    def _init_openai(self):
+        """Initialize OpenAI client."""
+        if self.api_key:
             try:
                 from openai import OpenAI
-                self._client = OpenAI(api_key=self.api_key)
+                self._openai_client = OpenAI(api_key=self.api_key)
             except ImportError:
                 print("⚠️  OpenAI not installed. Falling back to extractive mode.")
-                self.use_llm = False
+                self.mode = "extractive"
+        else:
+            print("⚠️  No OpenAI API key provided. Falling back to extractive mode.")
+            self.mode = "extractive"
+
+    def _init_local_llm(self):
+        """
+        Initialize the local Qwen2.5-3B-Instruct model.
+        Uses Apple Silicon MPS for GPU acceleration.
+        """
+        if self._local_model is not None:
+            return  # Already loaded
+
+        import torch
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+
+        print(f"🤖 Loading local LLM: {self.local_model_name}")
+        print("   This may take a minute on first download (~6GB)...")
+
+        # Determine device
+        if torch.backends.mps.is_available():
+            self._device = torch.device("mps")
+            print("   → Using Apple Silicon MPS GPU acceleration")
+        else:
+            self._device = torch.device("cpu")
+            print("   → Using CPU (MPS not available)")
+
+        # Load tokenizer
+        self._local_tokenizer = AutoTokenizer.from_pretrained(
+            self.local_model_name,
+            trust_remote_code=True,
+        )
+
+        # Load model in float16 for efficiency on M-series chips
+        self._local_model = AutoModelForCausalLM.from_pretrained(
+            self.local_model_name,
+            torch_dtype=torch.float16,
+            device_map="auto",
+            trust_remote_code=True,
+        )
+
+        print(f"   ✅ Model loaded successfully on {self._device}")
 
     def generate(self, query: str, retrieved_results: list[dict], top_sentences: int = 5) -> dict:
         """
@@ -63,15 +148,20 @@ class AnswerGenerator:
                 "method": "none",
             }
 
-        if self.use_llm and self._client:
-            return self._generate_llm(query, retrieved_results)
+        if self.mode == "local_llm":
+            return self._generate_local_llm(query, retrieved_results)
+        elif self.mode == "openai" and self._openai_client:
+            return self._generate_openai(query, retrieved_results)
         else:
             return self._generate_extractive(query, retrieved_results, top_sentences)
+
+    # ------------------------------------------------------------------
+    # Extractive Answer Generation
+    # ------------------------------------------------------------------
 
     def _generate_extractive(self, query: str, results: list[dict], top_n: int = 5) -> dict:
         """
         Extract the most relevant sentences from retrieved chunks.
-
         Uses sentence-level TF-IDF similarity to rank sentences.
         """
         # Collect all sentences from retrieved chunks
@@ -139,12 +229,12 @@ class AnswerGenerator:
             "method": "extractive",
         }
 
-    def _generate_llm(self, query: str, results: list[dict]) -> dict:
-        """
-        Generate answer using OpenAI API with retrieved context.
-        The answer must be grounded in the retrieved content.
-        """
-        # Build context from retrieved chunks
+    # ------------------------------------------------------------------
+    # Local LLM Answer Generation (Qwen2.5-3B-Instruct)
+    # ------------------------------------------------------------------
+
+    def _build_context(self, results: list[dict]) -> tuple[str, list[dict]]:
+        """Build context string and evidence list from retrieved results."""
         context_parts = []
         evidence = []
         for i, r in enumerate(results):
@@ -152,25 +242,97 @@ class AnswerGenerator:
             pages = f"p.{r.get('page_start', '?')}-{r.get('page_end', '?')}"
             section = r.get("section", "")
             text = r.get("text", "")
-            context_parts.append(f"[Source {i+1}: {source} Handbook, {pages}, Section: {section}]\n{text}")
+            context_parts.append(
+                f"[Source {i+1}: {source} Handbook, {pages}, Section: {section}]\n{text}"
+            )
             evidence.append({
                 "sentence": text[:200] + "..." if len(text) > 200 else text,
                 "source": r.get("source", ""),
                 "page_start": r.get("page_start", 0),
                 "section": section,
             })
-
         context = "\n\n---\n\n".join(context_parts)
+        return context, evidence
 
-        prompt = f"""You are an academic policy assistant for NUST university. Answer the student's question based ONLY on the provided handbook excerpts. 
+    def _generate_local_llm(self, query: str, results: list[dict]) -> dict:
+        """
+        Generate answer using local Qwen2.5-3B-Instruct model.
+        Runs on Apple Silicon MPS for fast inference.
+        """
+        import torch
 
-Rules:
-1. Only use information from the provided context
-2. Cite specific sections and page numbers when possible
-3. If the context doesn't contain enough information, say so
-4. Be concise but thorough
+        # Lazy load model on first call
+        self._init_local_llm()
 
-Context from handbooks:
+        context, evidence = self._build_context(results)
+
+        user_message = f"""Context from NUST handbooks:
+{context}
+
+Student's Question: {query}
+
+Answer based ONLY on the context above:"""
+
+        # Build chat messages in Qwen format
+        messages = [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": user_message},
+        ]
+
+        try:
+            # Apply chat template
+            text = self._local_tokenizer.apply_chat_template(
+                messages,
+                tokenize=False,
+                add_generation_prompt=True,
+            )
+
+            model_inputs = self._local_tokenizer(
+                [text], return_tensors="pt"
+            ).to(self._local_model.device)
+
+            # Generate with conservative settings for factual accuracy
+            with torch.no_grad():
+                generated_ids = self._local_model.generate(
+                    **model_inputs,
+                    max_new_tokens=400,
+                    temperature=0.3,
+                    top_p=0.9,
+                    repetition_penalty=1.2,
+                    do_sample=True,
+                )
+
+            # Decode — only the new tokens (skip input)
+            output_ids = generated_ids[0][len(model_inputs.input_ids[0]):]
+            answer = self._local_tokenizer.decode(output_ids, skip_special_tokens=True).strip()
+
+            # Clean up GPU memory
+            del model_inputs, generated_ids, output_ids
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
+
+        except Exception as e:
+            print(f"⚠️  Local LLM error: {e}. Falling back to extractive.")
+            return self._generate_extractive(query, results)
+
+        return {
+            "answer": answer,
+            "evidence": evidence,
+            "method": f"local LLM ({self.local_model_name.split('/')[-1]})",
+        }
+
+    # ------------------------------------------------------------------
+    # OpenAI API Answer Generation
+    # ------------------------------------------------------------------
+
+    def _generate_openai(self, query: str, results: list[dict]) -> dict:
+        """
+        Generate answer using OpenAI API with retrieved context.
+        The answer must be grounded in the retrieved content.
+        """
+        context, evidence = self._build_context(results)
+
+        user_message = f"""Context from NUST handbooks:
 {context}
 
 Student's Question: {query}
@@ -178,20 +340,59 @@ Student's Question: {query}
 Answer:"""
 
         try:
-            response = self._client.chat.completions.create(
+            response = self._openai_client.chat.completions.create(
                 model="gpt-4o-mini",
-                messages=[{"role": "user", "content": prompt}],
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": user_message},
+                ],
                 max_tokens=500,
                 temperature=0.2,
             )
             answer = response.choices[0].message.content.strip()
         except Exception as e:
             # Fallback to extractive if API fails
-            print(f"⚠️  LLM API error: {e}. Falling back to extractive.")
+            print(f"⚠️  OpenAI API error: {e}. Falling back to extractive.")
             return self._generate_extractive(query, results)
 
         return {
             "answer": answer,
             "evidence": evidence,
-            "method": "llm (gpt-4o-mini)",
+            "method": "LLM (GPT-4o-mini)",
         }
+
+    # ------------------------------------------------------------------
+    # Resource Management
+    # ------------------------------------------------------------------
+
+    def unload_model(self):
+        """Unload the local LLM from memory to free GPU/RAM."""
+        if self._local_model is not None:
+            import torch
+            del self._local_model
+            del self._local_tokenizer
+            self._local_model = None
+            self._local_tokenizer = None
+            gc.collect()
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
+            print("🗑️  Local LLM unloaded from memory.")
+
+    @property
+    def is_model_loaded(self) -> bool:
+        """Check if the local LLM is currently loaded."""
+        return self._local_model is not None
+
+    @property
+    def model_info(self) -> dict:
+        """Return information about the current model configuration."""
+        info = {"mode": self.mode}
+        if self.mode == "local_llm":
+            info["model_name"] = self.local_model_name
+            info["loaded"] = self.is_model_loaded
+            if self._device:
+                info["device"] = str(self._device)
+        elif self.mode == "openai":
+            info["model_name"] = "gpt-4o-mini"
+            info["api_key_set"] = bool(self.api_key)
+        return info

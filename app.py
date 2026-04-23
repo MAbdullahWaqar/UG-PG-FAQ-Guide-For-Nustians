@@ -248,12 +248,18 @@ def load_system():
         retriever = HybridRetriever()
         index_timings = retriever.fit(df)
 
-        generator = AnswerGenerator(use_llm=False)
-
-        return df, retriever, generator, index_timings
+        return df, retriever, index_timings
 
 
-df, retriever, generator, index_timings = load_system()
+@st.cache_resource(show_spinner=False)
+def load_local_llm():
+    """Load the local LLM (cached so it only downloads once)."""
+    gen = AnswerGenerator(mode="local_llm")
+    gen._init_local_llm()  # Force load now
+    return gen
+
+
+df, retriever, index_timings = load_system()
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -272,10 +278,28 @@ with st.sidebar:
 
     top_k = st.slider("Top-K Results", min_value=1, max_value=20, value=5)
 
-    use_llm = st.toggle("Use LLM (OpenAI)", value=False)
+    st.markdown("---")
+    st.markdown("### 🤖 Answer Generation")
+
+    answer_mode = st.selectbox(
+        "Generation Mode",
+        ["extractive", "local_llm", "openai"],
+        index=0,
+        format_func=lambda x: {
+            "extractive": "📝 Extractive (no model needed)",
+            "local_llm": "🤖 Local LLM (Qwen2.5-3B-Instruct)",
+            "openai": "☁️ OpenAI (GPT-4o-mini)",
+        }[x],
+        help="Choose how answers are generated from retrieved chunks",
+    )
+
     api_key = None
-    if use_llm:
+    if answer_mode == "openai":
         api_key = st.text_input("OpenAI API Key", type="password")
+    elif answer_mode == "local_llm":
+        st.caption("🔧 **Qwen2.5-3B-Instruct** · HuggingFace")
+        st.caption("Runs locally on Apple Silicon MPS GPU")
+        st.caption("~6GB download on first use")
 
     st.markdown("---")
 
@@ -355,9 +379,16 @@ with tab_qa:
     )
 
     if query:
-        gen = AnswerGenerator(use_llm=use_llm, api_key=api_key) if use_llm else generator
+        # Select the appropriate answer generator based on sidebar mode
+        if answer_mode == "local_llm":
+            with st.spinner("🤖 Loading local LLM (first time may download ~6GB)..."):
+                gen = load_local_llm()
+        elif answer_mode == "openai":
+            gen = AnswerGenerator(mode="openai", api_key=api_key)
+        else:
+            gen = AnswerGenerator(mode="extractive")
 
-        with st.spinner("🔍 Retrieving relevant information..."):
+        with st.spinner("🔍 Retrieving & generating answer..."):
             result = retriever.retrieve(query, method=method, top_k=top_k)
             answer_data = gen.generate(query, result["results"])
 
