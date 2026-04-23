@@ -2,14 +2,14 @@ from datasketch import MinHash, MinHashLSH
 import pickle
 
 class MinHashLSHRetriever:
-    def __init__(self, num_perm=128, threshold=0.1): # Lowered threshold to increase recall for short queries
+    def __init__(self, num_perm=128, threshold=0.01): # Lowered threshold drastically for short query asymmetric search
         self.num_perm = num_perm
         self.threshold = threshold
         self.lsh = MinHashLSH(threshold=self.threshold, num_perm=self.num_perm)
         self.chunks_data = {}
         
-    def get_shingles(self, text, k=3):
-        """Convert text into k-word shingles."""
+    def get_shingles(self, text, k=1):
+        """Convert text into k-word shingles. Using k=1 (unigrams) is better for asymmetric short queries."""
         words = text.split()
         if len(words) < k:
             return set([text])

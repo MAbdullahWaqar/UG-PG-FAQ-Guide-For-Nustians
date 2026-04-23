@@ -39,13 +39,25 @@ def preprocess_text(text):
     # Tokenize
     tokens = word_tokenize(text)
     
+    # Expand synonyms
+    synonyms = {
+        'gpa': ['gpa', 'cgpa'],
+        'cgpa': ['gpa', 'cgpa']
+    }
+    expanded_tokens = []
+    for token in tokens:
+        if token in synonyms:
+            expanded_tokens.extend(synonyms[token])
+        else:
+            expanded_tokens.append(token)
+            
     # Remove stopwords and lemmatize
     stop_words = set(stopwords.words('english'))
     lemmatizer = WordNetLemmatizer()
     
     clean_tokens = [
         lemmatizer.lemmatize(word) 
-        for word in tokens 
+        for word in expanded_tokens 
         if word not in stop_words and word.isalpha()
     ]
     
