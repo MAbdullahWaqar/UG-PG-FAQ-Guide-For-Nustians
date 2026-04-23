@@ -1,0 +1,31 @@
+threshold,query,precision_at_5,num_candidates,latency_ms
+0.01,What is the minimum GPA requirement?,1.0,62,1.455068588256836
+0.01,What happens if a student fails a course?,0.8,72,1.0590553283691406
+0.01,What is the attendance policy?,1.0,64,1.1327266693115234
+0.01,How many times can a course be repeated?,1.0,78,1.0669231414794922
+0.01,What is the fee refund policy?,0.8,79,1.1682510375976562
+0.05,What is the minimum GPA requirement?,1.0,13,1.2290477752685547
+0.05,What happens if a student fails a course?,0.8,2,1.1749267578125
+0.05,What is the attendance policy?,1.0,23,0.9388923645019531
+0.05,How many times can a course be repeated?,1.0,2,1.1339187622070312
+0.05,What is the fee refund policy?,0.8,0,0.9698867797851562
+0.1,What is the minimum GPA requirement?,1.0,0,1.1789798736572266
+0.1,What happens if a student fails a course?,0.8,0,1.2149810791015625
+0.1,What is the attendance policy?,0.6,0,0.9260177612304688
+0.1,How many times can a course be repeated?,1.0,0,1.1827945709228516
+0.1,What is the fee refund policy?,0.8,0,1.2280941009521484
+0.2,What is the minimum GPA requirement?,1.0,0,1.1091232299804688
+0.2,What happens if a student fails a course?,0.8,0,1.1401176452636719
+0.2,What is the attendance policy?,0.6,0,0.8630752563476562
+0.2,How many times can a course be repeated?,1.0,0,1.1129379272460938
+0.2,What is the fee refund policy?,0.8,0,1.1641979217529297
+0.3,What is the minimum GPA requirement?,1.0,0,1.4328956604003906
+0.3,What happens if a student fails a course?,0.8,0,1.110076904296875
+0.3,What is the attendance policy?,1.0,0,1.16729736328125
+0.3,How many times can a course be repeated?,1.0,0,1.1279582977294922
+0.3,What is the fee refund policy?,0.8,0,1.1870861053466797
+0.5,What is the minimum GPA requirement?,1.0,0,1.4340877532958984
+0.5,What happens if a student fails a course?,0.8,0,1.1000633239746094
+0.5,What is the attendance policy?,1.0,0,1.1551380157470703
+0.5,How many times can a course be repeated?,1.0,0,1.129150390625
+0.5,What is the fee refund policy?,0.8,0,1.1661052703857422

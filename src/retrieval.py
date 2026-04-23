@@ -1,64 +1,284 @@
-from src.preprocessing import preprocess_text
-from src.tfidf_baseline import TFIDFRetriever
-from src.minhash_lsh import MinHashLSHRetriever
-from src.simhash import SimHashRetriever
+"""
+Unified Hybrid Retrieval Pipeline
+===================================
+Combines TF-IDF, MinHash LSH, and SimHash retrievers with
+Reciprocal Rank Fusion (RRF) and PageRank boosting.
+"""
 
-class QA_Retriever:
-    def __init__(self):
+import time
+import psutil
+import pandas as pd
+from src.preprocessing import preprocess_text, generate_shingles, preprocess_dataframe
+from src.tfidf_retriever import TFIDFRetriever
+from src.minhash_lsh import MinHashLSHRetriever
+from src.simhash_retriever import SimHashRetriever
+from src.pagerank import PageRankScorer
+
+
+class HybridRetriever:
+    """
+    Unified retrieval system that runs all three methods and
+    fuses their results using Reciprocal Rank Fusion (RRF).
+    """
+
+    def __init__(
+        self,
+        # MinHash params
+        num_perm: int = 128,
+        lsh_threshold: float = 0.05,
+        # SimHash params
+        hashbits: int = 64,
+        hamming_threshold: int = 10,
+        # General
+        use_pagerank: bool = True,
+    ):
         self.tfidf = TFIDFRetriever()
-        self.minhash_lsh = MinHashLSHRetriever()
-        self.simhash = SimHashRetriever()
-        
-    def fit_all(self, df):
-        """Fit all retrieval models using the provided DataFrame."""
-        print("Fitting TF-IDF model...")
-        self.tfidf.fit(df)
-        print("Fitting MinHash+LSH model...")
-        self.minhash_lsh.fit(df)
-        print("Fitting SimHash model...")
-        self.simhash.fit(df)
-        
-    def retrieve(self, query, method='TF-IDF', top_k=5):
+        self.minhash = MinHashLSHRetriever(num_perm=num_perm, threshold=lsh_threshold)
+        self.simhash = SimHashRetriever(hashbits=hashbits, hamming_threshold=hamming_threshold)
+        self.pagerank = PageRankScorer() if use_pagerank else None
+
+        self.df = None
+        self._is_fitted = False
+
+    def fit(self, df: pd.DataFrame) -> dict:
         """
-        Process query and retrieve top_k chunks using the specified method.
-        method: 'TF-IDF', 'MinHash_LSH', or 'SimHash'
+        Build all indexes from the chunks DataFrame.
+        The DataFrame must have 'processed_text', 'token_set', 'shingles' columns
+        (added by preprocessing.preprocess_dataframe).
+
+        Returns timing info for each indexing step.
         """
+        self.df = df
+        timings = {}
+
+        # 1. TF-IDF Index
+        t0 = time.time()
+        self.tfidf.fit(
+            processed_texts=df["processed_text"].tolist(),
+            chunk_ids=df["chunk_id"].tolist(),
+        )
+        timings["tfidf_index_ms"] = (time.time() - t0) * 1000
+
+        # 2. MinHash LSH Index
+        t0 = time.time()
+        self.minhash.fit(
+            shingle_sets=df["shingles"].tolist(),
+            chunk_ids=df["chunk_id"].tolist(),
+        )
+        timings["minhash_index_ms"] = (time.time() - t0) * 1000
+
+        # 3. SimHash Index
+        t0 = time.time()
+        # Get TF-IDF weights for SimHash
+        tfidf_weights = []
+        for text in df["processed_text"]:
+            weights = self.tfidf.get_tfidf_weights(text)
+            tfidf_weights.append(weights)
+
+        self.simhash.fit(
+            token_lists=[text.split() for text in df["processed_text"]],
+            chunk_ids=df["chunk_id"].tolist(),
+            tfidf_weights=tfidf_weights,
+        )
+        timings["simhash_index_ms"] = (time.time() - t0) * 1000
+
+        # 4. PageRank
+        if self.pagerank:
+            t0 = time.time()
+            self.pagerank.fit(df)
+            timings["pagerank_ms"] = (time.time() - t0) * 1000
+
+        self._is_fitted = True
+        return timings
+
+    def retrieve(
+        self,
+        query: str,
+        method: str = "hybrid",
+        top_k: int = 5,
+    ) -> dict:
+        """
+        Retrieve top-k chunks for a query.
+
+        Args:
+            query: Raw user query string
+            method: One of 'tfidf', 'minhash', 'simhash', 'hybrid'
+            top_k: Number of results to return
+
+        Returns:
+            Dict with 'results', 'timings', 'method', and 'memory_mb'
+        """
+        if not self._is_fitted:
+            raise RuntimeError("HybridRetriever has not been fitted.")
+
+        # Preprocess query
         processed_query = preprocess_text(query)
-        
-        if method == 'TF-IDF':
-            return self.tfidf.retrieve(processed_query, top_k)
-        elif method == 'MinHash_LSH':
-            return self.minhash_lsh.retrieve(processed_query, top_k)
-        elif method == 'SimHash':
-            return self.simhash.retrieve(processed_query, top_k)
+        query_shingles = generate_shingles(processed_query, k=3)
+        query_tokens = processed_query.split()
+
+        # Track memory
+        process = psutil.Process()
+        mem_before = process.memory_info().rss / (1024 * 1024)
+
+        total_start = time.time()
+        timings = {}
+
+        if method == "tfidf":
+            results = self.tfidf.retrieve(processed_query, top_k=top_k)
+            timings["tfidf_ms"] = results[0]["latency_ms"] if results else 0
+
+        elif method == "minhash":
+            results = self.minhash.retrieve(query_shingles, top_k=top_k)
+            timings["minhash_ms"] = results[0]["latency_ms"] if results else 0
+
+        elif method == "simhash":
+            query_weights = self.tfidf.get_tfidf_weights(processed_query)
+            results = self.simhash.retrieve(query_tokens, top_k=top_k, query_weights=query_weights)
+            timings["simhash_ms"] = results[0]["latency_ms"] if results else 0
+
+        elif method == "hybrid":
+            # Run all three methods
+            t0 = time.time()
+            tfidf_results = self.tfidf.retrieve(processed_query, top_k=top_k * 2)
+            timings["tfidf_ms"] = (time.time() - t0) * 1000
+
+            t0 = time.time()
+            minhash_results = self.minhash.retrieve(query_shingles, top_k=top_k * 2)
+            timings["minhash_ms"] = (time.time() - t0) * 1000
+
+            t0 = time.time()
+            query_weights = self.tfidf.get_tfidf_weights(processed_query)
+            simhash_results = self.simhash.retrieve(query_tokens, top_k=top_k * 2, query_weights=query_weights)
+            timings["simhash_ms"] = (time.time() - t0) * 1000
+
+            # Reciprocal Rank Fusion
+            results = self._reciprocal_rank_fusion(
+                [tfidf_results, minhash_results, simhash_results],
+                top_k=top_k,
+            )
         else:
-            raise ValueError(f"Unknown retrieval method: {method}")
-            
-    def retrieve_with_reranking(self, query, method='TF-IDF', top_k=5, alpha=0.7):
+            raise ValueError(f"Unknown method: {method}")
+
+        # Apply PageRank boosting
+        if self.pagerank and self.pagerank._is_fitted:
+            results = self._apply_pagerank_boost(results)
+            # Re-sort after boosting
+            results.sort(key=lambda x: x["score"], reverse=True)
+            # Re-assign ranks
+            for i, r in enumerate(results):
+                r["rank"] = i + 1
+
+        total_time = (time.time() - total_start) * 1000
+        timings["total_ms"] = total_time
+
+        mem_after = process.memory_info().rss / (1024 * 1024)
+
+        # Enrich results with chunk metadata
+        results = self._enrich_results(results)
+
+        return {
+            "results": results[:top_k],
+            "timings": timings,
+            "method": method,
+            "memory_mb": mem_after - mem_before,
+            "total_memory_mb": mem_after,
+            "query": query,
+            "processed_query": processed_query,
+        }
+
+    def _reciprocal_rank_fusion(
+        self,
+        result_lists: list[list[dict]],
+        top_k: int = 5,
+        k: int = 60,
+    ) -> list[dict]:
         """
-        Extension: Rerank results combining similarity score and position importance.
-        We'll assume chunks appearing earlier in a page/document have slightly higher importance.
+        Combine results from multiple methods using Reciprocal Rank Fusion.
+
+        RRF score = sum over methods of 1 / (k + rank)
+
+        Args:
+            result_lists: List of result lists from different methods
+            top_k: Number of final results
+            k: RRF constant (standard value = 60)
         """
-        results = self.retrieve(query, method, top_k=top_k*2) # Get more candidates for reranking
-        
-        if not results:
-            return []
-            
-        for idx, res in enumerate(results):
-            # Calculate a position score (1.0 for first, decreasing for later chunks)
-            # using chunk_id which contains the chunk number (e.g., ug_p1_0)
-            try:
-                chunk_num = int(res['chunk_id'].split('_')[-1])
-                # Simple decay function based on chunk position
-                position_score = 1.0 / (1.0 + 0.1 * chunk_num)
-            except:
-                position_score = 0.5
-                
-            # Combine scores
-            res['original_score'] = res['similarity_score']
-            res['rerank_score'] = (alpha * res['similarity_score']) + ((1 - alpha) * position_score)
-            
-        # Sort by new rerank_score
-        results.sort(key=lambda x: x['rerank_score'], reverse=True)
-        
-        return results[:top_k]
+        rrf_scores = {}
+        chunk_methods = {}
+
+        for results in result_lists:
+            for r in results:
+                cid = r["chunk_id"]
+                rank = r["rank"]
+                rrf_score = 1.0 / (k + rank)
+
+                if cid in rrf_scores:
+                    rrf_scores[cid] += rrf_score
+                else:
+                    rrf_scores[cid] = rrf_score
+
+                if cid not in chunk_methods:
+                    chunk_methods[cid] = []
+                chunk_methods[cid].append(r["method"])
+
+        # Sort by RRF score
+        sorted_chunks = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)
+
+        results = []
+        for rank, (cid, score) in enumerate(sorted_chunks[:top_k]):
+            results.append({
+                "chunk_id": cid,
+                "score": score,
+                "rank": rank + 1,
+                "method": "Hybrid (RRF)",
+                "contributing_methods": list(set(chunk_methods[cid])),
+            })
+
+        return results
+
+    def _apply_pagerank_boost(self, results: list[dict]) -> list[dict]:
+        """Multiply retrieval scores by PageRank boost factor."""
+        if self.df is None:
+            return results
+
+        chunk_to_section = dict(zip(self.df["chunk_id"], self.df["section"]))
+
+        for r in results:
+            section = chunk_to_section.get(r["chunk_id"], "")
+            boost = self.pagerank.get_boost_factor(section)
+            r["score"] *= boost
+            r["pagerank_boost"] = boost
+
+        return results
+
+    def _enrich_results(self, results: list[dict]) -> list[dict]:
+        """Add chunk text, page numbers, and section info to results."""
+        if self.df is None:
+            return results
+
+        chunk_lookup = self.df.set_index("chunk_id").to_dict("index")
+
+        for r in results:
+            cid = r["chunk_id"]
+            if cid in chunk_lookup:
+                chunk = chunk_lookup[cid]
+                r["text"] = chunk.get("text", "")
+                r["source"] = chunk.get("source", "")
+                r["page_start"] = chunk.get("page_start", 0)
+                r["page_end"] = chunk.get("page_end", 0)
+                r["section"] = chunk.get("section", "")
+
+        return results
+
+    def get_stats(self) -> dict:
+        """Return system statistics."""
+        stats = {
+            "num_chunks": len(self.df) if self.df is not None else 0,
+            "tfidf_vocab_size": len(self.tfidf.vectorizer.vocabulary_) if self.tfidf._is_fitted else 0,
+            "minhash_num_perm": self.minhash.num_perm,
+            "minhash_threshold": self.minhash.threshold,
+            "simhash_bits": self.simhash.hashbits,
+            "simhash_hamming_threshold": self.simhash.hamming_threshold,
+        }
+        if self.pagerank and self.pagerank._is_fitted:
+            stats["pagerank"] = self.pagerank.get_graph_stats()
+        return stats

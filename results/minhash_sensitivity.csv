@@ -1,0 +1,21 @@
+num_perm,query,precision_at_5,latency_ms
+32,What is the minimum GPA requirement?,1.0,0.7791519165039062
+32,What happens if a student fails a course?,0.2,0.7531642913818359
+32,What is the attendance policy?,0.6,0.5257129669189453
+32,How many times can a course be repeated?,0.0,0.7040500640869141
+32,What is the fee refund policy?,0.4,0.5643367767333984
+64,What is the minimum GPA requirement?,1.0,0.9338855743408203
+64,What happens if a student fails a course?,0.8,0.9520053863525391
+64,What is the attendance policy?,0.6,0.6661415100097656
+64,How many times can a course be repeated?,1.0,0.8640289306640625
+64,What is the fee refund policy?,1.0,0.7660388946533203
+128,What is the minimum GPA requirement?,1.0,1.2080669403076172
+128,What happens if a student fails a course?,0.8,1.2819766998291016
+128,What is the attendance policy?,1.0,0.9310245513916016
+128,How many times can a course be repeated?,1.0,1.116037368774414
+128,What is the fee refund policy?,0.8,0.965118408203125
+256,What is the minimum GPA requirement?,1.0,1.898050308227539
+256,What happens if a student fails a course?,0.8,1.7271041870117188
+256,What is the attendance policy?,1.0,1.5099048614501953
+256,How many times can a course be repeated?,0.8,1.6970634460449219
+256,What is the fee refund policy?,0.8,1.5180110931396484

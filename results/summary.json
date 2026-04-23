@@ -1,0 +1,43 @@
+{
+  "num_chunks": 179,
+  "index_timings": {
+    "tfidf_index_ms": 78.91678810119629,
+    "minhash_index_ms": 928.1668663024902,
+    "simhash_index_ms": 1891.5340900421143,
+    "pagerank_ms": 33.46109390258789
+  },
+  "system_stats": {
+    "num_chunks": "179",
+    "tfidf_vocab_size": "10000",
+    "minhash_num_perm": "128",
+    "minhash_threshold": "0.05",
+    "simhash_bits": "64",
+    "simhash_hamming_threshold": "10",
+    "pagerank": "{'num_nodes': 147, 'num_edges': 210, 'density': 0.009784735812133072, 'avg_degree': 2.857142857142857}"
+  },
+  "memory": {
+    "rss_mb": 1003.109375,
+    "vms_mb": 433754.546875,
+    "num_chunks": 179
+  },
+  "avg_precision": {
+    "precision": {
+      "hybrid": 0.894,
+      "minhash": 0.813,
+      "simhash": 0.49,
+      "tfidf": 0.958
+    },
+    "recall": {
+      "hybrid": 0.894,
+      "minhash": 0.813,
+      "simhash": 0.49,
+      "tfidf": 0.958
+    }
+  },
+  "avg_latency": {
+    "hybrid": 6.67,
+    "minhash": 1.67,
+    "simhash": 4.77,
+    "tfidf": 1.19
+  }
+}
