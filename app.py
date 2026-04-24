@@ -12,6 +12,9 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from src.ingestion import ingest_handbooks
 from src.preprocessing import preprocess_dataframe
@@ -283,23 +286,22 @@ with st.sidebar:
 
     answer_mode = st.selectbox(
         "Generation Mode",
-        ["extractive", "local_llm", "openai"],
-        index=0,
+        ["local_llm", "groq"],
+        index=1,
         format_func=lambda x: {
-            "extractive": "📝 Extractive (no model needed)",
-            "local_llm": "🤖 Local LLM (Qwen2.5-3B-Instruct)",
-            "openai": "☁️ OpenAI (GPT-4o-mini)",
+            "local_llm": "🤖 Local LLM (Qwen2.5-1.5B)",
+            "groq": "⚡ Groq API (Llama-3.3-70B - Free)",
         }[x],
         help="Choose how answers are generated from retrieved chunks",
     )
 
-    api_key = None
-    if answer_mode == "openai":
-        api_key = st.text_input("OpenAI API Key", type="password")
+    if answer_mode == "groq":
+        st.success("⚡ Groq API Key Configured")
+        st.caption("Using Llama-3.3-70B for fast, free answers.")
     elif answer_mode == "local_llm":
-        st.caption("🔧 **Qwen2.5-3B-Instruct** · HuggingFace")
-        st.caption("Runs locally on Apple Silicon MPS GPU")
-        st.caption("~6GB download on first use")
+        st.caption("🔧 **Qwen2.5-1.5B-Instruct**")
+        st.caption("Optimized for 16GB RAM + MPS GPU")
+        st.caption("~3GB download on first use")
 
     st.markdown("---")
 
@@ -381,15 +383,13 @@ with tab_qa:
     if query:
         # Select the appropriate answer generator based on sidebar mode
         if answer_mode == "local_llm":
-            with st.spinner("🤖 Loading local LLM (first time may download ~6GB)..."):
+            with st.spinner("🤖 Loading local LLM (3GB total RAM)..."):
                 gen = load_local_llm()
-        elif answer_mode == "openai":
-            gen = AnswerGenerator(mode="openai", api_key=api_key)
-        else:
-            gen = AnswerGenerator(mode="extractive")
+        elif answer_mode == "groq":
+            gen = AnswerGenerator(mode="groq")
 
-        # For LLM modes, use dual-source retrieval (UG + PG separately)
-        use_dual = answer_mode in ("local_llm", "openai")
+        # For LLM modes, always use dual-source retrieval
+        use_dual = True
 
         with st.spinner("🔍 Retrieving from both handbooks & generating answer..."):
             if use_dual:
@@ -416,7 +416,7 @@ with tab_qa:
             method_label = "HYBRID (RRF)"
 
         # Answer display — use markdown for LLM answers (they have emoji headers)
-        if answer_mode in ("local_llm", "openai"):
+        if answer_mode in ("local_llm", "groq"):
             st.markdown(f"""
             <div class="answer-card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">

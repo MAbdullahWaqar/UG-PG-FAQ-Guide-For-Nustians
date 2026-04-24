@@ -2,9 +2,8 @@
 Answer Generator Module
 ========================
 Generates answers from retrieved chunks using:
-1. Extractive method (sentence-level TF-IDF matching) — default
-2. Local LLM (Qwen2.5-3B-Instruct via HuggingFace) — runs on Apple Silicon MPS
-3. OpenAI API (GPT-4o-mini) — optional, requires API key
+1. Local LLM (Qwen2.5-1.5B-Instruct via HuggingFace) — runs on Apple Silicon MPS
+2. Groq API (Llama-3.3-70b-versatile) — fast, requires free Groq API key
 """
 
 import os
@@ -48,10 +47,9 @@ class AnswerGenerator:
     """
     Generates answers from retrieved chunks.
 
-    Supports three modes:
-    - Extractive: Selects most relevant sentences from chunks (default, no model needed)
-    - Local LLM: Uses Qwen2.5-3B-Instruct running locally on Apple Silicon MPS
-    - OpenAI: Uses GPT-4o-mini via API (requires key)
+    Supports two modes:
+    - Local LLM: Uses Qwen2.5-1.5B-Instruct running locally on Apple Silicon MPS
+    - Groq: Uses Llama-3.1-70b-versatile via Groq API (requires free key)
     """
 
     def __init__(
@@ -62,40 +60,39 @@ class AnswerGenerator:
     ):
         """
         Args:
-            mode: One of "extractive", "local_llm", "openai"
-            api_key: OpenAI API key (only for mode="openai")
+            mode: One of "local_llm", "groq"
+            api_key: Groq API key (only for mode="groq")
             local_model_name: HuggingFace model ID for local LLM
         """
         self.mode = mode
-        self.api_key = api_key or os.environ.get("OPENAI_API_KEY")
+        self.api_key = api_key or os.environ.get("GROQ_API_KEY")
         self.local_model_name = local_model_name
 
         # Lazy-loaded resources
-        self._openai_client = None
+        self._groq_client = None
         self._local_model = None
         self._local_tokenizer = None
         self._device = None
 
         # Initialize based on mode
-        if self.mode == "openai":
-            self._init_openai()
+        if self.mode == "groq":
+            self._init_groq()
         elif self.mode == "local_llm":
-            # Model is loaded lazily on first generate() call to avoid
-            # blocking the UI startup
+            # Model is loaded lazily on first generate() call
             pass
 
-    def _init_openai(self):
-        """Initialize OpenAI client."""
+    def _init_groq(self):
+        """Initialize Groq client."""
         if self.api_key:
             try:
-                from openai import OpenAI
-                self._openai_client = OpenAI(api_key=self.api_key)
+                from groq import Groq
+                self._groq_client = Groq(api_key=self.api_key)
             except ImportError:
-                print("⚠️  OpenAI not installed. Falling back to extractive mode.")
-                self.mode = "extractive"
+                print("⚠️  Groq not installed. Falling back to local_llm mode.")
+                self.mode = "local_llm"
         else:
-            print("⚠️  No OpenAI API key provided. Falling back to extractive mode.")
-            self.mode = "extractive"
+            print("⚠️  No Groq API key provided. Falling back to local_llm mode.")
+            self.mode = "local_llm"
 
     def _init_local_llm(self):
         """
@@ -137,14 +134,6 @@ class AnswerGenerator:
     def generate(self, query: str, retrieved_results: list[dict], top_sentences: int = 5) -> dict:
         """
         Generate an answer from retrieved chunks.
-
-        Args:
-            query: Original user question
-            retrieved_results: List of result dicts with 'text' field
-            top_sentences: Number of sentences for extractive answer
-
-        Returns:
-            Dict with 'answer', 'evidence', 'method'
         """
         if not retrieved_results:
             return {
@@ -155,10 +144,11 @@ class AnswerGenerator:
 
         if self.mode == "local_llm":
             return self._generate_local_llm(query, retrieved_results)
-        elif self.mode == "openai" and self._openai_client:
-            return self._generate_openai(query, retrieved_results)
+        elif self.mode == "groq" and self._groq_client:
+            return self._generate_groq(query, retrieved_results)
         else:
-            return self._generate_extractive(query, retrieved_results, top_sentences)
+            # Fallback to local_llm if anything else fails
+            return self._generate_local_llm(query, retrieved_results)
 
     # ------------------------------------------------------------------
     # Extractive Answer Generation
@@ -369,14 +359,9 @@ Provide a clear, structured answer that distinguishes between UG (Bachelor's) an
             "method": f"local LLM ({self.local_model_name.split('/')[-1]})",
         }
 
-    # ------------------------------------------------------------------
-    # OpenAI API Answer Generation
-    # ------------------------------------------------------------------
-
-    def _generate_openai(self, query: str, results: list[dict]) -> dict:
+    def _generate_groq(self, query: str, results: list[dict]) -> dict:
         """
-        Generate answer using OpenAI API with retrieved context.
-        The answer must be grounded in the retrieved content.
+        Generate answer using Groq API with retrieved context.
         """
         context, evidence = self._build_dual_source_context(results)
 
@@ -389,25 +374,24 @@ Student's Question: {query}
 Provide a clear, structured answer that distinguishes between UG (Bachelor's) and PG (Master's/PhD) policies where applicable. Use the exact numbers, grades, and percentages from the handbooks:"""
 
         try:
-            response = self._openai_client.chat.completions.create(
-                model="gpt-4o-mini",
+            response = self._groq_client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
                 messages=[
                     {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user_message},
                 ],
-                max_tokens=500,
+                max_tokens=800,
                 temperature=0.2,
             )
             answer = response.choices[0].message.content.strip()
         except Exception as e:
-            # Fallback to extractive if API fails
-            print(f"⚠️  OpenAI API error: {e}. Falling back to extractive.")
-            return self._generate_extractive(query, results)
+            print(f"⚠️  Groq API error: {e}. Falling back to local_llm.")
+            return self._generate_local_llm(query, results)
 
         return {
             "answer": answer,
             "evidence": evidence,
-            "method": "LLM (GPT-4o-mini)",
+            "method": "Groq (Llama-3.1-70b)",
         }
 
     # ------------------------------------------------------------------
@@ -441,7 +425,7 @@ Provide a clear, structured answer that distinguishes between UG (Bachelor's) an
             info["loaded"] = self.is_model_loaded
             if self._device:
                 info["device"] = str(self._device)
-        elif self.mode == "openai":
-            info["model_name"] = "gpt-4o-mini"
+        elif self.mode == "groq":
+            info["model_name"] = "llama-3.3-70b-versatile"
             info["api_key_set"] = bool(self.api_key)
         return info
