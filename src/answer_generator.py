@@ -131,6 +131,22 @@ class AnswerGenerator:
 
         print(f"   ✅ Model loaded successfully on {self._device}")
 
+    def check_local_model_exists(self) -> bool:
+        """
+        Check if the local model weights are actually present in the cache.
+        Returns False if the files are missing or incomplete.
+        """
+        from huggingface_hub import try_to_load_from_cache
+        try:
+            # Check for the specific safetensors file
+            path = try_to_load_from_cache(
+                repo_id=self.local_model_name,
+                filename="model.safetensors"
+            )
+            return path is not None and isinstance(path, str) and not path.endswith(".incomplete")
+        except Exception:
+            return False
+
     def generate(self, query: str, retrieved_results: list[dict], top_sentences: int = 5) -> dict:
         """
         Generate an answer from retrieved chunks.
@@ -142,13 +158,25 @@ class AnswerGenerator:
                 "method": "none",
             }
 
-        if self.mode == "local_llm":
+        # Determine best mode based on availability
+        effective_mode = self.mode
+
+        if effective_mode == "local_llm":
+            if not self.is_model_loaded and not self.check_local_model_exists():
+                print(f"⚠️  Local model {self.local_model_name} not found or incomplete.")
+                if self.api_key:
+                    print("   → Falling back to Groq API.")
+                    effective_mode = "groq"
+                else:
+                    print("   → Falling back to Extractive mode.")
+                    effective_mode = "extractive"
+
+        if effective_mode == "local_llm":
             return self._generate_local_llm(query, retrieved_results)
-        elif self.mode == "groq" and self._groq_client:
+        elif effective_mode == "groq" and self.api_key:
             return self._generate_groq(query, retrieved_results)
         else:
-            # Fallback to local_llm if anything else fails
-            return self._generate_local_llm(query, retrieved_results)
+            return self._generate_extractive(query, retrieved_results)
 
     # ------------------------------------------------------------------
     # Extractive Answer Generation
