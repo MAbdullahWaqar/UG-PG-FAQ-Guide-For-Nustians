@@ -1,0 +1,201 @@
+id,question,category,precision,variation_precision
+1,What is the minimum CGPA needed to graduate?,academics,1.0,1.0
+2,How many times can a course be repeated?,academics,1.0,0.9333333333333332
+3,What is the grading system?,academics,0.8,0.8000000000000002
+4,What happens if a student fails a course?,academics,0.8,0.7333333333333334
+5,What are the rules for academic probation?,academics,1.0,1.0
+6,What is the minimum GPA requirement?,academics,1.0,1.0
+7,What is the credit hour requirement for graduation?,academics,1.0,1.0
+8,How to apply for a degree?,academics,1.0,0.9333333333333332
+9,Can a student transfer to another department?,academics,0.6,0.5333333333333333
+10,What are the rules for dropping a course?,academics,1.0,0.9333333333333332
+11,What is the attendance policy?,attendance,1.0,0.9333333333333332
+12,How much attendance is required to sit in exams?,attendance,0.8,0.7333333333333334
+13,What happens if I have short attendance?,attendance,1.0,0.9333333333333332
+14,Can I get attendance relaxation for medical reasons?,attendance,0.8,0.8000000000000002
+15,How is attendance calculated for late admissions?,attendance,0.8,0.8000000000000002
+16,What are the examination rules?,exams,1.0,1.0
+17,What happens if a student is caught cheating in exams?,exams,0.4,0.4000000000000001
+18,What are the rules for make-up exams?,exams,1.0,0.9333333333333332
+19,How can I apply for re-checking of my paper?,exams,1.0,1.0
+20,What is the policy for unfair means?,exams,0.6,0.6
+21,What is the fee refund policy?,financial,0.2,0.20000000000000004
+22,What is the scholarship policy?,financial,0.4,0.4000000000000001
+23,When is the tuition fee due?,financial,0.8,0.8000000000000002
+24,What are the hostel charges?,financial,0.8,0.8666666666666667
+25,Are there any fines for late fee payment?,financial,1.0,1.0
+26,What are the thesis requirements?,research,0.8,0.8000000000000002
+27,How to select a research supervisor?,research,1.0,1.0
+28,What is the procedure for thesis defense?,research,0.8,0.8000000000000002
+29,What are the guidelines for the GEC committee?,research,1.0,0.9333333333333332
+30,What happens if I fail my thesis defense?,research,1.0,0.9333333333333332
+31,What is the semester registration process?,admin,1.0,1.0
+32,How do I freeze my semester?,admin,1.0,0.9333333333333332
+33,What is the procedure for withdrawal from a degree?,admin,1.0,1.0
+34,How do I get my official transcript?,admin,0.4,0.4666666666666666
+35,What is the process for readmission?,admin,0.0,0.0
+36,What is the student code of conduct?,discipline,0.6,0.6
+37,What are the hostel rules?,discipline,1.0,1.0
+38,What happens in case of a disciplinary violation?,discipline,0.8,0.8000000000000002
+39,Can a student be rusticated?,discipline,0.0,0.0
+40,What is the policy regarding ragging?,discipline,0.8,0.7333333333333334
+41,What is the minimum CGPA needed to graduate?,academics,1.0,1.0
+42,How many times can a course be repeated?,academics,1.0,0.9333333333333332
+43,What is the grading system?,academics,0.8,0.8000000000000002
+44,What happens if a student fails a course?,academics,0.8,0.7333333333333334
+45,What are the rules for academic probation?,academics,1.0,1.0
+46,What is the minimum GPA requirement?,academics,1.0,1.0
+47,What is the credit hour requirement for graduation?,academics,1.0,1.0
+48,How to apply for a degree?,academics,1.0,0.9333333333333332
+49,Can a student transfer to another department?,academics,0.6,0.5333333333333333
+50,What are the rules for dropping a course?,academics,1.0,0.9333333333333332
+51,I need to know what is the attendance policy?,attendance,1.0,1.0
+52,Explain how much attendance is required to sit in exams?,attendance,0.8,0.7333333333333334
+53,What is what happens if i have short attendance?,attendance,1.0,0.9333333333333332
+54,Details on can i get attendance relaxation for medical reasons?,attendance,1.0,0.9333333333333332
+55,Could you tell me how is attendance calculated for late admissions?,attendance,0.8,0.8000000000000002
+56,I need to know what are the examination rules?,exams,1.0,1.0
+57,Explain what happens if a student is caught cheating in exams?,exams,0.4,0.4000000000000001
+58,What is what are the rules for make-up exams?,exams,1.0,0.9333333333333332
+59,Details on how can i apply for re-checking of my paper?,exams,1.0,1.0
+60,Could you tell me what is the policy for unfair means?,exams,0.6,0.6
+61,I need to know what is the fee refund policy?,financial,0.4,0.4000000000000001
+62,Explain what is the scholarship policy?,financial,0.4,0.4000000000000001
+63,What is when is the tuition fee due?,financial,0.8,0.8000000000000002
+64,Details on what are the hostel charges?,financial,1.0,1.0
+65,Could you tell me are there any fines for late fee payment?,financial,1.0,1.0
+66,I need to know what are the thesis requirements?,research,0.8,0.8666666666666667
+67,Explain how to select a research supervisor?,research,1.0,1.0
+68,What is what is the procedure for thesis defense?,research,0.8,0.8000000000000002
+69,Details on what are the guidelines for the gec committee?,research,0.8,0.8000000000000002
+70,Could you tell me what happens if i fail my thesis defense?,research,1.0,0.9333333333333332
+71,I need to know what is the semester registration process?,admin,0.8,0.8000000000000002
+72,Explain how do i freeze my semester?,admin,1.0,0.9333333333333332
+73,What is what is the procedure for withdrawal from a degree?,admin,1.0,1.0
+74,Details on how do i get my official transcript?,admin,1.0,0.9333333333333332
+75,Could you tell me what is the process for readmission?,admin,0.0,0.0
+76,I need to know what is the student code of conduct?,discipline,0.6,0.6
+77,Explain what are the hostel rules?,discipline,0.8,0.8666666666666667
+78,What is what happens in case of a disciplinary violation?,discipline,0.8,0.8000000000000002
+79,Details on can a student be rusticated?,discipline,0.2,0.13333333333333333
+80,Could you tell me what is the policy regarding ragging?,discipline,1.0,0.9333333333333332
+81,I need to know what is the minimum cgpa needed to graduate?,academics,1.0,1.0
+82,Explain how many times can a course be repeated?,academics,0.8,0.8000000000000002
+83,What is what is the grading system?,academics,0.8,0.8000000000000002
+84,Details on what happens if a student fails a course?,academics,0.6,0.6
+85,Could you tell me what are the rules for academic probation?,academics,1.0,1.0
+86,I need to know what is the minimum gpa requirement?,academics,1.0,1.0
+87,Explain what is the credit hour requirement for graduation?,academics,1.0,1.0
+88,What is how to apply for a degree?,academics,1.0,0.9333333333333332
+89,Details on can a student transfer to another department?,academics,0.6,0.6
+90,Could you tell me what are the rules for dropping a course?,academics,0.8,0.8666666666666667
+91,I need to know what is the attendance policy?,attendance,1.0,1.0
+92,Explain how much attendance is required to sit in exams?,attendance,0.8,0.7333333333333334
+93,What is what happens if i have short attendance?,attendance,1.0,0.9333333333333332
+94,Details on can i get attendance relaxation for medical reasons?,attendance,1.0,0.9333333333333332
+95,Could you tell me how is attendance calculated for late admissions?,attendance,0.8,0.8000000000000002
+96,I need to know what are the examination rules?,exams,1.0,1.0
+97,Explain what happens if a student is caught cheating in exams?,exams,0.4,0.4000000000000001
+98,What is what are the rules for make-up exams?,exams,1.0,0.9333333333333332
+99,Details on how can i apply for re-checking of my paper?,exams,1.0,1.0
+100,Could you tell me what is the policy for unfair means?,exams,0.6,0.6
+101,I need to know what is the fee refund policy?,financial,0.4,0.4000000000000001
+102,Explain what is the scholarship policy?,financial,0.4,0.4000000000000001
+103,What is when is the tuition fee due?,financial,0.8,0.8000000000000002
+104,Details on what are the hostel charges?,financial,1.0,1.0
+105,Could you tell me are there any fines for late fee payment?,financial,1.0,1.0
+106,I need to know what are the thesis requirements?,research,0.8,0.8666666666666667
+107,Explain how to select a research supervisor?,research,1.0,1.0
+108,What is what is the procedure for thesis defense?,research,0.8,0.8000000000000002
+109,Details on what are the guidelines for the gec committee?,research,0.8,0.8000000000000002
+110,Could you tell me what happens if i fail my thesis defense?,research,1.0,0.9333333333333332
+111,I need to know what is the semester registration process?,admin,0.8,0.8000000000000002
+112,Explain how do i freeze my semester?,admin,1.0,0.9333333333333332
+113,What is what is the procedure for withdrawal from a degree?,admin,1.0,1.0
+114,Details on how do i get my official transcript?,admin,1.0,0.9333333333333332
+115,Could you tell me what is the process for readmission?,admin,0.0,0.0
+116,I need to know what is the student code of conduct?,discipline,0.6,0.6
+117,Explain what are the hostel rules?,discipline,0.8,0.8666666666666667
+118,What is what happens in case of a disciplinary violation?,discipline,0.8,0.8000000000000002
+119,Details on can a student be rusticated?,discipline,0.2,0.13333333333333333
+120,Could you tell me what is the policy regarding ragging?,discipline,1.0,0.9333333333333332
+121,I need to know what is the minimum cgpa needed to graduate?,academics,1.0,1.0
+122,Explain how many times can a course be repeated?,academics,0.8,0.8000000000000002
+123,What is what is the grading system?,academics,0.8,0.8000000000000002
+124,Details on what happens if a student fails a course?,academics,0.6,0.6
+125,Could you tell me what are the rules for academic probation?,academics,1.0,1.0
+126,I need to know what is the minimum gpa requirement?,academics,1.0,1.0
+127,Explain what is the credit hour requirement for graduation?,academics,1.0,1.0
+128,What is how to apply for a degree?,academics,1.0,0.9333333333333332
+129,Details on can a student transfer to another department?,academics,0.6,0.6
+130,Could you tell me what are the rules for dropping a course?,academics,0.8,0.8666666666666667
+131,I need to know what is the attendance policy?,attendance,1.0,1.0
+132,Explain how much attendance is required to sit in exams?,attendance,0.8,0.7333333333333334
+133,What is what happens if i have short attendance?,attendance,1.0,0.9333333333333332
+134,Details on can i get attendance relaxation for medical reasons?,attendance,1.0,0.9333333333333332
+135,Could you tell me how is attendance calculated for late admissions?,attendance,0.8,0.8000000000000002
+136,I need to know what are the examination rules?,exams,1.0,1.0
+137,Explain what happens if a student is caught cheating in exams?,exams,0.4,0.4000000000000001
+138,What is what are the rules for make-up exams?,exams,1.0,0.9333333333333332
+139,Details on how can i apply for re-checking of my paper?,exams,1.0,1.0
+140,Could you tell me what is the policy for unfair means?,exams,0.6,0.6
+141,I need to know what is the fee refund policy?,financial,0.4,0.4000000000000001
+142,Explain what is the scholarship policy?,financial,0.4,0.4000000000000001
+143,What is when is the tuition fee due?,financial,0.8,0.8000000000000002
+144,Details on what are the hostel charges?,financial,1.0,1.0
+145,Could you tell me are there any fines for late fee payment?,financial,1.0,1.0
+146,I need to know what are the thesis requirements?,research,0.8,0.8666666666666667
+147,Explain how to select a research supervisor?,research,1.0,1.0
+148,What is what is the procedure for thesis defense?,research,0.8,0.8000000000000002
+149,Details on what are the guidelines for the gec committee?,research,0.8,0.8000000000000002
+150,Could you tell me what happens if i fail my thesis defense?,research,1.0,0.9333333333333332
+151,I need to know what is the semester registration process?,admin,0.8,0.8000000000000002
+152,Explain how do i freeze my semester?,admin,1.0,0.9333333333333332
+153,What is what is the procedure for withdrawal from a degree?,admin,1.0,1.0
+154,Details on how do i get my official transcript?,admin,1.0,0.9333333333333332
+155,Could you tell me what is the process for readmission?,admin,0.0,0.0
+156,I need to know what is the student code of conduct?,discipline,0.6,0.6
+157,Explain what are the hostel rules?,discipline,0.8,0.8666666666666667
+158,What is what happens in case of a disciplinary violation?,discipline,0.8,0.8000000000000002
+159,Details on can a student be rusticated?,discipline,0.2,0.13333333333333333
+160,Could you tell me what is the policy regarding ragging?,discipline,1.0,0.9333333333333332
+161,I need to know what is the minimum cgpa needed to graduate?,academics,1.0,1.0
+162,Explain how many times can a course be repeated?,academics,0.8,0.8000000000000002
+163,What is what is the grading system?,academics,0.8,0.8000000000000002
+164,Details on what happens if a student fails a course?,academics,0.6,0.6
+165,Could you tell me what are the rules for academic probation?,academics,1.0,1.0
+166,I need to know what is the minimum gpa requirement?,academics,1.0,1.0
+167,Explain what is the credit hour requirement for graduation?,academics,1.0,1.0
+168,What is how to apply for a degree?,academics,1.0,0.9333333333333332
+169,Details on can a student transfer to another department?,academics,0.6,0.6
+170,Could you tell me what are the rules for dropping a course?,academics,0.8,0.8666666666666667
+171,I need to know what is the attendance policy?,attendance,1.0,1.0
+172,Explain how much attendance is required to sit in exams?,attendance,0.8,0.7333333333333334
+173,What is what happens if i have short attendance?,attendance,1.0,0.9333333333333332
+174,Details on can i get attendance relaxation for medical reasons?,attendance,1.0,0.9333333333333332
+175,Could you tell me how is attendance calculated for late admissions?,attendance,0.8,0.8000000000000002
+176,I need to know what are the examination rules?,exams,1.0,1.0
+177,Explain what happens if a student is caught cheating in exams?,exams,0.4,0.4000000000000001
+178,What is what are the rules for make-up exams?,exams,1.0,0.9333333333333332
+179,Details on how can i apply for re-checking of my paper?,exams,1.0,1.0
+180,Could you tell me what is the policy for unfair means?,exams,0.6,0.6
+181,I need to know what is the fee refund policy?,financial,0.4,0.4000000000000001
+182,Explain what is the scholarship policy?,financial,0.4,0.4000000000000001
+183,What is when is the tuition fee due?,financial,0.8,0.8000000000000002
+184,Details on what are the hostel charges?,financial,1.0,1.0
+185,Could you tell me are there any fines for late fee payment?,financial,1.0,1.0
+186,I need to know what are the thesis requirements?,research,0.8,0.8666666666666667
+187,Explain how to select a research supervisor?,research,1.0,1.0
+188,What is what is the procedure for thesis defense?,research,0.8,0.8000000000000002
+189,Details on what are the guidelines for the gec committee?,research,0.8,0.8000000000000002
+190,Could you tell me what happens if i fail my thesis defense?,research,1.0,0.9333333333333332
+191,I need to know what is the semester registration process?,admin,0.8,0.8000000000000002
+192,Explain how do i freeze my semester?,admin,1.0,0.9333333333333332
+193,What is what is the procedure for withdrawal from a degree?,admin,1.0,1.0
+194,Details on how do i get my official transcript?,admin,1.0,0.9333333333333332
+195,Could you tell me what is the process for readmission?,admin,0.0,0.0
+196,I need to know what is the student code of conduct?,discipline,0.6,0.6
+197,Explain what are the hostel rules?,discipline,0.8,0.8666666666666667
+198,What is what happens in case of a disciplinary violation?,discipline,0.8,0.8000000000000002
+199,Details on can a student be rusticated?,discipline,0.2,0.13333333333333333
+200,Could you tell me what is the policy regarding ragging?,discipline,1.0,0.9333333333333332

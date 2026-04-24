@@ -8,7 +8,7 @@ Reciprocal Rank Fusion (RRF) and PageRank boosting.
 import time
 import psutil
 import pandas as pd
-from src.preprocessing import preprocess_text, generate_shingles, preprocess_dataframe
+from src.preprocessing import preprocess_text, generate_shingles, preprocess_dataframe, normalize_query
 from src.tfidf_retriever import TFIDFRetriever
 from src.minhash_lsh import MinHashLSHRetriever
 from src.simhash_retriever import SimHashRetriever
@@ -112,7 +112,8 @@ class HybridRetriever:
             raise RuntimeError("HybridRetriever has not been fitted.")
 
         # Preprocess query
-        processed_query = preprocess_text(query)
+        normalized_query = normalize_query(query)
+        processed_query = preprocess_text(normalized_query)
         query_shingles = generate_shingles(processed_query, k=3)
         query_tokens = processed_query.split()
 

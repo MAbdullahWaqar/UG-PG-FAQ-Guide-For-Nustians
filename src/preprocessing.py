@@ -21,28 +21,110 @@ for resource in ["punkt", "punkt_tab", "stopwords", "wordnet"]:
 
 
 # ---------------------------------------------------------------------------
+# Typo Correction Dictionary
+# ---------------------------------------------------------------------------
+# Common misspellings in student queries about academic policies.
+
+TYPO_CORRECTIONS = {
+    # Attendance
+    "attendence": "attendance", "attendace": "attendance", "attendane": "attendance",
+    "attandance": "attendance", "attendnce": "attendance", "atendance": "attendance",
+    # Semester
+    "semster": "semester", "semeseter": "semester", "semster": "semester",
+    "semestr": "semester", "semestre": "semester", "semmester": "semester",
+    # Scholarship
+    "scholorship": "scholarship", "scholaship": "scholarship", "scolarship": "scholarship",
+    "scholarshp": "scholarship", "scholership": "scholarship",
+    # Examination
+    "examinaton": "examination", "examiantion": "examination", "examnation": "examination",
+    "examinaion": "examination", "examiation": "examination",
+    # Registration
+    "registeration": "registration", "registation": "registration",
+    "regestration": "registration", "registraion": "registration",
+    # Graduation
+    "graduaton": "graduation", "graduaion": "graduation", "gradution": "graduation",
+    # Probation
+    "probaton": "probation", "probaion": "probation", "probtion": "probation",
+    # Requirements
+    "requirment": "requirement", "requirments": "requirements",
+    "requiremnt": "requirement", "reqirement": "requirement",
+    # Courses
+    "corse": "course", "coarse": "course", "cours": "course", "cources": "courses",
+    # Transfer
+    "tranfer": "transfer", "trasfer": "transfer", "transfr": "transfer",
+    # Department
+    "departmnt": "department", "deparment": "department", "departmet": "department",
+    # Thesis / Dissertation
+    "theses": "thesis", "theisis": "thesis", "disertation": "dissertation",
+    "disseration": "dissertation", "dissertaton": "dissertation",
+    # Grade / Grading
+    "gradeing": "grading", "gradng": "grading",
+    # Minimum / Maximum
+    "minimun": "minimum", "minium": "minimum", "minmum": "minimum",
+    "maximun": "maximum", "maxium": "maximum",
+    # GPA / CGPA
+    "cg pa": "cgpa", "c.g.p.a": "cgpa", "g.p.a": "gpa",
+    # Miscellaneous
+    "refud": "refund", "refnd": "refund", "rефund": "refund",
+    "hostle": "hostel", "hostl": "hostel",
+    "discpline": "discipline", "dicipline": "discipline",
+    "convocaton": "convocation", "convoction": "convocation",
+    "transcirpt": "transcript", "transcipt": "transcript",
+    "credithour": "credit hour", "credithr": "credit hour",
+    "rustication": "rustication", "rusticaton": "rustication",
+    "deffered": "deferred", "defered": "deferred",
+    "withdrawl": "withdrawal", "withdrawel": "withdrawal",
+    "enrolment": "enrollment", "enrolement": "enrollment",
+}
+
+
+def normalize_query(query: str) -> str:
+    """
+    Normalize a user query by correcting common typos/misspellings.
+    Applied BEFORE preprocessing to ensure the synonym map and
+    TF-IDF vocabulary can match the corrected terms.
+    """
+    words = query.lower().split()
+    corrected = []
+    for w in words:
+        corrected.append(TYPO_CORRECTIONS.get(w, w))
+    return " ".join(corrected)
+
+
+# ---------------------------------------------------------------------------
 # Synonym Expansion Map (trimmed — only core equivalences)
 # ---------------------------------------------------------------------------
 
 SYNONYM_MAP = {
-    "gpa":        ["gpa", "cgpa"],
-    "cgpa":       ["gpa", "cgpa"],
-    "fail":       ["fail", "failure", "failed"],
-    "failure":    ["fail", "failure", "failed"],
-    "failed":     ["fail", "failure", "failed"],
-    "repeat":     ["repeat", "retake", "repeated", "repetition"],
-    "retake":     ["repeat", "retake", "repeated", "repetition"],
-    "repetition": ["repeat", "retake", "repeated", "repetition"],
-    "drop":       ["drop", "withdraw", "withdrawal"],
-    "withdraw":   ["drop", "withdraw", "withdrawal"],
-    "withdrawal": ["drop", "withdraw", "withdrawal"],
-    "fee":        ["fee", "fees", "tuition"],
-    "fees":       ["fee", "fees", "tuition"],
-    "tuition":    ["fee", "fees", "tuition"],
-    "thesis":     ["thesis", "dissertation"],
-    "exam":       ["exam", "examination"],
-    "examination":["exam", "examination"],
-    "probation":  ["probation", "warning"],
+    "gpa":          ["gpa", "cgpa"],
+    "cgpa":         ["gpa", "cgpa"],
+    "fail":         ["fail", "failure", "failed"],
+    "failure":      ["fail", "failure", "failed"],
+    "failed":       ["fail", "failure", "failed"],
+    "repeat":       ["repeat", "retake", "repeated", "repetition"],
+    "retake":       ["repeat", "retake", "repeated", "repetition"],
+    "repetition":   ["repeat", "retake", "repeated", "repetition"],
+    "drop":         ["drop", "withdraw", "withdrawal"],
+    "withdraw":     ["drop", "withdraw", "withdrawal"],
+    "withdrawal":   ["drop", "withdraw", "withdrawal"],
+    "fee":          ["fee", "fees", "tuition"],
+    "fees":         ["fee", "fees", "tuition"],
+    "tuition":      ["fee", "fees", "tuition"],
+    "thesis":       ["thesis", "dissertation"],
+    "dissertation": ["thesis", "dissertation"],
+    "exam":         ["exam", "examination"],
+    "examination":  ["exam", "examination"],
+    "probation":    ["probation", "warning"],
+    "expelled":     ["expelled", "rusticated", "dismissed"],
+    "rusticated":   ["expelled", "rusticated", "dismissed"],
+    "dismissed":    ["expelled", "rusticated", "dismissed"],
+    "internship":   ["internship", "industrial training"],
+    "marks":        ["marks", "grades", "percentage"],
+    "passing":      ["passing", "minimum", "requirement"],
+    "freeze":       ["freeze", "defer", "deferment"],
+    "defer":        ["freeze", "defer", "deferment"],
+    "deferment":    ["freeze", "defer", "deferment"],
+    "hostel":       ["hostel", "accommodation", "residence"],
 }
 
 # NOTE: We do NOT expand "attendance", "semester", "credit", "degree", etc.

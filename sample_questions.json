@@ -1,0 +1,3277 @@
+[
+    {
+        "id": 1,
+        "question": "What is the minimum CGPA needed to graduate?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "minimum",
+            "cgpa",
+            "needed",
+            "graduate"
+        ],
+        "variations": [
+            "What is the minimum CGPA needed to graduate?",
+            "What is the minimum CGPA needed to graduate?",
+            "tell me bout the minimum cgpa needed to graduate?"
+        ]
+    },
+    {
+        "id": 2,
+        "question": "How many times can a course be repeated?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "many",
+            "times",
+            "course",
+            "repeated"
+        ],
+        "variations": [
+            "How many times can a course be repeated?",
+            "How many times can a course be repeated?",
+            "tell me bout how many times can a course be repeated?"
+        ]
+    },
+    {
+        "id": 3,
+        "question": "What is the grading system?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "grading",
+            "system"
+        ],
+        "variations": [
+            "What is the grading system?",
+            "What is the grading system?",
+            "tell me bout the grading system?"
+        ]
+    },
+    {
+        "id": 4,
+        "question": "What happens if a student fails a course?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "fails",
+            "course"
+        ],
+        "variations": [
+            "What happens if a student fails a course?",
+            "What happens if a student fails a course?",
+            "tell me bout what happens if a student fails a course?"
+        ]
+    },
+    {
+        "id": 5,
+        "question": "What are the rules for academic probation?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "academic",
+            "probation"
+        ],
+        "variations": [
+            "What are the rules for academic probation?",
+            "What are the rules for academic probation?",
+            "tell me bout what are the rules for academic probation?"
+        ]
+    },
+    {
+        "id": 6,
+        "question": "What is the minimum GPA requirement?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "minimum"
+        ],
+        "variations": [
+            "What is the minimum GPA requirement?",
+            "What is the minimum GPA requirement?",
+            "tell me bout the minimum gpa requirement?"
+        ]
+    },
+    {
+        "id": 7,
+        "question": "What is the credit hour requirement for graduation?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "credit",
+            "hour",
+            "graduation"
+        ],
+        "variations": [
+            "What is the credit hour requirement for graduation?",
+            "What is the credit hour requirement for graduation?",
+            "tell me bout the credit hour requirement for graduation?"
+        ]
+    },
+    {
+        "id": 8,
+        "question": "How to apply for a degree?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "apply",
+            "degree"
+        ],
+        "variations": [
+            "How to apply for a degree?",
+            "How to apply for a degree?",
+            "tell me bout apply for a degree?"
+        ]
+    },
+    {
+        "id": 9,
+        "question": "Can a student transfer to another department?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "transfer",
+            "another",
+            "department"
+        ],
+        "variations": [
+            "Can a student transfer to another department?",
+            "Can a student transfer to another department?",
+            "tell me bout can a student transfer to another department?"
+        ]
+    },
+    {
+        "id": 10,
+        "question": "What are the rules for dropping a course?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "dropping",
+            "course"
+        ],
+        "variations": [
+            "What are the rules for dropping a course?",
+            "What are the rules for dropping a course?",
+            "tell me bout what are the rules for dropping a course?"
+        ]
+    },
+    {
+        "id": 11,
+        "question": "What is the attendance policy?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "attendance"
+        ],
+        "variations": [
+            "What is the attendence policy?",
+            "What is the attendance policy?",
+            "tell me bout the attendance policy?"
+        ]
+    },
+    {
+        "id": 12,
+        "question": "How much attendance is required to sit in exams?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "much",
+            "attendance",
+            "required",
+            "exams"
+        ],
+        "variations": [
+            "How much attendence is required to sit in exams?",
+            "How much attendance is required to sit in exams?",
+            "tell me bout how much attendance is required to sit in exams?"
+        ]
+    },
+    {
+        "id": 13,
+        "question": "What happens if I have short attendance?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "have",
+            "short",
+            "attendance"
+        ],
+        "variations": [
+            "What happens if I have short attendence?",
+            "What happens if I have short attendance?",
+            "tell me bout what happens if i have short attendance?"
+        ]
+    },
+    {
+        "id": 14,
+        "question": "Can I get attendance relaxation for medical reasons?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "attendance",
+            "relaxation",
+            "medical",
+            "reasons"
+        ],
+        "variations": [
+            "Can I get attendence relaxation for medical reasons?",
+            "Can I get attendance relaxation for medical reasons?",
+            "tell me bout can i get attendance relaxation for medical reasons?"
+        ]
+    },
+    {
+        "id": 15,
+        "question": "How is attendance calculated for late admissions?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "attendance",
+            "calculated",
+            "late",
+            "admissions"
+        ],
+        "variations": [
+            "How is attendence calculated for late admissions?",
+            "How is attendance calculated for late admissions?",
+            "tell me bout how is attendance calculated for late admissions?"
+        ]
+    },
+    {
+        "id": 16,
+        "question": "What are the examination rules?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "examination"
+        ],
+        "variations": [
+            "What are the examination rules?",
+            "What are the examinaton rules?",
+            "tell me bout what are the examination rules?"
+        ]
+    },
+    {
+        "id": 17,
+        "question": "What happens if a student is caught cheating in exams?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "caught",
+            "cheating",
+            "exams"
+        ],
+        "variations": [
+            "What happens if a student is caught cheating in exams?",
+            "What happens if a student is caught cheating in exams?",
+            "tell me bout what happens if a student is caught cheating in exams?"
+        ]
+    },
+    {
+        "id": 18,
+        "question": "What are the rules for make-up exams?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "make-up",
+            "exams"
+        ],
+        "variations": [
+            "What are the rules for make-up exams?",
+            "What are the rules for make-up exams?",
+            "tell me bout what are the rules for make-up exams?"
+        ]
+    },
+    {
+        "id": 19,
+        "question": "How can I apply for re-checking of my paper?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "apply",
+            "re-checking",
+            "paper"
+        ],
+        "variations": [
+            "How can I apply for re-checking of my paper?",
+            "How can I apply for re-checking of my paper?",
+            "tell me bout how can i apply for re-checking of my paper?"
+        ]
+    },
+    {
+        "id": 20,
+        "question": "What is the policy for unfair means?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "unfair",
+            "means"
+        ],
+        "variations": [
+            "What is the policy for unfair means?",
+            "What is the policy for unfair means?",
+            "tell me bout the policy for unfair means?"
+        ]
+    },
+    {
+        "id": 21,
+        "question": "What is the fee refund policy?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "refund"
+        ],
+        "variations": [
+            "What is the fee refund policy?",
+            "What is the fee refund policy?",
+            "tell me bout the fee refund policy?"
+        ]
+    },
+    {
+        "id": 22,
+        "question": "What is the scholarship policy?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "scholarship"
+        ],
+        "variations": [
+            "What is the scholarship policy?",
+            "What is the scholorship policy?",
+            "tell me bout the scholarship policy?"
+        ]
+    },
+    {
+        "id": 23,
+        "question": "When is the tuition fee due?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "tuition"
+        ],
+        "variations": [
+            "When is the tuition fee due?",
+            "When is the tuition fee due?",
+            "tell me bout when is the tuition fee due?"
+        ]
+    },
+    {
+        "id": 24,
+        "question": "What are the hostel charges?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "hostel",
+            "charges"
+        ],
+        "variations": [
+            "What are the hostel charges?",
+            "What are the hostel charges?",
+            "tell me bout what are the hostel charges?"
+        ]
+    },
+    {
+        "id": 25,
+        "question": "Are there any fines for late fee payment?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "there",
+            "fines",
+            "late",
+            "payment"
+        ],
+        "variations": [
+            "Are there any fines for late fee payment?",
+            "Are there any fines for late fee payment?",
+            "tell me bout are there any fines for late fee payment?"
+        ]
+    },
+    {
+        "id": 26,
+        "question": "What are the thesis requirements?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "thesis",
+            "requirements"
+        ],
+        "variations": [
+            "What are the thesis requirements?",
+            "What are the thesis requirements?",
+            "tell me bout what are the thesis requirements?"
+        ]
+    },
+    {
+        "id": 27,
+        "question": "How to select a research supervisor?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "select",
+            "research",
+            "supervisor"
+        ],
+        "variations": [
+            "How to select a research supervisor?",
+            "How to select a research supervisor?",
+            "tell me bout select a research supervisor?"
+        ]
+    },
+    {
+        "id": 28,
+        "question": "What is the procedure for thesis defense?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "procedure",
+            "thesis",
+            "defense"
+        ],
+        "variations": [
+            "What is the procedure for thesis defense?",
+            "What is the procedure for thesis defense?",
+            "tell me bout the procedure for thesis defense?"
+        ]
+    },
+    {
+        "id": 29,
+        "question": "What are the guidelines for the GEC committee?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "guidelines",
+            "committee"
+        ],
+        "variations": [
+            "What are the guidelines for the GEC committee?",
+            "What are the guidelines for the GEC committee?",
+            "tell me bout what are the guidelines for the gec committee?"
+        ]
+    },
+    {
+        "id": 30,
+        "question": "What happens if I fail my thesis defense?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "fail",
+            "thesis",
+            "defense"
+        ],
+        "variations": [
+            "What happens if I fail my thesis defense?",
+            "What happens if I fail my thesis defense?",
+            "tell me bout what happens if i fail my thesis defense?"
+        ]
+    },
+    {
+        "id": 31,
+        "question": "What is the semester registration process?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "semester",
+            "registration"
+        ],
+        "variations": [
+            "What is the semster registration process?",
+            "What is the semester registration process?",
+            "tell me bout the semester registration process?"
+        ]
+    },
+    {
+        "id": 32,
+        "question": "How do I freeze my semester?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "freeze",
+            "semester"
+        ],
+        "variations": [
+            "How do I freeze my semster?",
+            "How do I freeze my semester?",
+            "tell me bout how do i freeze my semester?"
+        ]
+    },
+    {
+        "id": 33,
+        "question": "What is the procedure for withdrawal from a degree?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "procedure",
+            "withdrawal",
+            "from",
+            "degree"
+        ],
+        "variations": [
+            "What is the procedure for withdrawal from a degree?",
+            "What is the procedure for withdrawal from a degree?",
+            "tell me bout the procedure for withdrawal from a degree?"
+        ]
+    },
+    {
+        "id": 34,
+        "question": "How do I get my official transcript?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "official",
+            "transcript"
+        ],
+        "variations": [
+            "How do I get my official transcript?",
+            "How do I get my official transcript?",
+            "tell me bout how do i get my official transcript?"
+        ]
+    },
+    {
+        "id": 35,
+        "question": "What is the process for readmission?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "readmission"
+        ],
+        "variations": [
+            "What is the process for readmission?",
+            "What is the process for readmission?",
+            "tell me bout the process for readmission?"
+        ]
+    },
+    {
+        "id": 36,
+        "question": "What is the student code of conduct?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "code",
+            "conduct"
+        ],
+        "variations": [
+            "What is the student code of conduct?",
+            "What is the student code of conduct?",
+            "tell me bout the student code of conduct?"
+        ]
+    },
+    {
+        "id": 37,
+        "question": "What are the hostel rules?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "hostel"
+        ],
+        "variations": [
+            "What are the hostel rules?",
+            "What are the hostel rules?",
+            "tell me bout what are the hostel rules?"
+        ]
+    },
+    {
+        "id": 38,
+        "question": "What happens in case of a disciplinary violation?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "case",
+            "disciplinary",
+            "violation"
+        ],
+        "variations": [
+            "What happens in case of a disciplinary violation?",
+            "What happens in case of a disciplinary violation?",
+            "tell me bout what happens in case of a disciplinary violation?"
+        ]
+    },
+    {
+        "id": 39,
+        "question": "Can a student be rusticated?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "rusticated"
+        ],
+        "variations": [
+            "Can a student be rusticated?",
+            "Can a student be rusticated?",
+            "tell me bout can a student be rusticated?"
+        ]
+    },
+    {
+        "id": 40,
+        "question": "What is the policy regarding ragging?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "regarding",
+            "ragging"
+        ],
+        "variations": [
+            "What is the policy regarding ragging?",
+            "What is the policy regarding ragging?",
+            "tell me bout the policy regarding ragging?"
+        ]
+    },
+    {
+        "id": 41,
+        "question": "What is the minimum CGPA needed to graduate?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "minimum",
+            "cgpa",
+            "needed",
+            "graduate"
+        ],
+        "variations": [
+            "What is the minimum CGPA needed to graduate?",
+            "What is the minimum CGPA needed to graduate?",
+            "tell me bout the minimum cgpa needed to graduate?"
+        ]
+    },
+    {
+        "id": 42,
+        "question": "How many times can a course be repeated?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "many",
+            "times",
+            "course",
+            "repeated"
+        ],
+        "variations": [
+            "How many times can a course be repeated?",
+            "How many times can a course be repeated?",
+            "tell me bout how many times can a course be repeated?"
+        ]
+    },
+    {
+        "id": 43,
+        "question": "What is the grading system?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "grading",
+            "system"
+        ],
+        "variations": [
+            "What is the grading system?",
+            "What is the grading system?",
+            "tell me bout the grading system?"
+        ]
+    },
+    {
+        "id": 44,
+        "question": "What happens if a student fails a course?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "fails",
+            "course"
+        ],
+        "variations": [
+            "What happens if a student fails a course?",
+            "What happens if a student fails a course?",
+            "tell me bout what happens if a student fails a course?"
+        ]
+    },
+    {
+        "id": 45,
+        "question": "What are the rules for academic probation?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "academic",
+            "probation"
+        ],
+        "variations": [
+            "What are the rules for academic probation?",
+            "What are the rules for academic probation?",
+            "tell me bout what are the rules for academic probation?"
+        ]
+    },
+    {
+        "id": 46,
+        "question": "What is the minimum GPA requirement?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "minimum"
+        ],
+        "variations": [
+            "What is the minimum GPA requirement?",
+            "What is the minimum GPA requirement?",
+            "tell me bout the minimum gpa requirement?"
+        ]
+    },
+    {
+        "id": 47,
+        "question": "What is the credit hour requirement for graduation?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "credit",
+            "hour",
+            "graduation"
+        ],
+        "variations": [
+            "What is the credit hour requirement for graduation?",
+            "What is the credit hour requirement for graduation?",
+            "tell me bout the credit hour requirement for graduation?"
+        ]
+    },
+    {
+        "id": 48,
+        "question": "How to apply for a degree?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "apply",
+            "degree"
+        ],
+        "variations": [
+            "How to apply for a degree?",
+            "How to apply for a degree?",
+            "tell me bout apply for a degree?"
+        ]
+    },
+    {
+        "id": 49,
+        "question": "Can a student transfer to another department?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "transfer",
+            "another",
+            "department"
+        ],
+        "variations": [
+            "Can a student transfer to another department?",
+            "Can a student transfer to another department?",
+            "tell me bout can a student transfer to another department?"
+        ]
+    },
+    {
+        "id": 50,
+        "question": "What are the rules for dropping a course?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "dropping",
+            "course"
+        ],
+        "variations": [
+            "What are the rules for dropping a course?",
+            "What are the rules for dropping a course?",
+            "tell me bout what are the rules for dropping a course?"
+        ]
+    },
+    {
+        "id": 51,
+        "question": "I need to know what is the attendance policy?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "attendance"
+        ],
+        "variations": [
+            "I need to know what is the attendence policy?",
+            "I need to know what is the attendance policy?",
+            "tell me bout i need to know the attendance policy?"
+        ]
+    },
+    {
+        "id": 52,
+        "question": "Explain how much attendance is required to sit in exams?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "much",
+            "attendance",
+            "required",
+            "exams"
+        ],
+        "variations": [
+            "Explain how much attendence is required to sit in exams?",
+            "Explain how much attendance is required to sit in exams?",
+            "tell me bout explain how much attendance is required to sit in exams?"
+        ]
+    },
+    {
+        "id": 53,
+        "question": "What is what happens if i have short attendance?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "have",
+            "short",
+            "attendance"
+        ],
+        "variations": [
+            "What is what happens if i have short attendence?",
+            "What is what happens if i have short attendance?",
+            "tell me bout what happens if i have short attendance?"
+        ]
+    },
+    {
+        "id": 54,
+        "question": "Details on can i get attendance relaxation for medical reasons?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "attendance",
+            "relaxation",
+            "medical",
+            "reasons"
+        ],
+        "variations": [
+            "Details on can i get attendence relaxation for medical reasons?",
+            "Details on can i get attendance relaxation for medical reasons?",
+            "tell me bout details on can i get attendance relaxation for medical reasons?"
+        ]
+    },
+    {
+        "id": 55,
+        "question": "Could you tell me how is attendance calculated for late admissions?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "attendance",
+            "calculated",
+            "late",
+            "admissions"
+        ],
+        "variations": [
+            "Could you tell me how is attendence calculated for late admissions?",
+            "Could you tell me how is attendance calculated for late admissions?",
+            "tell me bout could you tell me how is attendance calculated for late admissions?"
+        ]
+    },
+    {
+        "id": 56,
+        "question": "I need to know what are the examination rules?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "examination"
+        ],
+        "variations": [
+            "I need to know what are the examination rules?",
+            "I need to know what are the examinaton rules?",
+            "tell me bout i need to know what are the examination rules?"
+        ]
+    },
+    {
+        "id": 57,
+        "question": "Explain what happens if a student is caught cheating in exams?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "happens",
+            "caught",
+            "cheating",
+            "exams"
+        ],
+        "variations": [
+            "Explain what happens if a student is caught cheating in exams?",
+            "Explain what happens if a student is caught cheating in exams?",
+            "tell me bout explain what happens if a student is caught cheating in exams?"
+        ]
+    },
+    {
+        "id": 58,
+        "question": "What is what are the rules for make-up exams?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "make-up",
+            "exams"
+        ],
+        "variations": [
+            "What is what are the rules for make-up exams?",
+            "What is what are the rules for make-up exams?",
+            "tell me bout what are the rules for make-up exams?"
+        ]
+    },
+    {
+        "id": 59,
+        "question": "Details on how can i apply for re-checking of my paper?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "apply",
+            "re-checking",
+            "paper"
+        ],
+        "variations": [
+            "Details on how can i apply for re-checking of my paper?",
+            "Details on how can i apply for re-checking of my paper?",
+            "tell me bout details on how can i apply for re-checking of my paper?"
+        ]
+    },
+    {
+        "id": 60,
+        "question": "Could you tell me what is the policy for unfair means?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "unfair",
+            "means"
+        ],
+        "variations": [
+            "Could you tell me what is the policy for unfair means?",
+            "Could you tell me what is the policy for unfair means?",
+            "tell me bout could you tell me the policy for unfair means?"
+        ]
+    },
+    {
+        "id": 61,
+        "question": "I need to know what is the fee refund policy?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "refund"
+        ],
+        "variations": [
+            "I need to know what is the fee refund policy?",
+            "I need to know what is the fee refund policy?",
+            "tell me bout i need to know the fee refund policy?"
+        ]
+    },
+    {
+        "id": 62,
+        "question": "Explain what is the scholarship policy?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "scholarship"
+        ],
+        "variations": [
+            "Explain what is the scholarship policy?",
+            "Explain what is the scholorship policy?",
+            "tell me bout explain the scholarship policy?"
+        ]
+    },
+    {
+        "id": 63,
+        "question": "What is when is the tuition fee due?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "tuition"
+        ],
+        "variations": [
+            "What is when is the tuition fee due?",
+            "What is when is the tuition fee due?",
+            "tell me bout when is the tuition fee due?"
+        ]
+    },
+    {
+        "id": 64,
+        "question": "Details on what are the hostel charges?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "hostel",
+            "charges"
+        ],
+        "variations": [
+            "Details on what are the hostel charges?",
+            "Details on what are the hostel charges?",
+            "tell me bout details on what are the hostel charges?"
+        ]
+    },
+    {
+        "id": 65,
+        "question": "Could you tell me are there any fines for late fee payment?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "there",
+            "fines",
+            "late",
+            "payment"
+        ],
+        "variations": [
+            "Could you tell me are there any fines for late fee payment?",
+            "Could you tell me are there any fines for late fee payment?",
+            "tell me bout could you tell me are there any fines for late fee payment?"
+        ]
+    },
+    {
+        "id": 66,
+        "question": "I need to know what are the thesis requirements?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "thesis",
+            "requirements"
+        ],
+        "variations": [
+            "I need to know what are the thesis requirements?",
+            "I need to know what are the thesis requirements?",
+            "tell me bout i need to know what are the thesis requirements?"
+        ]
+    },
+    {
+        "id": 67,
+        "question": "Explain how to select a research supervisor?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "select",
+            "research",
+            "supervisor"
+        ],
+        "variations": [
+            "Explain how to select a research supervisor?",
+            "Explain how to select a research supervisor?",
+            "tell me bout explain select a research supervisor?"
+        ]
+    },
+    {
+        "id": 68,
+        "question": "What is what is the procedure for thesis defense?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "procedure",
+            "thesis",
+            "defense"
+        ],
+        "variations": [
+            "What is what is the procedure for thesis defense?",
+            "What is what is the procedure for thesis defense?",
+            "tell me bout the procedure for thesis defense?"
+        ]
+    },
+    {
+        "id": 69,
+        "question": "Details on what are the guidelines for the gec committee?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "guidelines",
+            "committee"
+        ],
+        "variations": [
+            "Details on what are the guidelines for the gec committee?",
+            "Details on what are the guidelines for the gec committee?",
+            "tell me bout details on what are the guidelines for the gec committee?"
+        ]
+    },
+    {
+        "id": 70,
+        "question": "Could you tell me what happens if i fail my thesis defense?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "happens",
+            "fail",
+            "thesis",
+            "defense"
+        ],
+        "variations": [
+            "Could you tell me what happens if i fail my thesis defense?",
+            "Could you tell me what happens if i fail my thesis defense?",
+            "tell me bout could you tell me what happens if i fail my thesis defense?"
+        ]
+    },
+    {
+        "id": 71,
+        "question": "I need to know what is the semester registration process?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "semester",
+            "registration"
+        ],
+        "variations": [
+            "I need to know what is the semster registration process?",
+            "I need to know what is the semester registration process?",
+            "tell me bout i need to know the semester registration process?"
+        ]
+    },
+    {
+        "id": 72,
+        "question": "Explain how do i freeze my semester?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "freeze",
+            "semester"
+        ],
+        "variations": [
+            "Explain how do i freeze my semster?",
+            "Explain how do i freeze my semester?",
+            "tell me bout explain how do i freeze my semester?"
+        ]
+    },
+    {
+        "id": 73,
+        "question": "What is what is the procedure for withdrawal from a degree?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "procedure",
+            "withdrawal",
+            "from",
+            "degree"
+        ],
+        "variations": [
+            "What is what is the procedure for withdrawal from a degree?",
+            "What is what is the procedure for withdrawal from a degree?",
+            "tell me bout the procedure for withdrawal from a degree?"
+        ]
+    },
+    {
+        "id": 74,
+        "question": "Details on how do i get my official transcript?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "official",
+            "transcript"
+        ],
+        "variations": [
+            "Details on how do i get my official transcript?",
+            "Details on how do i get my official transcript?",
+            "tell me bout details on how do i get my official transcript?"
+        ]
+    },
+    {
+        "id": 75,
+        "question": "Could you tell me what is the process for readmission?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "readmission"
+        ],
+        "variations": [
+            "Could you tell me what is the process for readmission?",
+            "Could you tell me what is the process for readmission?",
+            "tell me bout could you tell me the process for readmission?"
+        ]
+    },
+    {
+        "id": 76,
+        "question": "I need to know what is the student code of conduct?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "code",
+            "conduct"
+        ],
+        "variations": [
+            "I need to know what is the student code of conduct?",
+            "I need to know what is the student code of conduct?",
+            "tell me bout i need to know the student code of conduct?"
+        ]
+    },
+    {
+        "id": 77,
+        "question": "Explain what are the hostel rules?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "hostel"
+        ],
+        "variations": [
+            "Explain what are the hostel rules?",
+            "Explain what are the hostel rules?",
+            "tell me bout explain what are the hostel rules?"
+        ]
+    },
+    {
+        "id": 78,
+        "question": "What is what happens in case of a disciplinary violation?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "case",
+            "disciplinary",
+            "violation"
+        ],
+        "variations": [
+            "What is what happens in case of a disciplinary violation?",
+            "What is what happens in case of a disciplinary violation?",
+            "tell me bout what happens in case of a disciplinary violation?"
+        ]
+    },
+    {
+        "id": 79,
+        "question": "Details on can a student be rusticated?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "rusticated"
+        ],
+        "variations": [
+            "Details on can a student be rusticated?",
+            "Details on can a student be rusticated?",
+            "tell me bout details on can a student be rusticated?"
+        ]
+    },
+    {
+        "id": 80,
+        "question": "Could you tell me what is the policy regarding ragging?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "regarding",
+            "ragging"
+        ],
+        "variations": [
+            "Could you tell me what is the policy regarding ragging?",
+            "Could you tell me what is the policy regarding ragging?",
+            "tell me bout could you tell me the policy regarding ragging?"
+        ]
+    },
+    {
+        "id": 81,
+        "question": "I need to know what is the minimum cgpa needed to graduate?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "minimum",
+            "cgpa",
+            "needed",
+            "graduate"
+        ],
+        "variations": [
+            "I need to know what is the minimum cgpa needed to graduate?",
+            "I need to know what is the minimum cgpa needed to graduate?",
+            "tell me bout i need to know the minimum cgpa needed to graduate?"
+        ]
+    },
+    {
+        "id": 82,
+        "question": "Explain how many times can a course be repeated?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "many",
+            "times",
+            "course",
+            "repeated"
+        ],
+        "variations": [
+            "Explain how many times can a course be repeated?",
+            "Explain how many times can a course be repeated?",
+            "tell me bout explain how many times can a course be repeated?"
+        ]
+    },
+    {
+        "id": 83,
+        "question": "What is what is the grading system?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "grading",
+            "system"
+        ],
+        "variations": [
+            "What is what is the grading system?",
+            "What is what is the grading system?",
+            "tell me bout the grading system?"
+        ]
+    },
+    {
+        "id": 84,
+        "question": "Details on what happens if a student fails a course?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "happens",
+            "fails",
+            "course"
+        ],
+        "variations": [
+            "Details on what happens if a student fails a course?",
+            "Details on what happens if a student fails a course?",
+            "tell me bout details on what happens if a student fails a course?"
+        ]
+    },
+    {
+        "id": 85,
+        "question": "Could you tell me what are the rules for academic probation?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "academic",
+            "probation"
+        ],
+        "variations": [
+            "Could you tell me what are the rules for academic probation?",
+            "Could you tell me what are the rules for academic probation?",
+            "tell me bout could you tell me what are the rules for academic probation?"
+        ]
+    },
+    {
+        "id": 86,
+        "question": "I need to know what is the minimum gpa requirement?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "minimum"
+        ],
+        "variations": [
+            "I need to know what is the minimum gpa requirement?",
+            "I need to know what is the minimum gpa requirement?",
+            "tell me bout i need to know the minimum gpa requirement?"
+        ]
+    },
+    {
+        "id": 87,
+        "question": "Explain what is the credit hour requirement for graduation?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "credit",
+            "hour",
+            "graduation"
+        ],
+        "variations": [
+            "Explain what is the credit hour requirement for graduation?",
+            "Explain what is the credit hour requirement for graduation?",
+            "tell me bout explain the credit hour requirement for graduation?"
+        ]
+    },
+    {
+        "id": 88,
+        "question": "What is how to apply for a degree?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "apply",
+            "degree"
+        ],
+        "variations": [
+            "What is how to apply for a degree?",
+            "What is how to apply for a degree?",
+            "tell me bout apply for a degree?"
+        ]
+    },
+    {
+        "id": 89,
+        "question": "Details on can a student transfer to another department?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "transfer",
+            "another",
+            "department"
+        ],
+        "variations": [
+            "Details on can a student transfer to another department?",
+            "Details on can a student transfer to another department?",
+            "tell me bout details on can a student transfer to another department?"
+        ]
+    },
+    {
+        "id": 90,
+        "question": "Could you tell me what are the rules for dropping a course?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "dropping",
+            "course"
+        ],
+        "variations": [
+            "Could you tell me what are the rules for dropping a course?",
+            "Could you tell me what are the rules for dropping a course?",
+            "tell me bout could you tell me what are the rules for dropping a course?"
+        ]
+    },
+    {
+        "id": 91,
+        "question": "I need to know what is the attendance policy?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "attendance"
+        ],
+        "variations": [
+            "I need to know what is the attendence policy?",
+            "I need to know what is the attendance policy?",
+            "tell me bout i need to know the attendance policy?"
+        ]
+    },
+    {
+        "id": 92,
+        "question": "Explain how much attendance is required to sit in exams?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "much",
+            "attendance",
+            "required",
+            "exams"
+        ],
+        "variations": [
+            "Explain how much attendence is required to sit in exams?",
+            "Explain how much attendance is required to sit in exams?",
+            "tell me bout explain how much attendance is required to sit in exams?"
+        ]
+    },
+    {
+        "id": 93,
+        "question": "What is what happens if i have short attendance?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "have",
+            "short",
+            "attendance"
+        ],
+        "variations": [
+            "What is what happens if i have short attendence?",
+            "What is what happens if i have short attendance?",
+            "tell me bout what happens if i have short attendance?"
+        ]
+    },
+    {
+        "id": 94,
+        "question": "Details on can i get attendance relaxation for medical reasons?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "attendance",
+            "relaxation",
+            "medical",
+            "reasons"
+        ],
+        "variations": [
+            "Details on can i get attendence relaxation for medical reasons?",
+            "Details on can i get attendance relaxation for medical reasons?",
+            "tell me bout details on can i get attendance relaxation for medical reasons?"
+        ]
+    },
+    {
+        "id": 95,
+        "question": "Could you tell me how is attendance calculated for late admissions?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "attendance",
+            "calculated",
+            "late",
+            "admissions"
+        ],
+        "variations": [
+            "Could you tell me how is attendence calculated for late admissions?",
+            "Could you tell me how is attendance calculated for late admissions?",
+            "tell me bout could you tell me how is attendance calculated for late admissions?"
+        ]
+    },
+    {
+        "id": 96,
+        "question": "I need to know what are the examination rules?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "examination"
+        ],
+        "variations": [
+            "I need to know what are the examination rules?",
+            "I need to know what are the examinaton rules?",
+            "tell me bout i need to know what are the examination rules?"
+        ]
+    },
+    {
+        "id": 97,
+        "question": "Explain what happens if a student is caught cheating in exams?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "happens",
+            "caught",
+            "cheating",
+            "exams"
+        ],
+        "variations": [
+            "Explain what happens if a student is caught cheating in exams?",
+            "Explain what happens if a student is caught cheating in exams?",
+            "tell me bout explain what happens if a student is caught cheating in exams?"
+        ]
+    },
+    {
+        "id": 98,
+        "question": "What is what are the rules for make-up exams?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "make-up",
+            "exams"
+        ],
+        "variations": [
+            "What is what are the rules for make-up exams?",
+            "What is what are the rules for make-up exams?",
+            "tell me bout what are the rules for make-up exams?"
+        ]
+    },
+    {
+        "id": 99,
+        "question": "Details on how can i apply for re-checking of my paper?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "apply",
+            "re-checking",
+            "paper"
+        ],
+        "variations": [
+            "Details on how can i apply for re-checking of my paper?",
+            "Details on how can i apply for re-checking of my paper?",
+            "tell me bout details on how can i apply for re-checking of my paper?"
+        ]
+    },
+    {
+        "id": 100,
+        "question": "Could you tell me what is the policy for unfair means?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "unfair",
+            "means"
+        ],
+        "variations": [
+            "Could you tell me what is the policy for unfair means?",
+            "Could you tell me what is the policy for unfair means?",
+            "tell me bout could you tell me the policy for unfair means?"
+        ]
+    },
+    {
+        "id": 101,
+        "question": "I need to know what is the fee refund policy?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "refund"
+        ],
+        "variations": [
+            "I need to know what is the fee refund policy?",
+            "I need to know what is the fee refund policy?",
+            "tell me bout i need to know the fee refund policy?"
+        ]
+    },
+    {
+        "id": 102,
+        "question": "Explain what is the scholarship policy?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "scholarship"
+        ],
+        "variations": [
+            "Explain what is the scholarship policy?",
+            "Explain what is the scholorship policy?",
+            "tell me bout explain the scholarship policy?"
+        ]
+    },
+    {
+        "id": 103,
+        "question": "What is when is the tuition fee due?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "tuition"
+        ],
+        "variations": [
+            "What is when is the tuition fee due?",
+            "What is when is the tuition fee due?",
+            "tell me bout when is the tuition fee due?"
+        ]
+    },
+    {
+        "id": 104,
+        "question": "Details on what are the hostel charges?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "hostel",
+            "charges"
+        ],
+        "variations": [
+            "Details on what are the hostel charges?",
+            "Details on what are the hostel charges?",
+            "tell me bout details on what are the hostel charges?"
+        ]
+    },
+    {
+        "id": 105,
+        "question": "Could you tell me are there any fines for late fee payment?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "there",
+            "fines",
+            "late",
+            "payment"
+        ],
+        "variations": [
+            "Could you tell me are there any fines for late fee payment?",
+            "Could you tell me are there any fines for late fee payment?",
+            "tell me bout could you tell me are there any fines for late fee payment?"
+        ]
+    },
+    {
+        "id": 106,
+        "question": "I need to know what are the thesis requirements?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "thesis",
+            "requirements"
+        ],
+        "variations": [
+            "I need to know what are the thesis requirements?",
+            "I need to know what are the thesis requirements?",
+            "tell me bout i need to know what are the thesis requirements?"
+        ]
+    },
+    {
+        "id": 107,
+        "question": "Explain how to select a research supervisor?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "select",
+            "research",
+            "supervisor"
+        ],
+        "variations": [
+            "Explain how to select a research supervisor?",
+            "Explain how to select a research supervisor?",
+            "tell me bout explain select a research supervisor?"
+        ]
+    },
+    {
+        "id": 108,
+        "question": "What is what is the procedure for thesis defense?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "procedure",
+            "thesis",
+            "defense"
+        ],
+        "variations": [
+            "What is what is the procedure for thesis defense?",
+            "What is what is the procedure for thesis defense?",
+            "tell me bout the procedure for thesis defense?"
+        ]
+    },
+    {
+        "id": 109,
+        "question": "Details on what are the guidelines for the gec committee?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "guidelines",
+            "committee"
+        ],
+        "variations": [
+            "Details on what are the guidelines for the gec committee?",
+            "Details on what are the guidelines for the gec committee?",
+            "tell me bout details on what are the guidelines for the gec committee?"
+        ]
+    },
+    {
+        "id": 110,
+        "question": "Could you tell me what happens if i fail my thesis defense?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "happens",
+            "fail",
+            "thesis",
+            "defense"
+        ],
+        "variations": [
+            "Could you tell me what happens if i fail my thesis defense?",
+            "Could you tell me what happens if i fail my thesis defense?",
+            "tell me bout could you tell me what happens if i fail my thesis defense?"
+        ]
+    },
+    {
+        "id": 111,
+        "question": "I need to know what is the semester registration process?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "semester",
+            "registration"
+        ],
+        "variations": [
+            "I need to know what is the semster registration process?",
+            "I need to know what is the semester registration process?",
+            "tell me bout i need to know the semester registration process?"
+        ]
+    },
+    {
+        "id": 112,
+        "question": "Explain how do i freeze my semester?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "freeze",
+            "semester"
+        ],
+        "variations": [
+            "Explain how do i freeze my semster?",
+            "Explain how do i freeze my semester?",
+            "tell me bout explain how do i freeze my semester?"
+        ]
+    },
+    {
+        "id": 113,
+        "question": "What is what is the procedure for withdrawal from a degree?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "procedure",
+            "withdrawal",
+            "from",
+            "degree"
+        ],
+        "variations": [
+            "What is what is the procedure for withdrawal from a degree?",
+            "What is what is the procedure for withdrawal from a degree?",
+            "tell me bout the procedure for withdrawal from a degree?"
+        ]
+    },
+    {
+        "id": 114,
+        "question": "Details on how do i get my official transcript?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "official",
+            "transcript"
+        ],
+        "variations": [
+            "Details on how do i get my official transcript?",
+            "Details on how do i get my official transcript?",
+            "tell me bout details on how do i get my official transcript?"
+        ]
+    },
+    {
+        "id": 115,
+        "question": "Could you tell me what is the process for readmission?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "readmission"
+        ],
+        "variations": [
+            "Could you tell me what is the process for readmission?",
+            "Could you tell me what is the process for readmission?",
+            "tell me bout could you tell me the process for readmission?"
+        ]
+    },
+    {
+        "id": 116,
+        "question": "I need to know what is the student code of conduct?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "code",
+            "conduct"
+        ],
+        "variations": [
+            "I need to know what is the student code of conduct?",
+            "I need to know what is the student code of conduct?",
+            "tell me bout i need to know the student code of conduct?"
+        ]
+    },
+    {
+        "id": 117,
+        "question": "Explain what are the hostel rules?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "hostel"
+        ],
+        "variations": [
+            "Explain what are the hostel rules?",
+            "Explain what are the hostel rules?",
+            "tell me bout explain what are the hostel rules?"
+        ]
+    },
+    {
+        "id": 118,
+        "question": "What is what happens in case of a disciplinary violation?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "case",
+            "disciplinary",
+            "violation"
+        ],
+        "variations": [
+            "What is what happens in case of a disciplinary violation?",
+            "What is what happens in case of a disciplinary violation?",
+            "tell me bout what happens in case of a disciplinary violation?"
+        ]
+    },
+    {
+        "id": 119,
+        "question": "Details on can a student be rusticated?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "rusticated"
+        ],
+        "variations": [
+            "Details on can a student be rusticated?",
+            "Details on can a student be rusticated?",
+            "tell me bout details on can a student be rusticated?"
+        ]
+    },
+    {
+        "id": 120,
+        "question": "Could you tell me what is the policy regarding ragging?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "regarding",
+            "ragging"
+        ],
+        "variations": [
+            "Could you tell me what is the policy regarding ragging?",
+            "Could you tell me what is the policy regarding ragging?",
+            "tell me bout could you tell me the policy regarding ragging?"
+        ]
+    },
+    {
+        "id": 121,
+        "question": "I need to know what is the minimum cgpa needed to graduate?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "minimum",
+            "cgpa",
+            "needed",
+            "graduate"
+        ],
+        "variations": [
+            "I need to know what is the minimum cgpa needed to graduate?",
+            "I need to know what is the minimum cgpa needed to graduate?",
+            "tell me bout i need to know the minimum cgpa needed to graduate?"
+        ]
+    },
+    {
+        "id": 122,
+        "question": "Explain how many times can a course be repeated?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "many",
+            "times",
+            "course",
+            "repeated"
+        ],
+        "variations": [
+            "Explain how many times can a course be repeated?",
+            "Explain how many times can a course be repeated?",
+            "tell me bout explain how many times can a course be repeated?"
+        ]
+    },
+    {
+        "id": 123,
+        "question": "What is what is the grading system?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "grading",
+            "system"
+        ],
+        "variations": [
+            "What is what is the grading system?",
+            "What is what is the grading system?",
+            "tell me bout the grading system?"
+        ]
+    },
+    {
+        "id": 124,
+        "question": "Details on what happens if a student fails a course?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "happens",
+            "fails",
+            "course"
+        ],
+        "variations": [
+            "Details on what happens if a student fails a course?",
+            "Details on what happens if a student fails a course?",
+            "tell me bout details on what happens if a student fails a course?"
+        ]
+    },
+    {
+        "id": 125,
+        "question": "Could you tell me what are the rules for academic probation?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "academic",
+            "probation"
+        ],
+        "variations": [
+            "Could you tell me what are the rules for academic probation?",
+            "Could you tell me what are the rules for academic probation?",
+            "tell me bout could you tell me what are the rules for academic probation?"
+        ]
+    },
+    {
+        "id": 126,
+        "question": "I need to know what is the minimum gpa requirement?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "minimum"
+        ],
+        "variations": [
+            "I need to know what is the minimum gpa requirement?",
+            "I need to know what is the minimum gpa requirement?",
+            "tell me bout i need to know the minimum gpa requirement?"
+        ]
+    },
+    {
+        "id": 127,
+        "question": "Explain what is the credit hour requirement for graduation?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "credit",
+            "hour",
+            "graduation"
+        ],
+        "variations": [
+            "Explain what is the credit hour requirement for graduation?",
+            "Explain what is the credit hour requirement for graduation?",
+            "tell me bout explain the credit hour requirement for graduation?"
+        ]
+    },
+    {
+        "id": 128,
+        "question": "What is how to apply for a degree?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "apply",
+            "degree"
+        ],
+        "variations": [
+            "What is how to apply for a degree?",
+            "What is how to apply for a degree?",
+            "tell me bout apply for a degree?"
+        ]
+    },
+    {
+        "id": 129,
+        "question": "Details on can a student transfer to another department?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "transfer",
+            "another",
+            "department"
+        ],
+        "variations": [
+            "Details on can a student transfer to another department?",
+            "Details on can a student transfer to another department?",
+            "tell me bout details on can a student transfer to another department?"
+        ]
+    },
+    {
+        "id": 130,
+        "question": "Could you tell me what are the rules for dropping a course?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "dropping",
+            "course"
+        ],
+        "variations": [
+            "Could you tell me what are the rules for dropping a course?",
+            "Could you tell me what are the rules for dropping a course?",
+            "tell me bout could you tell me what are the rules for dropping a course?"
+        ]
+    },
+    {
+        "id": 131,
+        "question": "I need to know what is the attendance policy?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "attendance"
+        ],
+        "variations": [
+            "I need to know what is the attendence policy?",
+            "I need to know what is the attendance policy?",
+            "tell me bout i need to know the attendance policy?"
+        ]
+    },
+    {
+        "id": 132,
+        "question": "Explain how much attendance is required to sit in exams?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "much",
+            "attendance",
+            "required",
+            "exams"
+        ],
+        "variations": [
+            "Explain how much attendence is required to sit in exams?",
+            "Explain how much attendance is required to sit in exams?",
+            "tell me bout explain how much attendance is required to sit in exams?"
+        ]
+    },
+    {
+        "id": 133,
+        "question": "What is what happens if i have short attendance?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "have",
+            "short",
+            "attendance"
+        ],
+        "variations": [
+            "What is what happens if i have short attendence?",
+            "What is what happens if i have short attendance?",
+            "tell me bout what happens if i have short attendance?"
+        ]
+    },
+    {
+        "id": 134,
+        "question": "Details on can i get attendance relaxation for medical reasons?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "attendance",
+            "relaxation",
+            "medical",
+            "reasons"
+        ],
+        "variations": [
+            "Details on can i get attendence relaxation for medical reasons?",
+            "Details on can i get attendance relaxation for medical reasons?",
+            "tell me bout details on can i get attendance relaxation for medical reasons?"
+        ]
+    },
+    {
+        "id": 135,
+        "question": "Could you tell me how is attendance calculated for late admissions?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "attendance",
+            "calculated",
+            "late",
+            "admissions"
+        ],
+        "variations": [
+            "Could you tell me how is attendence calculated for late admissions?",
+            "Could you tell me how is attendance calculated for late admissions?",
+            "tell me bout could you tell me how is attendance calculated for late admissions?"
+        ]
+    },
+    {
+        "id": 136,
+        "question": "I need to know what are the examination rules?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "examination"
+        ],
+        "variations": [
+            "I need to know what are the examination rules?",
+            "I need to know what are the examinaton rules?",
+            "tell me bout i need to know what are the examination rules?"
+        ]
+    },
+    {
+        "id": 137,
+        "question": "Explain what happens if a student is caught cheating in exams?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "happens",
+            "caught",
+            "cheating",
+            "exams"
+        ],
+        "variations": [
+            "Explain what happens if a student is caught cheating in exams?",
+            "Explain what happens if a student is caught cheating in exams?",
+            "tell me bout explain what happens if a student is caught cheating in exams?"
+        ]
+    },
+    {
+        "id": 138,
+        "question": "What is what are the rules for make-up exams?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "make-up",
+            "exams"
+        ],
+        "variations": [
+            "What is what are the rules for make-up exams?",
+            "What is what are the rules for make-up exams?",
+            "tell me bout what are the rules for make-up exams?"
+        ]
+    },
+    {
+        "id": 139,
+        "question": "Details on how can i apply for re-checking of my paper?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "apply",
+            "re-checking",
+            "paper"
+        ],
+        "variations": [
+            "Details on how can i apply for re-checking of my paper?",
+            "Details on how can i apply for re-checking of my paper?",
+            "tell me bout details on how can i apply for re-checking of my paper?"
+        ]
+    },
+    {
+        "id": 140,
+        "question": "Could you tell me what is the policy for unfair means?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "unfair",
+            "means"
+        ],
+        "variations": [
+            "Could you tell me what is the policy for unfair means?",
+            "Could you tell me what is the policy for unfair means?",
+            "tell me bout could you tell me the policy for unfair means?"
+        ]
+    },
+    {
+        "id": 141,
+        "question": "I need to know what is the fee refund policy?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "refund"
+        ],
+        "variations": [
+            "I need to know what is the fee refund policy?",
+            "I need to know what is the fee refund policy?",
+            "tell me bout i need to know the fee refund policy?"
+        ]
+    },
+    {
+        "id": 142,
+        "question": "Explain what is the scholarship policy?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "scholarship"
+        ],
+        "variations": [
+            "Explain what is the scholarship policy?",
+            "Explain what is the scholorship policy?",
+            "tell me bout explain the scholarship policy?"
+        ]
+    },
+    {
+        "id": 143,
+        "question": "What is when is the tuition fee due?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "tuition"
+        ],
+        "variations": [
+            "What is when is the tuition fee due?",
+            "What is when is the tuition fee due?",
+            "tell me bout when is the tuition fee due?"
+        ]
+    },
+    {
+        "id": 144,
+        "question": "Details on what are the hostel charges?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "hostel",
+            "charges"
+        ],
+        "variations": [
+            "Details on what are the hostel charges?",
+            "Details on what are the hostel charges?",
+            "tell me bout details on what are the hostel charges?"
+        ]
+    },
+    {
+        "id": 145,
+        "question": "Could you tell me are there any fines for late fee payment?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "there",
+            "fines",
+            "late",
+            "payment"
+        ],
+        "variations": [
+            "Could you tell me are there any fines for late fee payment?",
+            "Could you tell me are there any fines for late fee payment?",
+            "tell me bout could you tell me are there any fines for late fee payment?"
+        ]
+    },
+    {
+        "id": 146,
+        "question": "I need to know what are the thesis requirements?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "thesis",
+            "requirements"
+        ],
+        "variations": [
+            "I need to know what are the thesis requirements?",
+            "I need to know what are the thesis requirements?",
+            "tell me bout i need to know what are the thesis requirements?"
+        ]
+    },
+    {
+        "id": 147,
+        "question": "Explain how to select a research supervisor?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "select",
+            "research",
+            "supervisor"
+        ],
+        "variations": [
+            "Explain how to select a research supervisor?",
+            "Explain how to select a research supervisor?",
+            "tell me bout explain select a research supervisor?"
+        ]
+    },
+    {
+        "id": 148,
+        "question": "What is what is the procedure for thesis defense?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "procedure",
+            "thesis",
+            "defense"
+        ],
+        "variations": [
+            "What is what is the procedure for thesis defense?",
+            "What is what is the procedure for thesis defense?",
+            "tell me bout the procedure for thesis defense?"
+        ]
+    },
+    {
+        "id": 149,
+        "question": "Details on what are the guidelines for the gec committee?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "guidelines",
+            "committee"
+        ],
+        "variations": [
+            "Details on what are the guidelines for the gec committee?",
+            "Details on what are the guidelines for the gec committee?",
+            "tell me bout details on what are the guidelines for the gec committee?"
+        ]
+    },
+    {
+        "id": 150,
+        "question": "Could you tell me what happens if i fail my thesis defense?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "happens",
+            "fail",
+            "thesis",
+            "defense"
+        ],
+        "variations": [
+            "Could you tell me what happens if i fail my thesis defense?",
+            "Could you tell me what happens if i fail my thesis defense?",
+            "tell me bout could you tell me what happens if i fail my thesis defense?"
+        ]
+    },
+    {
+        "id": 151,
+        "question": "I need to know what is the semester registration process?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "semester",
+            "registration"
+        ],
+        "variations": [
+            "I need to know what is the semster registration process?",
+            "I need to know what is the semester registration process?",
+            "tell me bout i need to know the semester registration process?"
+        ]
+    },
+    {
+        "id": 152,
+        "question": "Explain how do i freeze my semester?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "freeze",
+            "semester"
+        ],
+        "variations": [
+            "Explain how do i freeze my semster?",
+            "Explain how do i freeze my semester?",
+            "tell me bout explain how do i freeze my semester?"
+        ]
+    },
+    {
+        "id": 153,
+        "question": "What is what is the procedure for withdrawal from a degree?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "procedure",
+            "withdrawal",
+            "from",
+            "degree"
+        ],
+        "variations": [
+            "What is what is the procedure for withdrawal from a degree?",
+            "What is what is the procedure for withdrawal from a degree?",
+            "tell me bout the procedure for withdrawal from a degree?"
+        ]
+    },
+    {
+        "id": 154,
+        "question": "Details on how do i get my official transcript?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "official",
+            "transcript"
+        ],
+        "variations": [
+            "Details on how do i get my official transcript?",
+            "Details on how do i get my official transcript?",
+            "tell me bout details on how do i get my official transcript?"
+        ]
+    },
+    {
+        "id": 155,
+        "question": "Could you tell me what is the process for readmission?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "readmission"
+        ],
+        "variations": [
+            "Could you tell me what is the process for readmission?",
+            "Could you tell me what is the process for readmission?",
+            "tell me bout could you tell me the process for readmission?"
+        ]
+    },
+    {
+        "id": 156,
+        "question": "I need to know what is the student code of conduct?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "code",
+            "conduct"
+        ],
+        "variations": [
+            "I need to know what is the student code of conduct?",
+            "I need to know what is the student code of conduct?",
+            "tell me bout i need to know the student code of conduct?"
+        ]
+    },
+    {
+        "id": 157,
+        "question": "Explain what are the hostel rules?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "hostel"
+        ],
+        "variations": [
+            "Explain what are the hostel rules?",
+            "Explain what are the hostel rules?",
+            "tell me bout explain what are the hostel rules?"
+        ]
+    },
+    {
+        "id": 158,
+        "question": "What is what happens in case of a disciplinary violation?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "case",
+            "disciplinary",
+            "violation"
+        ],
+        "variations": [
+            "What is what happens in case of a disciplinary violation?",
+            "What is what happens in case of a disciplinary violation?",
+            "tell me bout what happens in case of a disciplinary violation?"
+        ]
+    },
+    {
+        "id": 159,
+        "question": "Details on can a student be rusticated?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "rusticated"
+        ],
+        "variations": [
+            "Details on can a student be rusticated?",
+            "Details on can a student be rusticated?",
+            "tell me bout details on can a student be rusticated?"
+        ]
+    },
+    {
+        "id": 160,
+        "question": "Could you tell me what is the policy regarding ragging?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "regarding",
+            "ragging"
+        ],
+        "variations": [
+            "Could you tell me what is the policy regarding ragging?",
+            "Could you tell me what is the policy regarding ragging?",
+            "tell me bout could you tell me the policy regarding ragging?"
+        ]
+    },
+    {
+        "id": 161,
+        "question": "I need to know what is the minimum cgpa needed to graduate?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "minimum",
+            "cgpa",
+            "needed",
+            "graduate"
+        ],
+        "variations": [
+            "I need to know what is the minimum cgpa needed to graduate?",
+            "I need to know what is the minimum cgpa needed to graduate?",
+            "tell me bout i need to know the minimum cgpa needed to graduate?"
+        ]
+    },
+    {
+        "id": 162,
+        "question": "Explain how many times can a course be repeated?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "many",
+            "times",
+            "course",
+            "repeated"
+        ],
+        "variations": [
+            "Explain how many times can a course be repeated?",
+            "Explain how many times can a course be repeated?",
+            "tell me bout explain how many times can a course be repeated?"
+        ]
+    },
+    {
+        "id": 163,
+        "question": "What is what is the grading system?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "grading",
+            "system"
+        ],
+        "variations": [
+            "What is what is the grading system?",
+            "What is what is the grading system?",
+            "tell me bout the grading system?"
+        ]
+    },
+    {
+        "id": 164,
+        "question": "Details on what happens if a student fails a course?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "happens",
+            "fails",
+            "course"
+        ],
+        "variations": [
+            "Details on what happens if a student fails a course?",
+            "Details on what happens if a student fails a course?",
+            "tell me bout details on what happens if a student fails a course?"
+        ]
+    },
+    {
+        "id": 165,
+        "question": "Could you tell me what are the rules for academic probation?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "academic",
+            "probation"
+        ],
+        "variations": [
+            "Could you tell me what are the rules for academic probation?",
+            "Could you tell me what are the rules for academic probation?",
+            "tell me bout could you tell me what are the rules for academic probation?"
+        ]
+    },
+    {
+        "id": 166,
+        "question": "I need to know what is the minimum gpa requirement?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "minimum"
+        ],
+        "variations": [
+            "I need to know what is the minimum gpa requirement?",
+            "I need to know what is the minimum gpa requirement?",
+            "tell me bout i need to know the minimum gpa requirement?"
+        ]
+    },
+    {
+        "id": 167,
+        "question": "Explain what is the credit hour requirement for graduation?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "credit",
+            "hour",
+            "graduation"
+        ],
+        "variations": [
+            "Explain what is the credit hour requirement for graduation?",
+            "Explain what is the credit hour requirement for graduation?",
+            "tell me bout explain the credit hour requirement for graduation?"
+        ]
+    },
+    {
+        "id": 168,
+        "question": "What is how to apply for a degree?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "apply",
+            "degree"
+        ],
+        "variations": [
+            "What is how to apply for a degree?",
+            "What is how to apply for a degree?",
+            "tell me bout apply for a degree?"
+        ]
+    },
+    {
+        "id": 169,
+        "question": "Details on can a student transfer to another department?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "transfer",
+            "another",
+            "department"
+        ],
+        "variations": [
+            "Details on can a student transfer to another department?",
+            "Details on can a student transfer to another department?",
+            "tell me bout details on can a student transfer to another department?"
+        ]
+    },
+    {
+        "id": 170,
+        "question": "Could you tell me what are the rules for dropping a course?",
+        "category": "academics",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "dropping",
+            "course"
+        ],
+        "variations": [
+            "Could you tell me what are the rules for dropping a course?",
+            "Could you tell me what are the rules for dropping a course?",
+            "tell me bout could you tell me what are the rules for dropping a course?"
+        ]
+    },
+    {
+        "id": 171,
+        "question": "I need to know what is the attendance policy?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "attendance"
+        ],
+        "variations": [
+            "I need to know what is the attendence policy?",
+            "I need to know what is the attendance policy?",
+            "tell me bout i need to know the attendance policy?"
+        ]
+    },
+    {
+        "id": 172,
+        "question": "Explain how much attendance is required to sit in exams?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "much",
+            "attendance",
+            "required",
+            "exams"
+        ],
+        "variations": [
+            "Explain how much attendence is required to sit in exams?",
+            "Explain how much attendance is required to sit in exams?",
+            "tell me bout explain how much attendance is required to sit in exams?"
+        ]
+    },
+    {
+        "id": 173,
+        "question": "What is what happens if i have short attendance?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "have",
+            "short",
+            "attendance"
+        ],
+        "variations": [
+            "What is what happens if i have short attendence?",
+            "What is what happens if i have short attendance?",
+            "tell me bout what happens if i have short attendance?"
+        ]
+    },
+    {
+        "id": 174,
+        "question": "Details on can i get attendance relaxation for medical reasons?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "attendance",
+            "relaxation",
+            "medical",
+            "reasons"
+        ],
+        "variations": [
+            "Details on can i get attendence relaxation for medical reasons?",
+            "Details on can i get attendance relaxation for medical reasons?",
+            "tell me bout details on can i get attendance relaxation for medical reasons?"
+        ]
+    },
+    {
+        "id": 175,
+        "question": "Could you tell me how is attendance calculated for late admissions?",
+        "category": "attendance",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "attendance",
+            "calculated",
+            "late",
+            "admissions"
+        ],
+        "variations": [
+            "Could you tell me how is attendence calculated for late admissions?",
+            "Could you tell me how is attendance calculated for late admissions?",
+            "tell me bout could you tell me how is attendance calculated for late admissions?"
+        ]
+    },
+    {
+        "id": 176,
+        "question": "I need to know what are the examination rules?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "examination"
+        ],
+        "variations": [
+            "I need to know what are the examination rules?",
+            "I need to know what are the examinaton rules?",
+            "tell me bout i need to know what are the examination rules?"
+        ]
+    },
+    {
+        "id": 177,
+        "question": "Explain what happens if a student is caught cheating in exams?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "happens",
+            "caught",
+            "cheating",
+            "exams"
+        ],
+        "variations": [
+            "Explain what happens if a student is caught cheating in exams?",
+            "Explain what happens if a student is caught cheating in exams?",
+            "tell me bout explain what happens if a student is caught cheating in exams?"
+        ]
+    },
+    {
+        "id": 178,
+        "question": "What is what are the rules for make-up exams?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "make-up",
+            "exams"
+        ],
+        "variations": [
+            "What is what are the rules for make-up exams?",
+            "What is what are the rules for make-up exams?",
+            "tell me bout what are the rules for make-up exams?"
+        ]
+    },
+    {
+        "id": 179,
+        "question": "Details on how can i apply for re-checking of my paper?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "apply",
+            "re-checking",
+            "paper"
+        ],
+        "variations": [
+            "Details on how can i apply for re-checking of my paper?",
+            "Details on how can i apply for re-checking of my paper?",
+            "tell me bout details on how can i apply for re-checking of my paper?"
+        ]
+    },
+    {
+        "id": 180,
+        "question": "Could you tell me what is the policy for unfair means?",
+        "category": "exams",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "unfair",
+            "means"
+        ],
+        "variations": [
+            "Could you tell me what is the policy for unfair means?",
+            "Could you tell me what is the policy for unfair means?",
+            "tell me bout could you tell me the policy for unfair means?"
+        ]
+    },
+    {
+        "id": 181,
+        "question": "I need to know what is the fee refund policy?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "refund"
+        ],
+        "variations": [
+            "I need to know what is the fee refund policy?",
+            "I need to know what is the fee refund policy?",
+            "tell me bout i need to know the fee refund policy?"
+        ]
+    },
+    {
+        "id": 182,
+        "question": "Explain what is the scholarship policy?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "scholarship"
+        ],
+        "variations": [
+            "Explain what is the scholarship policy?",
+            "Explain what is the scholorship policy?",
+            "tell me bout explain the scholarship policy?"
+        ]
+    },
+    {
+        "id": 183,
+        "question": "What is when is the tuition fee due?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "tuition"
+        ],
+        "variations": [
+            "What is when is the tuition fee due?",
+            "What is when is the tuition fee due?",
+            "tell me bout when is the tuition fee due?"
+        ]
+    },
+    {
+        "id": 184,
+        "question": "Details on what are the hostel charges?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "hostel",
+            "charges"
+        ],
+        "variations": [
+            "Details on what are the hostel charges?",
+            "Details on what are the hostel charges?",
+            "tell me bout details on what are the hostel charges?"
+        ]
+    },
+    {
+        "id": 185,
+        "question": "Could you tell me are there any fines for late fee payment?",
+        "category": "financial",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "there",
+            "fines",
+            "late",
+            "payment"
+        ],
+        "variations": [
+            "Could you tell me are there any fines for late fee payment?",
+            "Could you tell me are there any fines for late fee payment?",
+            "tell me bout could you tell me are there any fines for late fee payment?"
+        ]
+    },
+    {
+        "id": 186,
+        "question": "I need to know what are the thesis requirements?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "thesis",
+            "requirements"
+        ],
+        "variations": [
+            "I need to know what are the thesis requirements?",
+            "I need to know what are the thesis requirements?",
+            "tell me bout i need to know what are the thesis requirements?"
+        ]
+    },
+    {
+        "id": 187,
+        "question": "Explain how to select a research supervisor?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "select",
+            "research",
+            "supervisor"
+        ],
+        "variations": [
+            "Explain how to select a research supervisor?",
+            "Explain how to select a research supervisor?",
+            "tell me bout explain select a research supervisor?"
+        ]
+    },
+    {
+        "id": 188,
+        "question": "What is what is the procedure for thesis defense?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "procedure",
+            "thesis",
+            "defense"
+        ],
+        "variations": [
+            "What is what is the procedure for thesis defense?",
+            "What is what is the procedure for thesis defense?",
+            "tell me bout the procedure for thesis defense?"
+        ]
+    },
+    {
+        "id": 189,
+        "question": "Details on what are the guidelines for the gec committee?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "guidelines",
+            "committee"
+        ],
+        "variations": [
+            "Details on what are the guidelines for the gec committee?",
+            "Details on what are the guidelines for the gec committee?",
+            "tell me bout details on what are the guidelines for the gec committee?"
+        ]
+    },
+    {
+        "id": 190,
+        "question": "Could you tell me what happens if i fail my thesis defense?",
+        "category": "research",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "happens",
+            "fail",
+            "thesis",
+            "defense"
+        ],
+        "variations": [
+            "Could you tell me what happens if i fail my thesis defense?",
+            "Could you tell me what happens if i fail my thesis defense?",
+            "tell me bout could you tell me what happens if i fail my thesis defense?"
+        ]
+    },
+    {
+        "id": 191,
+        "question": "I need to know what is the semester registration process?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "semester",
+            "registration"
+        ],
+        "variations": [
+            "I need to know what is the semster registration process?",
+            "I need to know what is the semester registration process?",
+            "tell me bout i need to know the semester registration process?"
+        ]
+    },
+    {
+        "id": 192,
+        "question": "Explain how do i freeze my semester?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "freeze",
+            "semester"
+        ],
+        "variations": [
+            "Explain how do i freeze my semster?",
+            "Explain how do i freeze my semester?",
+            "tell me bout explain how do i freeze my semester?"
+        ]
+    },
+    {
+        "id": 193,
+        "question": "What is what is the procedure for withdrawal from a degree?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "procedure",
+            "withdrawal",
+            "from",
+            "degree"
+        ],
+        "variations": [
+            "What is what is the procedure for withdrawal from a degree?",
+            "What is what is the procedure for withdrawal from a degree?",
+            "tell me bout the procedure for withdrawal from a degree?"
+        ]
+    },
+    {
+        "id": 194,
+        "question": "Details on how do i get my official transcript?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "official",
+            "transcript"
+        ],
+        "variations": [
+            "Details on how do i get my official transcript?",
+            "Details on how do i get my official transcript?",
+            "tell me bout details on how do i get my official transcript?"
+        ]
+    },
+    {
+        "id": 195,
+        "question": "Could you tell me what is the process for readmission?",
+        "category": "admin",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "readmission"
+        ],
+        "variations": [
+            "Could you tell me what is the process for readmission?",
+            "Could you tell me what is the process for readmission?",
+            "tell me bout could you tell me the process for readmission?"
+        ]
+    },
+    {
+        "id": 196,
+        "question": "I need to know what is the student code of conduct?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "need",
+            "know",
+            "code",
+            "conduct"
+        ],
+        "variations": [
+            "I need to know what is the student code of conduct?",
+            "I need to know what is the student code of conduct?",
+            "tell me bout i need to know the student code of conduct?"
+        ]
+    },
+    {
+        "id": 197,
+        "question": "Explain what are the hostel rules?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "explain",
+            "hostel"
+        ],
+        "variations": [
+            "Explain what are the hostel rules?",
+            "Explain what are the hostel rules?",
+            "tell me bout explain what are the hostel rules?"
+        ]
+    },
+    {
+        "id": 198,
+        "question": "What is what happens in case of a disciplinary violation?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "happens",
+            "case",
+            "disciplinary",
+            "violation"
+        ],
+        "variations": [
+            "What is what happens in case of a disciplinary violation?",
+            "What is what happens in case of a disciplinary violation?",
+            "tell me bout what happens in case of a disciplinary violation?"
+        ]
+    },
+    {
+        "id": 199,
+        "question": "Details on can a student be rusticated?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "details",
+            "rusticated"
+        ],
+        "variations": [
+            "Details on can a student be rusticated?",
+            "Details on can a student be rusticated?",
+            "tell me bout details on can a student be rusticated?"
+        ]
+    },
+    {
+        "id": 200,
+        "question": "Could you tell me what is the policy regarding ragging?",
+        "category": "discipline",
+        "source": "both",
+        "expected_keywords": [
+            "could",
+            "tell",
+            "regarding",
+            "ragging"
+        ],
+        "variations": [
+            "Could you tell me what is the policy regarding ragging?",
+            "Could you tell me what is the policy regarding ragging?",
+            "tell me bout could you tell me the policy regarding ragging?"
+        ]
+    }
+]
