@@ -269,6 +269,57 @@ class HybridRetriever:
 
         return results
 
+    def retrieve_dual_source(
+        self,
+        query: str,
+        method: str = "hybrid",
+        top_k_per_source: int = 3,
+    ) -> dict:
+        """
+        Retrieve chunks from BOTH UG and PG handbooks for comparative answers.
+
+        Ensures representation from each source so the LLM can distinguish
+        between undergraduate and postgraduate policies.
+
+        Args:
+            query: Raw user query string
+            method: Retrieval method to use
+            top_k_per_source: Number of top chunks per source (UG/PG)
+
+        Returns:
+            Dict with 'ug_results', 'pg_results', 'all_results', 'timings'
+        """
+        # Retrieve more chunks than needed to ensure both sources are covered
+        total_k = top_k_per_source * 4
+        full_result = self.retrieve(query, method=method, top_k=total_k)
+
+        # Split by source
+        ug_results = [r for r in full_result["results"] if r.get("source") == "ug"]
+        pg_results = [r for r in full_result["results"] if r.get("source") == "pg"]
+
+        # Take top-k per source
+        ug_results = ug_results[:top_k_per_source]
+        pg_results = pg_results[:top_k_per_source]
+
+        # Re-rank within each source
+        for i, r in enumerate(ug_results):
+            r["rank"] = i + 1
+        for i, r in enumerate(pg_results):
+            r["rank"] = i + 1
+
+        # Combine for the answer generator
+        all_results = ug_results + pg_results
+
+        return {
+            "ug_results": ug_results,
+            "pg_results": pg_results,
+            "all_results": all_results,
+            "timings": full_result["timings"],
+            "method": full_result["method"],
+            "query": query,
+            "processed_query": full_result["processed_query"],
+        }
+
     def get_stats(self) -> dict:
         """Return system statistics."""
         stats = {
@@ -282,3 +333,4 @@ class HybridRetriever:
         if self.pagerank and self.pagerank._is_fitted:
             stats["pagerank"] = self.pagerank.get_graph_stats()
         return stats
+

@@ -28,14 +28,20 @@ except LookupError:
 # System prompt for grounded academic QA
 # ---------------------------------------------------------------------------
 
-SYSTEM_PROMPT = """You are an academic policy assistant for NUST (National University of Sciences & Technology). Your role is to answer student questions about academic policies based ONLY on the provided handbook excerpts.
+SYSTEM_PROMPT = """You are an academic policy assistant for NUST (National University of Sciences & Technology). You answer student questions about academic policies based ONLY on the provided handbook excerpts.
 
-Rules:
-1. ONLY use information from the provided context — do not make up information
-2. Cite specific sections and page numbers when possible (e.g., "According to Section 3.2, page 15...")
-3. If the context doesn't contain enough information to fully answer, say so clearly
-4. Be concise but thorough — students need precise policy information
-5. Use bullet points for multiple rules or requirements"""
+IMPORTANT RULES:
+1. ONLY use information from the provided context — NEVER make up information.
+2. ALWAYS distinguish between UG (Undergraduate/Bachelor's) and PG (Postgraduate/Master's/PhD) policies when BOTH sources are provided.
+3. Structure your answer clearly:
+   - Start with "📘 For Undergraduate (Bachelor's) Students:" and list the relevant UG policy.
+   - Then "📗 For Postgraduate (Master's/PhD) Students:" and list the relevant PG policy.
+   - If a policy is the same for both, state that explicitly.
+   - If the context only covers one level (UG or PG), answer only for that level.
+4. Cite specific sections and page numbers (e.g., "(UG Handbook, p.23)").
+5. Be concise but thorough — students need precise numbers, grades, and percentages.
+6. Use bullet points for multiple rules or requirements.
+7. If the context doesn't contain enough information, say so clearly."""
 
 
 class AnswerGenerator:
@@ -254,24 +260,69 @@ class AnswerGenerator:
         context = "\n\n---\n\n".join(context_parts)
         return context, evidence
 
+    def _build_dual_source_context(self, results: list[dict]) -> tuple[str, list[dict]]:
+        """
+        Build context organized by source (UG vs PG) for structured answers.
+        This helps the LLM distinguish and compare policies across degree levels.
+        """
+        ug_parts = []
+        pg_parts = []
+        evidence = []
+
+        for r in results:
+            source = r.get("source", "unknown")
+            source_label = "UG (Undergraduate)" if source == "ug" else "PG (Postgraduate)"
+            pages = f"p.{r.get('page_start', '?')}"
+            section = r.get("section", "")
+            text = r.get("text", "")
+
+            entry = f"[{source_label} Handbook, {pages}, Section: {section}]\n{text}"
+
+            if source == "ug":
+                ug_parts.append(entry)
+            else:
+                pg_parts.append(entry)
+
+            evidence.append({
+                "sentence": text[:200] + "..." if len(text) > 200 else text,
+                "source": source,
+                "page_start": r.get("page_start", 0),
+                "section": section,
+            })
+
+        context = ""
+        if ug_parts:
+            context += "=== UG (UNDERGRADUATE / BACHELOR'S) HANDBOOK EXCERPTS ===\n\n"
+            context += "\n\n---\n\n".join(ug_parts)
+        if pg_parts:
+            if context:
+                context += "\n\n\n"
+            context += "=== PG (POSTGRADUATE / MASTER'S & PhD) HANDBOOK EXCERPTS ===\n\n"
+            context += "\n\n---\n\n".join(pg_parts)
+
+        return context, evidence
+
     def _generate_local_llm(self, query: str, results: list[dict]) -> dict:
         """
         Generate answer using local Qwen2.5-3B-Instruct model.
         Runs on Apple Silicon MPS for fast inference.
+        Uses dual-source context to give structured UG vs PG answers.
         """
         import torch
 
         # Lazy load model on first call
         self._init_local_llm()
 
-        context, evidence = self._build_context(results)
+        # Use dual-source context for structured UG vs PG answers
+        context, evidence = self._build_dual_source_context(results)
 
-        user_message = f"""Context from NUST handbooks:
+        user_message = f"""Here are excerpts from NUST's UG (Undergraduate) and PG (Postgraduate) handbooks:
+
 {context}
 
 Student's Question: {query}
 
-Answer based ONLY on the context above:"""
+Provide a clear, structured answer that distinguishes between UG (Bachelor's) and PG (Master's/PhD) policies where applicable. Use the exact numbers, grades, and percentages from the handbooks:"""
 
         # Build chat messages in Qwen format
         messages = [
@@ -330,14 +381,15 @@ Answer based ONLY on the context above:"""
         Generate answer using OpenAI API with retrieved context.
         The answer must be grounded in the retrieved content.
         """
-        context, evidence = self._build_context(results)
+        context, evidence = self._build_dual_source_context(results)
 
-        user_message = f"""Context from NUST handbooks:
+        user_message = f"""Here are excerpts from NUST's UG (Undergraduate) and PG (Postgraduate) handbooks:
+
 {context}
 
 Student's Question: {query}
 
-Answer:"""
+Provide a clear, structured answer that distinguishes between UG (Bachelor's) and PG (Master's/PhD) policies where applicable. Use the exact numbers, grades, and percentages from the handbooks:"""
 
         try:
             response = self._openai_client.chat.completions.create(

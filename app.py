@@ -388,9 +388,26 @@ with tab_qa:
         else:
             gen = AnswerGenerator(mode="extractive")
 
-        with st.spinner("🔍 Retrieving & generating answer..."):
-            result = retriever.retrieve(query, method=method, top_k=top_k)
-            answer_data = gen.generate(query, result["results"])
+        # For LLM modes, use dual-source retrieval (UG + PG separately)
+        use_dual = answer_mode in ("local_llm", "openai")
+
+        with st.spinner("🔍 Retrieving from both handbooks & generating answer..."):
+            if use_dual:
+                dual_result = retriever.retrieve_dual_source(
+                    query, method=method, top_k_per_source=top_k
+                )
+                all_results = dual_result["all_results"]
+                answer_data = gen.generate(query, all_results)
+                timings = dual_result["timings"]
+                ug_results = dual_result["ug_results"]
+                pg_results = dual_result["pg_results"]
+            else:
+                result = retriever.retrieve(query, method=method, top_k=top_k)
+                answer_data = gen.generate(query, result["results"])
+                timings = result["timings"]
+                all_results = result["results"]
+                ug_results = [r for r in all_results if r.get("source") == "ug"]
+                pg_results = [r for r in all_results if r.get("source") == "pg"]
 
         # Method badge
         badge_class = f"badge-{method}" if method != "hybrid" else "badge-hybrid"
@@ -398,21 +415,34 @@ with tab_qa:
         if method == "hybrid":
             method_label = "HYBRID (RRF)"
 
-        # Answer display
-        st.markdown(f"""
-        <div class="answer-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <span style="font-size: 0.9rem; color: rgba(255,255,255,0.6); font-weight: 500;">Generated Answer</span>
-                <span class="method-badge {badge_class}">{method_label}</span>
+        # Answer display — use markdown for LLM answers (they have emoji headers)
+        if answer_mode in ("local_llm", "openai"):
+            st.markdown(f"""
+            <div class="answer-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <span style="font-size: 0.9rem; color: rgba(255,255,255,0.6); font-weight: 500;">Generated Answer</span>
+                    <span class="method-badge {badge_class}">{method_label}</span>
+                </div>
             </div>
-            <p style="font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,0.9); margin: 0;">
-                {answer_data['answer']}
-            </p>
-            <div style="margin-top: 12px; font-size: 0.75rem; color: rgba(255,255,255,0.35);">
-                Method: {answer_data['method']} · Latency: {result['timings'].get('total_ms', 0):.1f}ms
+            """, unsafe_allow_html=True)
+            # Render LLM answer with markdown for proper emoji/heading formatting
+            st.markdown(answer_data['answer'])
+            st.caption(f"Method: {answer_data['method']} · Latency: {timings.get('total_ms', 0):.1f}ms")
+        else:
+            st.markdown(f"""
+            <div class="answer-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <span style="font-size: 0.9rem; color: rgba(255,255,255,0.6); font-weight: 500;">Generated Answer</span>
+                    <span class="method-badge {badge_class}">{method_label}</span>
+                </div>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,0.9); margin: 0;">
+                    {answer_data['answer']}
+                </p>
+                <div style="margin-top: 12px; font-size: 0.75rem; color: rgba(255,255,255,0.35);">
+                    Method: {answer_data['method']} · Latency: {timings.get('total_ms', 0):.1f}ms
+                </div>
             </div>
-        </div>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
 
         # Timing metrics
         st.markdown("#### ⏱️ Performance Metrics")
@@ -421,47 +451,63 @@ with tab_qa:
         timing_keys = ["total_ms", "tfidf_ms", "minhash_ms", "simhash_ms"]
         for i, (label, key) in enumerate(zip(timing_labels, timing_keys)):
             with timing_cols[i]:
-                val = result["timings"].get(key, 0)
+                val = timings.get(key, 0)
                 st.metric(label, f"{val:.1f} ms")
 
-        # Retrieved chunks
-        st.markdown(f"#### 📄 Top-{top_k} Retrieved Chunks")
-        for r in result["results"]:
-            source_label = r.get("source", "?").upper()
-            pages = f"p.{r.get('page_start', '?')}–{r.get('page_end', '?')}"
-            section = r.get("section", "N/A")
-            score = r.get("score", 0)
-            boost = r.get("pagerank_boost", 1.0)
+        # Retrieved chunks — grouped by source for clarity
+        def _render_chunks(chunks, label):
+            if not chunks:
+                st.info(f"No {label} chunks retrieved for this query.")
+                return
+            for r in chunks:
+                source_label = r.get("source", "?").upper()
+                pages = f"p.{r.get('page_start', '?')}–{r.get('page_end', '?')}"
+                section = r.get("section", "N/A")
+                score = r.get("score", 0)
+                boost = r.get("pagerank_boost", 1.0)
 
-            # Score color
-            score_pct = min(score * 100, 100) if method != "hybrid" else min(score * 1000, 100)
-            score_color = "#4ECDC4" if score_pct > 50 else "#45B7D1" if score_pct > 25 else "#FF6B6B"
+                score_pct = min(score * 100, 100) if method != "hybrid" else min(score * 1000, 100)
+                score_color = "#4ECDC4" if score_pct > 50 else "#45B7D1" if score_pct > 25 else "#FF6B6B"
 
-            contributing = ""
-            if "contributing_methods" in r:
-                contributing = " · ".join(r["contributing_methods"])
+                contributing = ""
+                if "contributing_methods" in r:
+                    contributing = " · ".join(r["contributing_methods"])
 
-            st.markdown(f"""
-            <div class="chunk-card">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <span style="font-weight: 600; color: #4ECDC4;">#{r.get('rank', '?')}</span>
-                        <span style="color: rgba(255,255,255,0.5); margin-left: 8px; font-size: 0.8rem;">
-                            {source_label} Handbook · {pages} · {section}
-                        </span>
+                st.markdown(f"""
+                <div class="chunk-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span style="font-weight: 600; color: #4ECDC4;">#{r.get('rank', '?')}</span>
+                            <span style="color: rgba(255,255,255,0.5); margin-left: 8px; font-size: 0.8rem;">
+                                {source_label} Handbook · {pages} · {section}
+                            </span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="color: {score_color}; font-weight: 600;">Score: {score:.4f}</span>
+                            {"<br><span style='font-size: 0.7rem; color: rgba(255,255,255,0.4);'>PageRank boost: " + f"{boost:.2f}" + "</span>" if boost != 1.0 else ""}
+                            {"<br><span style='font-size: 0.7rem; color: rgba(255,255,255,0.4);'>Methods: " + contributing + "</span>" if contributing else ""}
+                        </div>
                     </div>
-                    <div style="text-align: right;">
-                        <span style="color: {score_color}; font-weight: 600;">Score: {score:.4f}</span>
-                        {"<br><span style='font-size: 0.7rem; color: rgba(255,255,255,0.4);'>PageRank boost: " + f"{boost:.2f}" + "</span>" if boost != 1.0 else ""}
-                        {"<br><span style='font-size: 0.7rem; color: rgba(255,255,255,0.4);'>Methods: " + contributing + "</span>" if contributing else ""}
-                    </div>
+                    <p style="margin-top: 12px; color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.6;">
+                        {r.get('text', '')[:500]}{'...' if len(r.get('text', '')) > 500 else ''}
+                    </p>
+                    <div class="score-bar" style="width: {score_pct}%; background: linear-gradient(90deg, {score_color}, transparent);"></div>
                 </div>
-                <p style="margin-top: 12px; color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.6;">
-                    {r.get('text', '')[:500]}{'...' if len(r.get('text', '')) > 500 else ''}
-                </p>
-                <div class="score-bar" style="width: {score_pct}%; background: linear-gradient(90deg, {score_color}, transparent);"></div>
-            </div>
-            """, unsafe_allow_html=True)
+                """, unsafe_allow_html=True)
+
+        # Show chunks grouped by source
+        st.markdown("#### 📄 Retrieved Chunks")
+        ug_tab, pg_tab, all_tab = st.tabs([
+            f"📘 UG Handbook ({len(ug_results)})",
+            f"📗 PG Handbook ({len(pg_results)})",
+            f"📋 All ({len(all_results)})",
+        ])
+        with ug_tab:
+            _render_chunks(ug_results, "UG (Undergraduate)")
+        with pg_tab:
+            _render_chunks(pg_results, "PG (Postgraduate)")
+        with all_tab:
+            _render_chunks(all_results, "")
 
         # Evidence
         if answer_data.get("evidence"):
