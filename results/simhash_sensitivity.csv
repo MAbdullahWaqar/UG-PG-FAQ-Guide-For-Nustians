@@ -1,36 +1,36 @@
 hamming_threshold,query,precision_at_5,chunks_within_threshold,latency_ms
-2,What is the minimum GPA requirement?,0.8,0,5.095005035400391
-2,What happens if a student fails a course?,0.4,0,4.444122314453125
-2,What is the attendance policy?,0.2,0,4.623174667358398
-2,How many times can a course be repeated?,0.6,0,4.513025283813477
-2,What is the fee refund policy?,0.4,0,4.484891891479492
-4,What is the minimum GPA requirement?,0.8,0,5.663871765136719
-4,What happens if a student fails a course?,0.4,0,5.307912826538086
-4,What is the attendance policy?,0.2,0,4.77910041809082
-4,How many times can a course be repeated?,0.6,0,4.807949066162109
-4,What is the fee refund policy?,0.4,0,4.75001335144043
-8,What is the minimum GPA requirement?,0.8,0,5.090951919555664
-8,What happens if a student fails a course?,0.4,0,4.416942596435547
-8,What is the attendance policy?,0.2,0,4.473209381103516
-8,How many times can a course be repeated?,0.6,0,4.30607795715332
-8,What is the fee refund policy?,0.4,0,4.631996154785156
-12,What is the minimum GPA requirement?,0.8,0,5.061864852905273
-12,What happens if a student fails a course?,0.4,0,4.410266876220703
-12,What is the attendance policy?,0.2,0,9.255170822143555
-12,How many times can a course be repeated?,0.6,0,31.177997589111328
-12,What is the fee refund policy?,0.4,0,12.717962265014648
-16,What is the minimum GPA requirement?,0.8,0,4.988193511962891
-16,What happens if a student fails a course?,0.4,0,4.3659210205078125
-16,What is the attendance policy?,0.2,0,4.42194938659668
-16,How many times can a course be repeated?,0.6,0,4.277944564819336
-16,What is the fee refund policy?,0.4,0,4.359960556030273
-24,What is the minimum GPA requirement?,0.8,7,5.036115646362305
-24,What happens if a student fails a course?,0.4,4,4.569768905639648
-24,What is the attendance policy?,0.2,12,4.518270492553711
-24,How many times can a course be repeated?,0.6,5,4.575014114379883
-24,What is the fee refund policy?,0.4,5,4.372835159301758
-32,What is the minimum GPA requirement?,0.8,107,5.033969879150391
-32,What happens if a student fails a course?,0.4,106,4.398822784423828
-32,What is the attendance policy?,0.2,112,4.704952239990234
-32,How many times can a course be repeated?,0.6,97,4.452943801879883
-32,What is the fee refund policy?,0.4,101,4.645109176635742
+2,What is the minimum GPA requirement?,0.2,0,3.2749176025390625
+2,What happens if a student fails a course?,0.6,0,2.7589797973632812
+2,What is the attendance policy?,0.2,0,2.640962600708008
+2,How many times can a course be repeated?,0.0,0,2.6772022247314453
+2,What is the fee refund policy?,0.0,0,2.889871597290039
+4,What is the minimum GPA requirement?,0.2,0,3.407001495361328
+4,What happens if a student fails a course?,0.6,0,4.1370391845703125
+4,What is the attendance policy?,0.2,0,3.0829906463623047
+4,How many times can a course be repeated?,0.0,0,3.6177635192871094
+4,What is the fee refund policy?,0.0,0,3.1931400299072266
+8,What is the minimum GPA requirement?,0.2,0,3.2477378845214844
+8,What happens if a student fails a course?,0.6,0,2.9566287994384766
+8,What is the attendance policy?,0.2,0,2.863168716430664
+8,How many times can a course be repeated?,0.0,0,2.850055694580078
+8,What is the fee refund policy?,0.0,0,2.885103225708008
+12,What is the minimum GPA requirement?,0.2,0,3.165006637573242
+12,What happens if a student fails a course?,0.6,0,2.882242202758789
+12,What is the attendance policy?,0.2,0,2.8069019317626953
+12,How many times can a course be repeated?,0.0,0,2.9010772705078125
+12,What is the fee refund policy?,0.0,0,2.8989315032958984
+16,What is the minimum GPA requirement?,0.2,0,3.5042762756347656
+16,What happens if a student fails a course?,0.6,0,3.2057762145996094
+16,What is the attendance policy?,0.2,0,3.0388832092285156
+16,How many times can a course be repeated?,0.0,0,3.004312515258789
+16,What is the fee refund policy?,0.0,0,3.0422210693359375
+24,What is the minimum GPA requirement?,0.2,17,3.374814987182617
+24,What happens if a student fails a course?,0.6,16,3.3609867095947266
+24,What is the attendance policy?,0.2,17,3.0820369720458984
+24,How many times can a course be repeated?,0.0,10,3.081083297729492
+24,What is the fee refund policy?,0.0,22,3.0901432037353516
+32,What is the minimum GPA requirement?,0.2,296,3.422975540161133
+32,What happens if a student fails a course?,0.6,395,3.1709671020507812
+32,What is the attendance policy?,0.2,271,3.0820369720458984
+32,How many times can a course be repeated?,0.0,275,3.175973892211914
+32,What is the fee refund policy?,0.0,352,3.0829906463623047

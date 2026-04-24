@@ -21,31 +21,33 @@ for resource in ["punkt", "punkt_tab", "stopwords", "wordnet"]:
 
 
 # ---------------------------------------------------------------------------
-# Synonym Expansion Map
+# Synonym Expansion Map (trimmed — only core equivalences)
 # ---------------------------------------------------------------------------
 
 SYNONYM_MAP = {
-    "gpa":        ["gpa", "cgpa", "grade point average", "cumulative gpa"],
-    "cgpa":       ["gpa", "cgpa", "grade point average", "cumulative gpa"],
-    "fail":       ["fail", "failure", "failing", "failed"],
-    "failure":    ["fail", "failure", "failing", "failed"],
-    "repeat":     ["repeat", "retake", "re-enroll", "repeated"],
-    "retake":     ["repeat", "retake", "re-enroll"],
-    "attendance": ["attendance", "absent", "absence", "present", "presence"],
-    "absent":     ["attendance", "absent", "absence"],
-    "drop":       ["drop", "withdraw", "withdrawal", "dropped"],
+    "gpa":        ["gpa", "cgpa"],
+    "cgpa":       ["gpa", "cgpa"],
+    "fail":       ["fail", "failure", "failed"],
+    "failure":    ["fail", "failure", "failed"],
+    "failed":     ["fail", "failure", "failed"],
+    "repeat":     ["repeat", "retake", "repeated", "repetition"],
+    "retake":     ["repeat", "retake", "repeated", "repetition"],
+    "repetition": ["repeat", "retake", "repeated", "repetition"],
+    "drop":       ["drop", "withdraw", "withdrawal"],
     "withdraw":   ["drop", "withdraw", "withdrawal"],
-    "semester":   ["semester", "term", "session"],
-    "thesis":     ["thesis", "dissertation", "research"],
-    "fee":        ["fee", "fees", "tuition", "charges", "payment"],
-    "scholarship":["scholarship", "financial aid", "merit"],
-    "probation":  ["probation", "academic warning", "warning"],
-    "expel":      ["expel", "expulsion", "rustication", "dismiss"],
-    "credit":     ["credit", "credits", "credit hour", "credit hours", "ch"],
-    "exam":       ["exam", "examination", "test", "midterm", "final"],
-    "degree":     ["degree", "program", "programme", "bachelor", "master"],
-    "transfer":   ["transfer", "migration", "shift"],
+    "withdrawal": ["drop", "withdraw", "withdrawal"],
+    "fee":        ["fee", "fees", "tuition"],
+    "fees":       ["fee", "fees", "tuition"],
+    "tuition":    ["fee", "fees", "tuition"],
+    "thesis":     ["thesis", "dissertation"],
+    "exam":       ["exam", "examination"],
+    "examination":["exam", "examination"],
+    "probation":  ["probation", "warning"],
 }
+
+# NOTE: We do NOT expand "attendance", "semester", "credit", "degree", etc.
+# because they are already common in academic documents and expansion
+# just adds noise. We only expand where there's a genuine vocabulary gap.
 
 
 # ---------------------------------------------------------------------------
@@ -55,25 +57,28 @@ SYNONYM_MAP = {
 _stop_words = set(stopwords.words("english"))
 _lemmatizer = WordNetLemmatizer()
 
-# Additional domain stopwords that add noise
-_domain_stop = {"university", "nust", "pakistan", "islamabad", "page", "student", "shall"}
+# VERY minimal domain stopwords — be careful not to remove query-important words
+_domain_stop = {"nust", "page", "handbook"}
 
 
 def preprocess_text(text: str, expand_synonyms: bool = True) -> str:
     """
-    Preprocess text: lowercase, remove punctuation, tokenize,
+    Preprocess text: lowercase, clean, tokenize,
     remove stopwords, lemmatize, and optionally expand synonyms.
 
-    Returns a cleaned string suitable for TF-IDF / SimHash.
+    CRITICAL: We KEEP numbers (2.0, 75, 3.50) because they encode
+    policy thresholds (GPA requirements, attendance percentages, etc.)
     """
     if not text:
         return ""
 
     text = text.lower()
-    # Remove punctuation but keep hyphens within words
-    text = re.sub(r"[^\w\s\-]", " ", text)
-    # Remove numbers that are standalone (keep numbers in context like "3.0")
-    text = re.sub(r"\b\d+\b", "", text)
+    # Remove punctuation but keep hyphens within words and decimal numbers
+    text = re.sub(r"[^\w\s\-\.]", " ", text)
+    # Clean up periods that are NOT part of decimal numbers (e.g., end of sentence)
+    text = re.sub(r"\.(\s|$)", r" \1", text)
+    # Clean up remaining odd whitespace
+    text = re.sub(r"\s+", " ", text)
 
     tokens = word_tokenize(text)
 
@@ -82,20 +87,25 @@ def preprocess_text(text: str, expand_synonyms: bool = True) -> str:
         expanded = []
         for token in tokens:
             if token in SYNONYM_MAP:
+                # Add all synonyms (deduped)
                 expanded.extend(SYNONYM_MAP[token])
             else:
                 expanded.append(token)
         tokens = expanded
 
     # Remove stopwords and lemmatize
-    clean_tokens = [
-        _lemmatizer.lemmatize(w)
-        for w in tokens
-        if w not in _stop_words
-        and w not in _domain_stop
-        and len(w) > 1
-        and w not in string.punctuation
-    ]
+    # KEEP: numbers, domain terms like "student", "minimum", "attendance"
+    clean_tokens = []
+    for w in tokens:
+        if w in _stop_words and w not in ("no", "not"):
+            continue
+        if w in _domain_stop:
+            continue
+        if len(w) < 2 and not w.isdigit():
+            continue
+        if w in string.punctuation:
+            continue
+        clean_tokens.append(_lemmatizer.lemmatize(w))
 
     return " ".join(clean_tokens)
 

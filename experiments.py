@@ -155,7 +155,7 @@ def main():
     print("=" * 60)
 
     from src.answer_generator import AnswerGenerator
-    generator = AnswerGenerator(use_llm=False)
+    generator = AnswerGenerator(mode="extractive")
 
     for q in GROUND_TRUTH_QUERIES[:5]:
         print(f"\n❓ Query: {q['query']}")

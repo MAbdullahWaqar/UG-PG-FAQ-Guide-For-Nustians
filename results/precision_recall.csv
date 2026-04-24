@@ -1,181 +1,181 @@
 query,category,method,k,precision,recall,relevant_retrieved,latency_ms
-What is the minimum GPA requirement?,academics,tfidf,3,1.0,1.0,3,1.661062240600586
-What is the minimum GPA requirement?,academics,tfidf,5,1.0,1.0,5,1.45721435546875
-What is the minimum GPA requirement?,academics,tfidf,10,1.0,1.0,10,1.3129711151123047
-What is the minimum GPA requirement?,academics,minhash,3,1.0,1.0,3,1.2700557708740234
-What is the minimum GPA requirement?,academics,minhash,5,1.0,1.0,5,1.1439323425292969
-What is the minimum GPA requirement?,academics,minhash,10,1.0,1.0,10,1.165151596069336
-What is the minimum GPA requirement?,academics,simhash,3,1.0,1.0,3,5.089998245239258
-What is the minimum GPA requirement?,academics,simhash,5,0.8,0.8,4,4.574775695800781
-What is the minimum GPA requirement?,academics,simhash,10,0.8,0.8,8,4.744768142700195
-What is the minimum GPA requirement?,academics,hybrid,3,1.0,1.0,3,6.801843643188477
-What is the minimum GPA requirement?,academics,hybrid,5,1.0,1.0,5,6.68787956237793
-What is the minimum GPA requirement?,academics,hybrid,10,1.0,1.0,10,6.723880767822266
-What happens if a student fails a course?,academics,tfidf,3,1.0,1.0,3,1.1630058288574219
-What happens if a student fails a course?,academics,tfidf,5,1.0,1.0,5,1.306772232055664
-What happens if a student fails a course?,academics,tfidf,10,1.0,1.0,10,1.232147216796875
-What happens if a student fails a course?,academics,minhash,3,0.6666666666666666,0.6666666666666666,2,1.3039112091064453
-What happens if a student fails a course?,academics,minhash,5,0.8,0.8,4,1.2509822845458984
-What happens if a student fails a course?,academics,minhash,10,0.6,0.6,6,1.293182373046875
-What happens if a student fails a course?,academics,simhash,3,0.3333333333333333,0.3333333333333333,1,4.59599494934082
-What happens if a student fails a course?,academics,simhash,5,0.4,0.4,2,4.408836364746094
-What happens if a student fails a course?,academics,simhash,10,0.4,0.4,4,4.300117492675781
-What happens if a student fails a course?,academics,hybrid,3,1.0,1.0,3,6.722211837768555
-What happens if a student fails a course?,academics,hybrid,5,1.0,1.0,5,6.583929061889648
-What happens if a student fails a course?,academics,hybrid,10,0.9,0.9,9,6.736993789672852
-What is the attendance policy?,policy,tfidf,3,1.0,1.0,3,1.1599063873291016
-What is the attendance policy?,policy,tfidf,5,1.0,1.0,5,1.1510848999023438
-What is the attendance policy?,policy,tfidf,10,1.0,1.0,10,1.1639595031738281
-What is the attendance policy?,policy,minhash,3,1.0,1.0,3,1.0638236999511719
-What is the attendance policy?,policy,minhash,5,1.0,1.0,5,1.0287761688232422
-What is the attendance policy?,policy,minhash,10,0.9,0.9,9,1.055002212524414
-What is the attendance policy?,policy,simhash,3,0.0,0.0,0,4.780054092407227
-What is the attendance policy?,policy,simhash,5,0.2,0.2,1,4.559040069580078
-What is the attendance policy?,policy,simhash,10,0.4,0.4,4,4.549980163574219
-What is the attendance policy?,policy,hybrid,3,1.0,1.0,3,6.721019744873047
-What is the attendance policy?,policy,hybrid,5,1.0,1.0,5,6.491184234619141
-What is the attendance policy?,policy,hybrid,10,1.0,1.0,10,8.356094360351562
-How many times can a course be repeated?,academics,tfidf,3,1.0,1.0,3,1.4841556549072266
-How many times can a course be repeated?,academics,tfidf,5,1.0,1.0,5,1.2340545654296875
-How many times can a course be repeated?,academics,tfidf,10,1.0,1.0,10,1.21307373046875
-How many times can a course be repeated?,academics,minhash,3,1.0,1.0,3,1.3761520385742188
-How many times can a course be repeated?,academics,minhash,5,1.0,1.0,5,1.3229846954345703
-How many times can a course be repeated?,academics,minhash,10,1.0,1.0,10,1.291036605834961
-How many times can a course be repeated?,academics,simhash,3,0.6666666666666666,0.6666666666666666,2,4.742860794067383
-How many times can a course be repeated?,academics,simhash,5,0.6,0.6,3,4.471063613891602
-How many times can a course be repeated?,academics,simhash,10,0.5,0.5,5,4.368066787719727
-How many times can a course be repeated?,academics,hybrid,3,1.0,1.0,3,7.848978042602539
-How many times can a course be repeated?,academics,hybrid,5,1.0,1.0,5,7.161140441894531
-How many times can a course be repeated?,academics,hybrid,10,0.9,0.9,9,7.6961517333984375
-What is the fee refund policy?,financial,tfidf,3,1.0,1.0,3,1.4882087707519531
-What is the fee refund policy?,financial,tfidf,5,1.0,1.0,5,1.3580322265625
-What is the fee refund policy?,financial,tfidf,10,1.0,1.0,10,1.2562274932861328
-What is the fee refund policy?,financial,minhash,3,1.0,1.0,3,1.2040138244628906
-What is the fee refund policy?,financial,minhash,5,0.8,0.8,4,1.1348724365234375
-What is the fee refund policy?,financial,minhash,10,0.8,0.8,8,1.1098384857177734
-What is the fee refund policy?,financial,simhash,3,0.6666666666666666,0.6666666666666666,2,5.019187927246094
-What is the fee refund policy?,financial,simhash,5,0.4,0.4,2,4.9152374267578125
-What is the fee refund policy?,financial,simhash,10,0.4,0.4,4,4.625797271728516
-What is the fee refund policy?,financial,hybrid,3,1.0,1.0,3,6.735801696777344
-What is the fee refund policy?,financial,hybrid,5,0.8,0.8,4,6.640195846557617
-What is the fee refund policy?,financial,hybrid,10,0.9,0.9,9,6.604909896850586
-How to apply for a degree?,graduation,tfidf,3,1.0,1.0,3,1.1768341064453125
-How to apply for a degree?,graduation,tfidf,5,0.8,0.8,4,1.138925552368164
-How to apply for a degree?,graduation,tfidf,10,0.6,0.6,6,1.1761188507080078
-How to apply for a degree?,graduation,minhash,3,0.0,0.0,0,1.0449886322021484
-How to apply for a degree?,graduation,minhash,5,0.0,0.0,0,0.9889602661132812
-How to apply for a degree?,graduation,minhash,10,0.1,0.1,1,1.0120868682861328
-How to apply for a degree?,graduation,simhash,3,1.0,1.0,3,4.815816879272461
-How to apply for a degree?,graduation,simhash,5,1.0,1.0,5,4.541158676147461
-How to apply for a degree?,graduation,simhash,10,0.7,0.7,7,4.502058029174805
-How to apply for a degree?,graduation,hybrid,3,0.6666666666666666,0.6666666666666666,2,6.556987762451172
-How to apply for a degree?,graduation,hybrid,5,0.8,0.8,4,6.493806838989258
-How to apply for a degree?,graduation,hybrid,10,0.5,0.5,5,6.944894790649414
-What are the rules for academic probation?,academics,tfidf,3,1.0,1.0,3,1.2001991271972656
-What are the rules for academic probation?,academics,tfidf,5,1.0,1.0,5,1.1601448059082031
-What are the rules for academic probation?,academics,tfidf,10,1.0,1.0,10,1.2450218200683594
-What are the rules for academic probation?,academics,minhash,3,1.0,1.0,3,1.3508796691894531
-What are the rules for academic probation?,academics,minhash,5,1.0,1.0,5,1.3041496276855469
-What are the rules for academic probation?,academics,minhash,10,1.0,1.0,10,1.3151168823242188
-What are the rules for academic probation?,academics,simhash,3,0.3333333333333333,0.3333333333333333,1,5.022764205932617
-What are the rules for academic probation?,academics,simhash,5,0.6,0.6,3,4.677772521972656
-What are the rules for academic probation?,academics,simhash,10,0.6,0.6,6,4.416942596435547
-What are the rules for academic probation?,academics,hybrid,3,1.0,1.0,3,7.478952407836914
-What are the rules for academic probation?,academics,hybrid,5,0.8,0.8,4,6.760835647583008
-What are the rules for academic probation?,academics,hybrid,10,1.0,1.0,10,7.786989212036133
-What is the credit hour requirement for graduation?,graduation,tfidf,3,1.0,1.0,3,1.4309883117675781
-What is the credit hour requirement for graduation?,graduation,tfidf,5,1.0,1.0,5,1.2199878692626953
-What is the credit hour requirement for graduation?,graduation,tfidf,10,1.0,1.0,10,1.3260841369628906
-What is the credit hour requirement for graduation?,graduation,minhash,3,1.0,1.0,3,1.1408329010009766
-What is the credit hour requirement for graduation?,graduation,minhash,5,1.0,1.0,5,1.0499954223632812
-What is the credit hour requirement for graduation?,graduation,minhash,10,1.0,1.0,10,1.0747909545898438
-What is the credit hour requirement for graduation?,graduation,simhash,3,0.6666666666666666,0.6666666666666666,2,4.728078842163086
-What is the credit hour requirement for graduation?,graduation,simhash,5,0.6,0.6,3,4.527091979980469
-What is the credit hour requirement for graduation?,graduation,simhash,10,0.5,0.5,5,4.334688186645508
-What is the credit hour requirement for graduation?,graduation,hybrid,3,1.0,1.0,3,6.65593147277832
-What is the credit hour requirement for graduation?,graduation,hybrid,5,1.0,1.0,5,6.484031677246094
-What is the credit hour requirement for graduation?,graduation,hybrid,10,1.0,1.0,10,6.656169891357422
-What are the examination rules?,exams,tfidf,3,1.0,1.0,3,1.2049674987792969
-What are the examination rules?,exams,tfidf,5,0.8,0.8,4,1.149892807006836
-What are the examination rules?,exams,tfidf,10,0.9,0.9,9,1.1599063873291016
-What are the examination rules?,exams,minhash,3,1.0,1.0,3,1.2359619140625
-What are the examination rules?,exams,minhash,5,1.0,1.0,5,1.1889934539794922
-What are the examination rules?,exams,minhash,10,0.7,0.7,7,1.2288093566894531
-What are the examination rules?,exams,simhash,3,0.0,0.0,0,4.317998886108398
-What are the examination rules?,exams,simhash,5,0.4,0.4,2,4.160165786743164
-What are the examination rules?,exams,simhash,10,0.4,0.4,4,4.3487548828125
-What are the examination rules?,exams,hybrid,3,0.6666666666666666,0.6666666666666666,2,6.553173065185547
-What are the examination rules?,exams,hybrid,5,0.8,0.8,4,6.903886795043945
-What are the examination rules?,exams,hybrid,10,0.8,0.8,8,6.639719009399414
-Can a student transfer to another department?,admin,tfidf,3,1.0,1.0,3,1.3060569763183594
-Can a student transfer to another department?,admin,tfidf,5,1.0,1.0,5,1.157999038696289
-Can a student transfer to another department?,admin,tfidf,10,0.5,0.5,5,1.1539459228515625
-Can a student transfer to another department?,admin,minhash,3,1.0,1.0,3,0.9889602661132812
-Can a student transfer to another department?,admin,minhash,5,1.0,1.0,5,0.9407997131347656
-Can a student transfer to another department?,admin,minhash,10,0.8,0.8,8,1.338958740234375
-Can a student transfer to another department?,admin,simhash,3,0.0,0.0,0,4.945039749145508
-Can a student transfer to another department?,admin,simhash,5,0.0,0.0,0,4.579067230224609
-Can a student transfer to another department?,admin,simhash,10,0.0,0.0,0,4.570960998535156
-Can a student transfer to another department?,admin,hybrid,3,0.6666666666666666,0.6666666666666666,2,6.931066513061523
-Can a student transfer to another department?,admin,hybrid,5,0.8,0.8,4,6.734132766723633
-Can a student transfer to another department?,admin,hybrid,10,0.8,0.8,8,6.859064102172852
-What is the grading system?,academics,tfidf,3,1.0,1.0,3,1.1801719665527344
-What is the grading system?,academics,tfidf,5,1.0,1.0,5,1.1599063873291016
-What is the grading system?,academics,tfidf,10,1.0,1.0,10,1.2149810791015625
-What is the grading system?,academics,minhash,3,1.0,1.0,3,0.9706020355224609
-What is the grading system?,academics,minhash,5,1.0,1.0,5,1.2431144714355469
-What is the grading system?,academics,minhash,10,1.0,1.0,10,1.280069351196289
-What is the grading system?,academics,simhash,3,1.0,1.0,3,4.707813262939453
-What is the grading system?,academics,simhash,5,1.0,1.0,5,4.508733749389648
-What is the grading system?,academics,simhash,10,1.0,1.0,10,4.364252090454102
-What is the grading system?,academics,hybrid,3,1.0,1.0,3,6.852865219116211
-What is the grading system?,academics,hybrid,5,1.0,1.0,5,6.654977798461914
-What is the grading system?,academics,hybrid,10,1.0,1.0,10,6.780862808227539
-What are the thesis requirements?,research,tfidf,3,1.0,1.0,3,1.2271404266357422
-What are the thesis requirements?,research,tfidf,5,1.0,1.0,5,1.1620521545410156
-What are the thesis requirements?,research,tfidf,10,1.0,1.0,10,1.1827945709228516
-What are the thesis requirements?,research,minhash,3,1.0,1.0,3,0.988006591796875
-What are the thesis requirements?,research,minhash,5,1.0,1.0,5,0.9820461273193359
-What are the thesis requirements?,research,minhash,10,0.8,0.8,8,1.3241767883300781
-What are the thesis requirements?,research,simhash,3,0.3333333333333333,0.3333333333333333,1,4.596948623657227
-What are the thesis requirements?,research,simhash,5,0.2,0.2,1,4.350900650024414
-What are the thesis requirements?,research,simhash,10,0.2,0.2,2,4.278659820556641
-What are the thesis requirements?,research,hybrid,3,1.0,1.0,3,6.543159484863281
-What are the thesis requirements?,research,hybrid,5,1.0,1.0,5,6.752967834472656
-What are the thesis requirements?,research,hybrid,10,0.9,0.9,9,6.639957427978516
-What is the semester registration process?,admin,tfidf,3,1.0,1.0,3,1.2068748474121094
-What is the semester registration process?,admin,tfidf,5,1.0,1.0,5,1.172780990600586
-What is the semester registration process?,admin,tfidf,10,1.0,1.0,10,1.171112060546875
-What is the semester registration process?,admin,minhash,3,1.0,1.0,3,0.9999275207519531
-What is the semester registration process?,admin,minhash,5,1.0,1.0,5,0.9870529174804688
-What is the semester registration process?,admin,minhash,10,1.0,1.0,10,1.004934310913086
-What is the semester registration process?,admin,simhash,3,1.0,1.0,3,4.438161849975586
-What is the semester registration process?,admin,simhash,5,0.8,0.8,4,4.290103912353516
-What is the semester registration process?,admin,simhash,10,0.7,0.7,7,4.297971725463867
-What is the semester registration process?,admin,hybrid,3,1.0,1.0,3,6.409883499145508
-What is the semester registration process?,admin,hybrid,5,1.0,1.0,5,6.325006484985352
-What is the semester registration process?,admin,hybrid,10,1.0,1.0,10,6.8759918212890625
-What are the rules for dropping a course?,academics,tfidf,3,1.0,1.0,3,1.1510848999023438
-What are the rules for dropping a course?,academics,tfidf,5,1.0,1.0,5,1.135110855102539
-What are the rules for dropping a course?,academics,tfidf,10,0.7,0.7,7,1.1401176452636719
-What are the rules for dropping a course?,academics,minhash,3,0.0,0.0,0,1.2972354888916016
-What are the rules for dropping a course?,academics,minhash,5,0.0,0.0,0,1.2180805206298828
-What are the rules for dropping a course?,academics,minhash,10,0.3,0.3,3,1.2640953063964844
-What are the rules for dropping a course?,academics,simhash,3,0.3333333333333333,0.3333333333333333,1,4.478931427001953
-What are the rules for dropping a course?,academics,simhash,5,0.4,0.4,2,4.331827163696289
-What are the rules for dropping a course?,academics,simhash,10,0.3,0.3,3,4.336833953857422
-What are the rules for dropping a course?,academics,hybrid,3,0.3333333333333333,0.3333333333333333,1,6.63304328918457
-What are the rules for dropping a course?,academics,hybrid,5,0.6,0.6,3,6.534814834594727
-What are the rules for dropping a course?,academics,hybrid,10,0.7,0.7,7,6.613016128540039
-What is the scholarship policy?,financial,tfidf,3,1.0,1.0,3,1.177072525024414
-What is the scholarship policy?,financial,tfidf,5,1.0,1.0,5,1.1429786682128906
-What is the scholarship policy?,financial,tfidf,10,0.8,0.8,8,1.1870861053466797
-What is the scholarship policy?,financial,minhash,3,1.0,1.0,3,1.0221004486083984
-What is the scholarship policy?,financial,minhash,5,0.8,0.8,4,0.9641647338867188
-What is the scholarship policy?,financial,minhash,10,0.5,0.5,5,1.402139663696289
-What is the scholarship policy?,financial,simhash,3,0.0,0.0,0,4.49824333190918
-What is the scholarship policy?,financial,simhash,5,0.2,0.2,1,4.360198974609375
-What is the scholarship policy?,financial,simhash,10,0.2,0.2,2,4.382848739624023
-What is the scholarship policy?,financial,hybrid,3,1.0,1.0,3,6.427288055419922
-What is the scholarship policy?,financial,hybrid,5,1.0,1.0,5,6.81614875793457
-What is the scholarship policy?,financial,hybrid,10,0.9,0.9,9,6.87098503112793
+What is the minimum GPA requirement?,academics,tfidf,3,1.0,1.0,3,1.3048648834228516
+What is the minimum GPA requirement?,academics,tfidf,5,1.0,1.0,5,1.0340213775634766
+What is the minimum GPA requirement?,academics,tfidf,10,1.0,1.0,10,1.3079643249511719
+What is the minimum GPA requirement?,academics,minhash,3,1.0,1.0,3,0.9248256683349609
+What is the minimum GPA requirement?,academics,minhash,5,1.0,1.0,5,1.2111663818359375
+What is the minimum GPA requirement?,academics,minhash,10,1.0,1.0,10,0.7939338684082031
+What is the minimum GPA requirement?,academics,simhash,3,0.3333333333333333,0.3333333333333333,1,3.2927989959716797
+What is the minimum GPA requirement?,academics,simhash,5,0.2,0.2,1,2.8409957885742188
+What is the minimum GPA requirement?,academics,simhash,10,0.3,0.3,3,3.001689910888672
+What is the minimum GPA requirement?,academics,hybrid,3,0.6666666666666666,0.6666666666666666,2,4.467010498046875
+What is the minimum GPA requirement?,academics,hybrid,5,1.0,1.0,5,4.355192184448242
+What is the minimum GPA requirement?,academics,hybrid,10,1.0,1.0,10,4.569053649902344
+What happens if a student fails a course?,academics,tfidf,3,0.3333333333333333,0.3333333333333333,1,0.8640289306640625
+What happens if a student fails a course?,academics,tfidf,5,0.6,0.6,3,0.7989406585693359
+What happens if a student fails a course?,academics,tfidf,10,0.8,0.8,8,0.8211135864257812
+What happens if a student fails a course?,academics,minhash,3,0.3333333333333333,0.3333333333333333,1,0.8358955383300781
+What happens if a student fails a course?,academics,minhash,5,0.4,0.4,2,0.7801055908203125
+What happens if a student fails a course?,academics,minhash,10,0.3,0.3,3,0.804901123046875
+What happens if a student fails a course?,academics,simhash,3,0.6666666666666666,0.6666666666666666,2,3.1020641326904297
+What happens if a student fails a course?,academics,simhash,5,0.6,0.6,3,2.804994583129883
+What happens if a student fails a course?,academics,simhash,10,0.6,0.6,6,2.9098987579345703
+What happens if a student fails a course?,academics,hybrid,3,0.3333333333333333,0.3333333333333333,1,4.367828369140625
+What happens if a student fails a course?,academics,hybrid,5,0.6,0.6,3,4.165172576904297
+What happens if a student fails a course?,academics,hybrid,10,0.6,0.6,6,4.412174224853516
+What is the attendance policy?,policy,tfidf,3,0.6666666666666666,0.6666666666666666,2,0.8809566497802734
+What is the attendance policy?,policy,tfidf,5,0.8,0.8,4,0.9081363677978516
+What is the attendance policy?,policy,tfidf,10,0.8,0.8,8,0.8981227874755859
+What is the attendance policy?,policy,minhash,3,0.6666666666666666,0.6666666666666666,2,0.6678104400634766
+What is the attendance policy?,policy,minhash,5,0.8,0.8,4,0.7319450378417969
+What is the attendance policy?,policy,minhash,10,0.6,0.6,6,0.6470680236816406
+What is the attendance policy?,policy,simhash,3,0.3333333333333333,0.3333333333333333,1,3.039121627807617
+What is the attendance policy?,policy,simhash,5,0.2,0.2,1,2.7718544006347656
+What is the attendance policy?,policy,simhash,10,0.1,0.1,1,2.847909927368164
+What is the attendance policy?,policy,hybrid,3,1.0,1.0,3,4.700183868408203
+What is the attendance policy?,policy,hybrid,5,0.8,0.8,4,4.025936126708984
+What is the attendance policy?,policy,hybrid,10,0.7,0.7,7,3.9963722229003906
+How many times can a course be repeated?,academics,tfidf,3,1.0,1.0,3,0.7963180541992188
+How many times can a course be repeated?,academics,tfidf,5,1.0,1.0,5,0.7929801940917969
+How many times can a course be repeated?,academics,tfidf,10,1.0,1.0,10,0.8130073547363281
+How many times can a course be repeated?,academics,minhash,3,1.0,1.0,3,0.6787776947021484
+How many times can a course be repeated?,academics,minhash,5,0.8,0.8,4,0.6580352783203125
+How many times can a course be repeated?,academics,minhash,10,0.7,0.7,7,0.6489753723144531
+How many times can a course be repeated?,academics,simhash,3,0.0,0.0,0,3.1108856201171875
+How many times can a course be repeated?,academics,simhash,5,0.0,0.0,0,2.7778148651123047
+How many times can a course be repeated?,academics,simhash,10,0.0,0.0,0,2.8526782989501953
+How many times can a course be repeated?,academics,hybrid,3,1.0,1.0,3,4.380941390991211
+How many times can a course be repeated?,academics,hybrid,5,1.0,1.0,5,4.046916961669922
+How many times can a course be repeated?,academics,hybrid,10,0.7,0.7,7,4.971981048583984
+What is the fee refund policy?,financial,tfidf,3,1.0,1.0,3,0.8592605590820312
+What is the fee refund policy?,financial,tfidf,5,1.0,1.0,5,0.8149147033691406
+What is the fee refund policy?,financial,tfidf,10,1.0,1.0,10,0.9648799896240234
+What is the fee refund policy?,financial,minhash,3,1.0,1.0,3,0.7967948913574219
+What is the fee refund policy?,financial,minhash,5,0.8,0.8,4,0.7202625274658203
+What is the fee refund policy?,financial,minhash,10,0.6,0.6,6,0.7469654083251953
+What is the fee refund policy?,financial,simhash,3,0.0,0.0,0,3.059864044189453
+What is the fee refund policy?,financial,simhash,5,0.0,0.0,0,2.9439926147460938
+What is the fee refund policy?,financial,simhash,10,0.1,0.1,1,2.878904342651367
+What is the fee refund policy?,financial,hybrid,3,1.0,1.0,3,4.450082778930664
+What is the fee refund policy?,financial,hybrid,5,0.8,0.8,4,4.123210906982422
+What is the fee refund policy?,financial,hybrid,10,0.9,0.9,9,4.256963729858398
+How to apply for a degree?,graduation,tfidf,3,1.0,1.0,3,0.7970333099365234
+How to apply for a degree?,graduation,tfidf,5,1.0,1.0,5,0.7829666137695312
+How to apply for a degree?,graduation,tfidf,10,0.9,0.9,9,0.8130073547363281
+How to apply for a degree?,graduation,minhash,3,0.0,0.0,0,1.1820793151855469
+How to apply for a degree?,graduation,minhash,5,0.2,0.2,1,1.1870861053466797
+How to apply for a degree?,graduation,minhash,10,0.4,0.4,4,1.1570453643798828
+How to apply for a degree?,graduation,simhash,3,0.3333333333333333,0.3333333333333333,1,2.9129981994628906
+How to apply for a degree?,graduation,simhash,5,0.2,0.2,1,2.7561187744140625
+How to apply for a degree?,graduation,simhash,10,0.1,0.1,1,2.8679370880126953
+How to apply for a degree?,graduation,hybrid,3,0.6666666666666666,0.6666666666666666,2,4.882097244262695
+How to apply for a degree?,graduation,hybrid,5,0.6,0.6,3,4.802942276000977
+How to apply for a degree?,graduation,hybrid,10,0.6,0.6,6,4.925966262817383
+What are the rules for academic probation?,academics,tfidf,3,1.0,1.0,3,0.8730888366699219
+What are the rules for academic probation?,academics,tfidf,5,1.0,1.0,5,0.8480548858642578
+What are the rules for academic probation?,academics,tfidf,10,1.0,1.0,10,0.8749961853027344
+What are the rules for academic probation?,academics,minhash,3,1.0,1.0,3,0.6620883941650391
+What are the rules for academic probation?,academics,minhash,5,1.0,1.0,5,0.6210803985595703
+What are the rules for academic probation?,academics,minhash,10,1.0,1.0,10,0.6649494171142578
+What are the rules for academic probation?,academics,simhash,3,0.0,0.0,0,3.076791763305664
+What are the rules for academic probation?,academics,simhash,5,0.2,0.2,1,2.759218215942383
+What are the rules for academic probation?,academics,simhash,10,0.4,0.4,4,2.7871131896972656
+What are the rules for academic probation?,academics,hybrid,3,1.0,1.0,3,4.354000091552734
+What are the rules for academic probation?,academics,hybrid,5,1.0,1.0,5,4.032135009765625
+What are the rules for academic probation?,academics,hybrid,10,1.0,1.0,10,5.151033401489258
+What is the credit hour requirement for graduation?,graduation,tfidf,3,1.0,1.0,3,0.8189678192138672
+What is the credit hour requirement for graduation?,graduation,tfidf,5,1.0,1.0,5,0.8478164672851562
+What is the credit hour requirement for graduation?,graduation,tfidf,10,1.0,1.0,10,0.9109973907470703
+What is the credit hour requirement for graduation?,graduation,minhash,3,1.0,1.0,3,0.6897449493408203
+What is the credit hour requirement for graduation?,graduation,minhash,5,1.0,1.0,5,0.6711483001708984
+What is the credit hour requirement for graduation?,graduation,minhash,10,1.0,1.0,10,0.6809234619140625
+What is the credit hour requirement for graduation?,graduation,simhash,3,0.0,0.0,0,2.975940704345703
+What is the credit hour requirement for graduation?,graduation,simhash,5,0.0,0.0,0,2.8023719787597656
+What is the credit hour requirement for graduation?,graduation,simhash,10,0.0,0.0,0,2.8390884399414062
+What is the credit hour requirement for graduation?,graduation,hybrid,3,1.0,1.0,3,4.268646240234375
+What is the credit hour requirement for graduation?,graduation,hybrid,5,1.0,1.0,5,4.12297248840332
+What is the credit hour requirement for graduation?,graduation,hybrid,10,1.0,1.0,10,4.387855529785156
+What are the examination rules?,exams,tfidf,3,1.0,1.0,3,0.843048095703125
+What are the examination rules?,exams,tfidf,5,1.0,1.0,5,0.8008480072021484
+What are the examination rules?,exams,tfidf,10,1.0,1.0,10,0.8177757263183594
+What are the examination rules?,exams,minhash,3,0.6666666666666666,0.6666666666666666,2,0.7531642913818359
+What are the examination rules?,exams,minhash,5,0.8,0.8,4,0.6520748138427734
+What are the examination rules?,exams,minhash,10,0.9,0.9,9,0.6971359252929688
+What are the examination rules?,exams,simhash,3,0.6666666666666666,0.6666666666666666,2,3.141164779663086
+What are the examination rules?,exams,simhash,5,0.6,0.6,3,2.7878284454345703
+What are the examination rules?,exams,simhash,10,0.4,0.4,4,2.7909278869628906
+What are the examination rules?,exams,hybrid,3,0.3333333333333333,0.3333333333333333,1,4.28009033203125
+What are the examination rules?,exams,hybrid,5,1.0,1.0,5,4.078149795532227
+What are the examination rules?,exams,hybrid,10,1.0,1.0,10,4.037141799926758
+Can a student transfer to another department?,admin,tfidf,3,0.3333333333333333,0.3333333333333333,1,0.8449554443359375
+Can a student transfer to another department?,admin,tfidf,5,0.4,0.4,2,0.8029937744140625
+Can a student transfer to another department?,admin,tfidf,10,0.2,0.2,2,0.8268356323242188
+Can a student transfer to another department?,admin,minhash,3,0.0,0.0,0,0.7779598236083984
+Can a student transfer to another department?,admin,minhash,5,0.0,0.0,0,0.7109642028808594
+Can a student transfer to another department?,admin,minhash,10,0.0,0.0,0,0.7250308990478516
+Can a student transfer to another department?,admin,simhash,3,0.0,0.0,0,2.9916763305664062
+Can a student transfer to another department?,admin,simhash,5,0.0,0.0,0,2.9342174530029297
+Can a student transfer to another department?,admin,simhash,10,0.1,0.1,1,2.9239654541015625
+Can a student transfer to another department?,admin,hybrid,3,0.3333333333333333,0.3333333333333333,1,4.330158233642578
+Can a student transfer to another department?,admin,hybrid,5,0.2,0.2,1,4.243135452270508
+Can a student transfer to another department?,admin,hybrid,10,0.2,0.2,2,4.471063613891602
+What is the grading system?,academics,tfidf,3,1.0,1.0,3,0.8599758148193359
+What is the grading system?,academics,tfidf,5,1.0,1.0,5,0.823974609375
+What is the grading system?,academics,tfidf,10,1.0,1.0,10,0.8370876312255859
+What is the grading system?,academics,minhash,3,1.0,1.0,3,0.6680488586425781
+What is the grading system?,academics,minhash,5,1.0,1.0,5,0.6620883941650391
+What is the grading system?,academics,minhash,10,1.0,1.0,10,0.6949901580810547
+What is the grading system?,academics,simhash,3,1.0,1.0,3,3.4470558166503906
+What is the grading system?,academics,simhash,5,1.0,1.0,5,2.852916717529297
+What is the grading system?,academics,simhash,10,1.0,1.0,10,2.7801990509033203
+What is the grading system?,academics,hybrid,3,1.0,1.0,3,4.15492057800293
+What is the grading system?,academics,hybrid,5,1.0,1.0,5,4.069089889526367
+What is the grading system?,academics,hybrid,10,1.0,1.0,10,3.996133804321289
+What are the thesis requirements?,research,tfidf,3,1.0,1.0,3,0.8337497711181641
+What are the thesis requirements?,research,tfidf,5,1.0,1.0,5,0.9188652038574219
+What are the thesis requirements?,research,tfidf,10,1.0,1.0,10,0.8020401000976562
+What are the thesis requirements?,research,minhash,3,0.6666666666666666,0.6666666666666666,2,1.2159347534179688
+What are the thesis requirements?,research,minhash,5,0.6,0.6,3,1.207113265991211
+What are the thesis requirements?,research,minhash,10,0.4,0.4,4,1.2857913970947266
+What are the thesis requirements?,research,simhash,3,0.0,0.0,0,3.149747848510742
+What are the thesis requirements?,research,simhash,5,0.0,0.0,0,2.8722286224365234
+What are the thesis requirements?,research,simhash,10,0.1,0.1,1,2.858877182006836
+What are the thesis requirements?,research,hybrid,3,0.3333333333333333,0.3333333333333333,1,5.047082901000977
+What are the thesis requirements?,research,hybrid,5,0.6,0.6,3,4.724979400634766
+What are the thesis requirements?,research,hybrid,10,0.8,0.8,8,4.942655563354492
+What is the semester registration process?,admin,tfidf,3,1.0,1.0,3,0.8509159088134766
+What is the semester registration process?,admin,tfidf,5,0.8,0.8,4,0.8029937744140625
+What is the semester registration process?,admin,tfidf,10,0.8,0.8,8,0.84686279296875
+What is the semester registration process?,admin,minhash,3,1.0,1.0,3,0.8378028869628906
+What is the semester registration process?,admin,minhash,5,1.0,1.0,5,0.7040500640869141
+What is the semester registration process?,admin,minhash,10,0.9,0.9,9,0.7112026214599609
+What is the semester registration process?,admin,simhash,3,0.6666666666666666,0.6666666666666666,2,3.101825714111328
+What is the semester registration process?,admin,simhash,5,0.6,0.6,3,2.8228759765625
+What is the semester registration process?,admin,simhash,10,0.4,0.4,4,2.864837646484375
+What is the semester registration process?,admin,hybrid,3,1.0,1.0,3,4.467964172363281
+What is the semester registration process?,admin,hybrid,5,1.0,1.0,5,4.738092422485352
+What is the semester registration process?,admin,hybrid,10,0.9,0.9,9,4.207849502563477
+What are the rules for dropping a course?,academics,tfidf,3,1.0,1.0,3,0.9160041809082031
+What are the rules for dropping a course?,academics,tfidf,5,1.0,1.0,5,0.7929801940917969
+What are the rules for dropping a course?,academics,tfidf,10,0.7,0.7,7,0.8108615875244141
+What are the rules for dropping a course?,academics,minhash,3,0.3333333333333333,0.3333333333333333,1,0.6940364837646484
+What are the rules for dropping a course?,academics,minhash,5,0.4,0.4,2,0.6139278411865234
+What are the rules for dropping a course?,academics,minhash,10,0.3,0.3,3,0.6489753723144531
+What are the rules for dropping a course?,academics,simhash,3,0.0,0.0,0,3.0362606048583984
+What are the rules for dropping a course?,academics,simhash,5,0.0,0.0,0,2.8197765350341797
+What are the rules for dropping a course?,academics,simhash,10,0.0,0.0,0,2.8009414672851562
+What are the rules for dropping a course?,academics,hybrid,3,0.6666666666666666,0.6666666666666666,2,4.297971725463867
+What are the rules for dropping a course?,academics,hybrid,5,0.4,0.4,2,4.120826721191406
+What are the rules for dropping a course?,academics,hybrid,10,0.4,0.4,4,4.380226135253906
+What is the scholarship policy?,financial,tfidf,3,1.0,1.0,3,0.7822513580322266
+What is the scholarship policy?,financial,tfidf,5,1.0,1.0,5,0.8299350738525391
+What is the scholarship policy?,financial,tfidf,10,0.7,0.7,7,0.8137226104736328
+What is the scholarship policy?,financial,minhash,3,0.3333333333333333,0.3333333333333333,1,0.6330013275146484
+What is the scholarship policy?,financial,minhash,5,0.0,0.0,0,1.2378692626953125
+What is the scholarship policy?,financial,minhash,10,0.0,0.0,0,1.2891292572021484
+What is the scholarship policy?,financial,simhash,3,0.0,0.0,0,3.2320022583007812
+What is the scholarship policy?,financial,simhash,5,0.0,0.0,0,2.816915512084961
+What is the scholarship policy?,financial,simhash,10,0.0,0.0,0,2.912759780883789
+What is the scholarship policy?,financial,hybrid,3,0.3333333333333333,0.3333333333333333,1,4.749059677124023
+What is the scholarship policy?,financial,hybrid,5,0.4,0.4,2,4.5719146728515625
+What is the scholarship policy?,financial,hybrid,10,0.3,0.3,3,4.5070648193359375

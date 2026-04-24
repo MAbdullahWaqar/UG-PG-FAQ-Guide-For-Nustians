@@ -35,6 +35,11 @@ def _detect_section(line: str) -> str | None:
     return None
 
 
+def _is_section_boundary(line: str) -> bool:
+    """Check if a line is a section header (used for hard chunk breaks)."""
+    return _detect_section(line) is not None
+
+
 # ---------------------------------------------------------------------------
 # Text cleaning
 # ---------------------------------------------------------------------------
@@ -85,44 +90,59 @@ def extract_pages(pdf_path: str) -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
-# Smart chunking
+# Smart chunking — smaller, section-aware chunks
 # ---------------------------------------------------------------------------
 
 def chunk_pages(
     pages: list[dict],
     source: str,
-    min_words: int = 200,
-    max_words: int = 500,
-    overlap_words: int = 50,
+    min_words: int = 80,
+    max_words: int = 250,
+    overlap_words: int = 30,
 ) -> list[dict]:
     """
-    Split page texts into overlapping chunks of 200–500 words.
-    Preserves page numbers and detects section headers.
+    Split page texts into overlapping chunks of 80–250 words.
+    
+    KEY DESIGN: 
+    - Smaller chunks (80-250 words) so each chunk is about ONE topic
+    - Hard breaks at section headers so topics don't mix
+    - Overlap for context continuity
+    - Preserves page numbers and section headers
     """
     chunks = []
     chunk_id = 0
 
-    # Concatenate all text with page markers
-    tokens_with_meta = []  # list of (word, page_num, line_text)
+    # Build a list of (word, page_num, line_text, is_section_start)
+    tokens_with_meta = []
     for pg in pages:
         lines = pg["text"].split("\n")
         for line in lines:
+            is_section = _is_section_boundary(line)
             words = line.split()
-            for w in words:
-                tokens_with_meta.append((w, pg["page"], line))
+            for w_idx, w in enumerate(words):
+                tokens_with_meta.append((w, pg["page"], line, is_section and w_idx == 0))
 
     idx = 0
     current_section = "General"
 
     while idx < len(tokens_with_meta):
-        # Determine chunk boundaries
+        # Check if we're at a section boundary
+        if tokens_with_meta[idx][3]:
+            current_section = tokens_with_meta[idx][2].strip()
+
+        # Determine chunk end
         end_idx = min(idx + max_words, len(tokens_with_meta))
 
+        # Hard break at section boundaries (don't let chunks cross sections)
+        for j in range(idx + min_words, end_idx):
+            if j < len(tokens_with_meta) and tokens_with_meta[j][3]:
+                end_idx = j
+                break
+
         # Try to find a sentence boundary near the end for cleaner splits
-        if end_idx < len(tokens_with_meta):
-            # Look back from end_idx for a period/sentence end
-            for j in range(end_idx, max(idx + min_words, end_idx - 80), -1):
-                if j < len(tokens_with_meta) and tokens_with_meta[j - 1][0].endswith((".","?","!",":")):
+        if end_idx < len(tokens_with_meta) and end_idx > idx + min_words:
+            for j in range(end_idx, max(idx + min_words, end_idx - 60), -1):
+                if j < len(tokens_with_meta) and tokens_with_meta[j - 1][0].endswith((".", "?", "!", ":")):
                     end_idx = j
                     break
 
@@ -133,13 +153,11 @@ def chunk_pages(
         # Extract metadata
         page_start = chunk_words[0][1]
         page_end = chunk_words[-1][1]
-        text = " ".join(w for w, _, _ in chunk_words)
+        text = " ".join(w for w, _, _, _ in chunk_words)
 
-        # Check for section headers in this chunk
-        seen_lines = set()
-        for _, _, line in chunk_words:
-            if line not in seen_lines:
-                seen_lines.add(line)
+        # Detect section in this chunk
+        for _, _, line, is_sec in chunk_words:
+            if is_sec:
                 sec = _detect_section(line)
                 if sec:
                     current_section = sec
