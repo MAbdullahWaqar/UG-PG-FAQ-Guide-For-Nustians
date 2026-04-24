@@ -56,9 +56,9 @@ class AnswerGenerator:
 
     def __init__(
         self,
-        mode: str = "extractive",
+        mode: str = "local_llm",
         api_key: str | None = None,
-        local_model_name: str = "Qwen/Qwen2.5-3B-Instruct",
+        local_model_name: str = "Qwen/Qwen2.5-1.5B-Instruct",
     ):
         """
         Args:
@@ -129,9 +129,8 @@ class AnswerGenerator:
         self._local_model = AutoModelForCausalLM.from_pretrained(
             self.local_model_name,
             torch_dtype=torch.float16,
-            device_map="auto",
             trust_remote_code=True,
-        )
+        ).to(self._device)
 
         print(f"   ✅ Model loaded successfully on {self._device}")
 
@@ -357,10 +356,8 @@ Provide a clear, structured answer that distinguishes between UG (Bachelor's) an
             output_ids = generated_ids[0][len(model_inputs.input_ids[0]):]
             answer = self._local_tokenizer.decode(output_ids, skip_special_tokens=True).strip()
 
-            # Clean up GPU memory
+            # Clean up memory
             del model_inputs, generated_ids, output_ids
-            if torch.backends.mps.is_available():
-                torch.mps.empty_cache()
 
         except Exception as e:
             print(f"⚠️  Local LLM error: {e}. Falling back to extractive.")
