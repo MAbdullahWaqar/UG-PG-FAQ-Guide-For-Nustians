@@ -298,7 +298,8 @@ with st.sidebar:
             ["auto", "llama-3.3-70b-versatile", "llama-3.1-8b-instant", "gemma2-9b-it", "mixtral-8x7b-32768"],
             index=0,
             format_func=lambda x: "Auto Fallback Cascade" if x == "auto" else x,
-            help="Select a specific model or use Auto to fallback seamlessly if rate limits are hit."
+            help="Select a specific model or use Auto to fallback seamlessly if rate limits are hit.",
+            key="groq_model_select"
         )
         st.success(" Groq API Key Configured")
     elif answer_mode == "extractive":
@@ -368,16 +369,16 @@ with tab_qa:
         "How many times can a course be repeated?",
     ]
 
-    selected_sample = None
+    def set_query(q):
+        st.session_state.query_input = q
+
     for i, sq in enumerate(sample_queries):
         with sample_cols[i]:
-            if st.button(sq, key=f"sample_{i}", use_container_width=True):
-                selected_sample = sq
+            st.button(sq, key=f"sample_{i}", use_container_width=True, on_click=set_query, args=(sq,))
 
     # Query input
     query = st.text_input(
         "Enter your question about academic policies:",
-        value=selected_sample if selected_sample else "",
         placeholder="e.g., What is the minimum GPA requirement for graduation?",
         key="query_input",
     )

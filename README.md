@@ -36,7 +36,7 @@ This project is a **principled, highly scalable Question-Answering (QA) system**
 │           │                         ↓                             │
 │ 6. Output │ ┌───────────────────────┴─────────────────────────┐   │
 │           │ │                Answer Generator                 │   │
-│           │ │   [Extractive Mode]        [Groq Llama 3 API]   │   │
+│           │ │   [Extractive Mode]        [LLM API]   │   │
 │           │ └───────────────────────┬─────────────────────────┘   │
 │           │                         ↓                             │
 │           │                 Streamlit Web UI                      │
@@ -89,10 +89,11 @@ To stand out, this project implements two advanced Big Data concepts:
 Not all policies in a handbook are equally important. By parsing cross-references (e.g., *"As mentioned in Section 4.1..."*), the system builds a **Directed Graph** of the handbook using `networkx`. We apply the **PageRank algorithm** to determine which sections are the most "authoritative". 
 During retrieval, chunks from high-PageRank sections receive a mathematical score boost, ensuring core academic policies surface before minor footnotes.
 
-### Extractive vs. Generative Generation Modes
+### Generative vs. Extractive Modes & Auto-Fallback Cascade
 * **Retrieval Based (Extractive):** Uses sentence-level TF-IDF to extract the exact sentences from the handbook and format them into UG and PG categories. Zero risk of hallucination.
-* **Groq API (Generative):** Uses the `llama-3.3-70b-versatile` model via the Groq cloud API. It reads the retrieved context and synthesizes a human-readable answer.
-
+* **Groq API (Generative):** Uses Cloud LLMs via the Groq API. It reads the retrieved context and synthesizes a human-readable answer.
+  * **Auto-Fallback Cascade Architecture:** To handle strict free-tier rate limits, the system implements an automatic model cascade. It first attempts to use the massive `llama-3.3-70b-versatile` model. If a Rate Limit (`429`) or Connection Error occurs, it gracefully catches the exception and falls back to `llama-3.1-8b-instant`, then `gemma2-9b-it`, then `mixtral-8x7b-32768`. If all Cloud models fail, it instantly defaults back to the Extractive method, ensuring the application **never crashes**.
+  * **Manual Override:** Users can manually select specific Groq models from the sidebar to bypass the cascade or save tokens on larger models.
 ---
 
 ##  4. Experimental Results & Analysis
