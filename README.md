@@ -36,7 +36,7 @@ This project is a **principled, highly scalable Question-Answering (QA) system**
 │           │                         ↓                             │
 │ 6. Output │ ┌───────────────────────┴─────────────────────────┐   │
 │           │ │                Answer Generator                 │   │
-│           │ │   [Extractive Mode]        [LLM API]   │   │
+│           │ │   [Extractive Mode]   │      [LLM API] 
 │           │ └───────────────────────┬─────────────────────────┘   │
 │           │                         ↓                             │
 │           │                 Streamlit Web UI                      │
