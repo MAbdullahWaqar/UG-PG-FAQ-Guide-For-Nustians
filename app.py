@@ -198,15 +198,17 @@ st.markdown("""
 
     /* Tab styling */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 4px;
+        gap: 20px;
         background: rgba(255, 255, 255, 0.02);
-        padding: 4px;
+        padding: 8px 12px;
         border-radius: 12px;
     }
     .stTabs [data-baseweb="tab"] {
         border-radius: 8px;
         color: rgba(255, 255, 255, 0.6);
         font-weight: 500;
+        padding-left: 16px;
+        padding-right: 16px;
     }
     .stTabs [aria-selected="true"] {
         background: rgba(78, 205, 196, 0.15) !important;
@@ -284,14 +286,21 @@ with st.sidebar:
         index=1,
         format_func=lambda x: {
             "extractive": " Retrieval Based (Extractive)",
-            "groq": " Groq API (Llama-3.3-70B - Free)",
+            "groq": " Groq API (Cloud Models)",
         }[x],
         help="Choose how answers are generated from retrieved chunks",
     )
 
+    groq_model = "auto"
     if answer_mode == "groq":
+        groq_model = st.selectbox(
+            "Select Groq Model",
+            ["auto", "llama-3.3-70b-versatile", "llama-3.1-8b-instant", "gemma2-9b-it", "mixtral-8x7b-32768"],
+            index=0,
+            format_func=lambda x: "Auto Fallback Cascade" if x == "auto" else x,
+            help="Select a specific model or use Auto to fallback seamlessly if rate limits are hit."
+        )
         st.success(" Groq API Key Configured")
-        st.caption("Using Llama-3.3-70B for fast, free answers.")
     elif answer_mode == "extractive":
         st.caption(" **Retrieval Based Mode**")
         st.caption("Directly extracts and formats relevant sentences from the handbooks without synthesizing a new answer.")
@@ -378,7 +387,7 @@ with tab_qa:
         if answer_mode == "extractive":
             gen = AnswerGenerator(mode="extractive")
         elif answer_mode == "groq":
-            gen = AnswerGenerator(mode="groq")
+            gen = AnswerGenerator(mode="groq", groq_model=groq_model)
 
         # For LLM modes, always use dual-source retrieval
         use_dual = True
@@ -408,11 +417,23 @@ with tab_qa:
             method_label = "HYBRID (RRF)"
 
         # Answer display — embed answer inside the card HTML
-        # We replace some basic markdown to ensure it formats well inside the HTML div
-        formatted_answer = answer_data['answer'].replace("### ", "<strong>").replace("\n", "<br>")
-        if "<strong>" in formatted_answer: # Close strong tag if we opened it (simple heuristic for the headers)
-             formatted_answer = formatted_answer.replace("<br>", "</strong><br>", 1)
-             formatted_answer = formatted_answer.replace("<strong>", "</strong><br><br><strong>")
+        # Convert markdown to HTML safely and beautifully
+        lines = answer_data['answer'].split('\n')
+        html_lines = []
+        for line in lines:
+            line = line.strip()
+            if not line:
+                html_lines.append("")
+                continue
+            if line.startswith("### "):
+                html_lines.append(f"<strong style='color: #4ECDC4; font-size: 1.05rem;'>{line[4:]}</strong>")
+            elif line.startswith("**") and line.endswith("**"):
+                html_lines.append(f"<strong style='color: #4ECDC4; font-size: 1.05rem;'>{line[2:-2]}</strong>")
+            elif line.startswith("- "):
+                html_lines.append(f"<div style='margin-left: 16px; margin-bottom: 4px;'>• {line[2:]}</div>")
+            else:
+                html_lines.append(line)
+        formatted_answer = "<br>".join(html_lines)
 
         st.markdown(f"""<div class="answer-card">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
@@ -438,6 +459,7 @@ with tab_qa:
                 st.metric(label, f"{val:.1f} ms")
 
         # Retrieved chunks — grouped by source for clarity
+        import html
         def _render_chunks(chunks, label):
             if not chunks:
                 st.info(f"No {label} chunks retrieved for this query.")
@@ -455,35 +477,39 @@ with tab_qa:
                 contributing = ""
                 if "contributing_methods" in r:
                     contributing = " · ".join(r["contributing_methods"])
+                
+                boost_html = f"<br><span style='font-size: 0.7rem; color: rgba(255,255,255,0.4);'>PageRank boost: {boost:.2f}</span>" if boost != 1.0 else ""
+                methods_html = f"<br><span style='font-size: 0.7rem; color: rgba(255,255,255,0.4);'>Methods: {contributing}</span>" if contributing else ""
+                
+                safe_text = html.escape(r.get('text', ''))
+                safe_text = safe_text[:500] + ('...' if len(safe_text) > 500 else '')
 
                 st.markdown(f"""
-                <div class="chunk-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <span style="font-weight: 600; color: #4ECDC4;">#{r.get('rank', '?')}</span>
-                            <span style="color: rgba(255,255,255,0.5); margin-left: 8px; font-size: 0.8rem;">
-                                {source_label} Handbook · {pages} · {section}
-                            </span>
-                        </div>
-                        <div style="text-align: right;">
-                            <span style="color: {score_color}; font-weight: 600;">Score: {score:.4f}</span>
-                            {"<br><span style='font-size: 0.7rem; color: rgba(255,255,255,0.4);'>PageRank boost: " + f"{boost:.2f}" + "</span>" if boost != 1.0 else ""}
-                            {"<br><span style='font-size: 0.7rem; color: rgba(255,255,255,0.4);'>Methods: " + contributing + "</span>" if contributing else ""}
-                        </div>
-                    </div>
-                    <p style="margin-top: 12px; color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.6;">
-                        {r.get('text', '')[:500]}{'...' if len(r.get('text', '')) > 500 else ''}
-                    </p>
-                    <div class="score-bar" style="width: {score_pct}%; background: linear-gradient(90deg, {score_color}, transparent);"></div>
-                </div>
-                """, unsafe_allow_html=True)
+<div class="chunk-card">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <span style="font-weight: 600; color: #4ECDC4;">#{r.get('rank', '?')}</span>
+            <span style="color: rgba(255,255,255,0.5); margin-left: 8px; font-size: 0.8rem;">
+                {source_label} Handbook · {pages} · {section}
+            </span>
+        </div>
+        <div style="text-align: right;">
+            <span style="color: {score_color}; font-weight: 600;">Score: {score:.4f}</span>{boost_html}{methods_html}
+        </div>
+    </div>
+    <p style="margin-top: 12px; color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.6;">
+        {safe_text}
+    </p>
+    <div class="score-bar" style="width: {score_pct}%; background: linear-gradient(90deg, {score_color}, transparent);"></div>
+</div>
+""", unsafe_allow_html=True)
 
         # Show chunks grouped by source
         st.markdown("####  Retrieved Chunks")
         ug_tab, pg_tab, all_tab = st.tabs([
             f" UG Handbook ({len(ug_results)})",
             f" PG Handbook ({len(pg_results)})",
-            f"📋 All ({len(all_results)})",
+            f"All ({len(all_results)})",
         ])
         with ug_tab:
             _render_chunks(ug_results, "UG (Undergraduate)")
@@ -494,7 +520,7 @@ with tab_qa:
 
         # Evidence
         if answer_data.get("evidence"):
-            with st.expander("📋 Supporting Evidence (Sentence-level)"):
+            with st.expander("Supporting Evidence (Sentence-level)"):
                 for i, ev in enumerate(answer_data["evidence"]):
                     st.markdown(f"""
                     **Evidence {i+1}** (Relevance: {ev.get('relevance_score', 0):.3f})
@@ -556,7 +582,7 @@ with tab_eval:
     st.markdown("###  Evaluation Dashboard")
     st.markdown("Run comprehensive evaluations comparing all retrieval methods.")
 
-    if st.button("🚀 Run Full Evaluation", key="run_eval", type="primary"):
+    if st.button(" Run Full Evaluation", key="run_eval", type="primary"):
         with st.spinner("Running evaluations... This may take a few minutes."):
             # Precision/Recall
             st.markdown("#### 1. Precision & Recall")
@@ -565,7 +591,7 @@ with tab_eval:
             st.plotly_chart(fig_pr, use_container_width=True)
 
             # Show raw data
-            with st.expander("📋 Raw Precision/Recall Data"):
+            with st.expander("Raw Precision/Recall Data"):
                 st.dataframe(eval_df.round(3), use_container_width=True)
 
             # Latency
@@ -662,7 +688,7 @@ with tab_pagerank:
             st.plotly_chart(fig, use_container_width=True)
 
             # Table view
-            with st.expander("📋 All PageRank Scores"):
+            with st.expander("All PageRank Scores"):
                 pr_df = pd.DataFrame(top_sections, columns=["Section", "PageRank Score"])
                 pr_df["Rank"] = range(1, len(pr_df) + 1)
                 st.dataframe(pr_df[["Rank", "Section", "PageRank Score"]].round(6), use_container_width=True)

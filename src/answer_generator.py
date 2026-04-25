@@ -55,13 +55,16 @@ class AnswerGenerator:
         self,
         mode: str = "extractive",
         api_key: str | None = None,
+        groq_model: str = "auto",
     ):
         """
         Args:
             mode: One of "extractive", "groq"
             api_key: Groq API key (only for mode="groq")
+            groq_model: The specific model to use, or "auto" for fallback cascade
         """
         self.mode = mode
+        self.groq_model = groq_model
         self.api_key = api_key or os.environ.get("GROQ_API_KEY")
 
         # Lazy-loaded resources
@@ -178,7 +181,8 @@ class AnswerGenerator:
             else:
                 answer = "\n\n".join(answer_parts)
 
-        except Exception:
+        except Exception as e:
+            print(f"Exception during TF-IDF calculation: {e}")
             answer = " ".join(all_sentences[:top_n])
             evidence = [{"sentence": s, "relevance_score": 0.0} for s in all_sentences[:top_n]]
 
@@ -188,9 +192,6 @@ class AnswerGenerator:
             "method": "Retrieval Based",
         }
 
-    # ------------------------------------------------------------------
-    # Local LLM Answer Generation (Qwen2.5-3B-Instruct)
-    # ------------------------------------------------------------------
 
     def _build_context(self, results: list[dict]) -> tuple[str, list[dict]]:
         """Build context string and evidence list from retrieved results."""
@@ -206,6 +207,7 @@ class AnswerGenerator:
             )
             evidence.append({
                 "sentence": text[:200] + "..." if len(text) > 200 else text,
+                "relevance_score": float(r.get("score", 0.0)),
                 "source": r.get("source", ""),
                 "page_start": r.get("page_start", 0),
                 "section": section,
@@ -238,6 +240,7 @@ class AnswerGenerator:
 
             evidence.append({
                 "sentence": text[:200] + "..." if len(text) > 200 else text,
+                "relevance_score": float(r.get("score", 0.0)),
                 "source": source,
                 "page_start": r.get("page_start", 0),
                 "section": section,
@@ -259,6 +262,7 @@ class AnswerGenerator:
     def _generate_groq(self, query: str, results: list[dict]) -> dict:
         """
         Generate answer using Groq API with retrieved context.
+        Implements an automatic fallback cascade if rate limits are hit.
         """
         context, evidence = self._build_dual_source_context(results)
 
@@ -270,26 +274,38 @@ Student's Question: {query}
 
 Provide a clear, structured answer that distinguishes between UG (Bachelor's) and PG (Master's/PhD) policies where applicable. Use the exact numbers, grades, and percentages from the handbooks:"""
 
-        try:
-            response = self._groq_client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": user_message},
-                ],
-                max_tokens=800,
-                temperature=0.2,
-            )
-            answer = response.choices[0].message.content.strip()
-        except Exception as e:
-            print(f"️  Groq API error: {e}. Falling back to extractive.")
-            return self._generate_extractive(query, results)
+        models_to_try = [
+            "llama-3.3-70b-versatile",
+            "llama-3.1-8b-instant",
+            "gemma2-9b-it",
+            "mixtral-8x7b-32768"
+        ] if self.groq_model == "auto" else [self.groq_model]
 
-        return {
-            "answer": answer,
-            "evidence": evidence,
-            "method": "Groq (Llama-3.1-70b)",
-        }
+        last_error = None
+        for model in models_to_try:
+            try:
+                response = self._groq_client.chat.completions.create(
+                    model=model,
+                    messages=[
+                        {"role": "system", "content": SYSTEM_PROMPT},
+                        {"role": "user", "content": user_message},
+                    ],
+                    max_tokens=800,
+                    temperature=0.2,
+                )
+                answer = response.choices[0].message.content.strip()
+                
+                return {
+                    "answer": answer,
+                    "evidence": evidence,
+                    "method": f"Groq API ({model})",
+                }
+            except Exception as e:
+                print(f"️  Groq API error with model {model}: {e}")
+                last_error = e
+
+        print(f"️  All Groq models failed. Last error: {last_error}. Falling back to extractive.")
+        return self._generate_extractive(query, results)
 
     @property
     def model_info(self) -> dict:
@@ -298,6 +314,6 @@ Provide a clear, structured answer that distinguishes between UG (Bachelor's) an
         if self.mode == "extractive":
             info["model_name"] = "Retrieval Based"
         elif self.mode == "groq":
-            info["model_name"] = "llama-3.3-70b-versatile"
+            info["model_name"] = "llama-3.1-8b-instant"
             info["api_key_set"] = bool(self.api_key)
         return info
