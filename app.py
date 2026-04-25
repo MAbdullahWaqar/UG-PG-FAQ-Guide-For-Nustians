@@ -424,17 +424,26 @@ with tab_qa:
         for line in lines:
             line = line.strip()
             if not line:
-                html_lines.append("")
+                html_lines.append("<br>")
                 continue
-            if line.startswith("### "):
-                html_lines.append(f"<strong style='color: #4ECDC4; font-size: 1.05rem;'>{line[4:]}</strong>")
+            
+            # Explicitly highlight UG and PG headers with distinct badge colors
+            lower_line = line.lower()
+            if "for undergraduate" in lower_line:
+                clean_text = line.replace("###", "").replace("**", "").strip()
+                html_lines.append(f"<div style='margin-top: 16px; margin-bottom: 8px;'><span style='background: rgba(78, 205, 196, 0.15); color: #4ECDC4; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px;'>{clean_text}</span></div>")
+            elif "for postgraduate" in lower_line:
+                clean_text = line.replace("###", "").replace("**", "").strip()
+                html_lines.append(f"<div style='margin-top: 16px; margin-bottom: 8px;'><span style='background: rgba(255, 107, 107, 0.15); color: #FF6B6B; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px;'>{clean_text}</span></div>")
+            elif line.startswith("### "):
+                html_lines.append(f"<strong style='color: #4ECDC4; font-size: 1.05rem;'>{line[4:]}</strong><br>")
             elif line.startswith("**") and line.endswith("**"):
-                html_lines.append(f"<strong style='color: #4ECDC4; font-size: 1.05rem;'>{line[2:-2]}</strong>")
+                html_lines.append(f"<strong style='color: #4ECDC4; font-size: 1.05rem;'>{line[2:-2]}</strong><br>")
             elif line.startswith("- "):
-                html_lines.append(f"<div style='margin-left: 16px; margin-bottom: 4px;'>• {line[2:]}</div>")
+                html_lines.append(f"<div style='margin-left: 16px; margin-bottom: 4px; color: rgba(255,255,255,0.85);'>• {line[2:]}</div>")
             else:
-                html_lines.append(line)
-        formatted_answer = "<br>".join(html_lines)
+                html_lines.append(line + "<br>")
+        formatted_answer = "".join(html_lines)
 
         st.markdown(f"""<div class="answer-card">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">

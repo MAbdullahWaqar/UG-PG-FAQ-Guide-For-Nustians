@@ -112,7 +112,7 @@ The project includes an `experiments.py` suite that automatically runs and gener
 
 ---
 
-## 🚀 5. How to Run the Project
+##  5. How to Run the Project
 
 ### Prerequisites
 * Python 3.10 or higher
