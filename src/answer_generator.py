@@ -56,7 +56,7 @@ class AnswerGenerator:
         self,
         mode: str = "local_llm",
         api_key: str | None = None,
-        local_model_name: str = "Qwen/Qwen2.5-1.5B-Instruct",
+        local_model_name: str = "models/Qwen2.5-0.5B-Instruct",
     ):
         """
         Args:
@@ -133,12 +133,26 @@ class AnswerGenerator:
 
     def check_local_model_exists(self) -> bool:
         """
-        Check if the local model weights are actually present in the cache.
-        Returns False if the files are missing or incomplete.
+        Check if the local model weights are actually present.
+        Supports both local paths and HuggingFace Hub names.
         """
+        import os
+        if os.path.isdir(self.local_model_name):
+            # Check for essential model files in the local directory
+            if os.path.exists(os.path.join(self.local_model_name, "config.json")):
+                return True
+            
+            # Check one level deeper (sometimes users clone into a subfolder)
+            subdirs = [d for d in os.listdir(self.local_model_name) if os.path.isdir(os.path.join(self.local_model_name, d))]
+            for sd in subdirs:
+                sd_path = os.path.join(self.local_model_name, sd)
+                if os.path.exists(os.path.join(sd_path, "config.json")):
+                    self.local_model_name = sd_path # Update to the actual root
+                    return True
+            return False
+
         from huggingface_hub import try_to_load_from_cache
         try:
-            # Check for the specific safetensors file
             path = try_to_load_from_cache(
                 repo_id=self.local_model_name,
                 filename="model.safetensors"

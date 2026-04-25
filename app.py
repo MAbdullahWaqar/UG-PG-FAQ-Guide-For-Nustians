@@ -256,9 +256,12 @@ def load_system():
 
 @st.cache_resource(show_spinner=False)
 def load_local_llm():
-    """Load the local LLM (cached so it only downloads once)."""
+    """Load the local LLM from the models/ directory."""
     gen = AnswerGenerator(mode="local_llm")
-    gen._init_local_llm()  # Force load now
+    # Check if exists before forcing init to avoid crash/hang
+    if gen.check_local_model_exists():
+        with st.spinner("🤖 Loading local LLM weights into memory..."):
+            gen._init_local_llm()
     return gen
 
 
@@ -289,7 +292,7 @@ with st.sidebar:
         ["local_llm", "groq"],
         index=1,
         format_func=lambda x: {
-            "local_llm": "🤖 Local LLM (Qwen2.5-1.5B)",
+            "local_llm": "🤖 Local LLM (Qwen2.5-0.5B)",
             "groq": "⚡ Groq API (Llama-3.3-70B - Free)",
         }[x],
         help="Choose how answers are generated from retrieved chunks",
@@ -299,9 +302,20 @@ with st.sidebar:
         st.success("⚡ Groq API Key Configured")
         st.caption("Using Llama-3.3-70B for fast, free answers.")
     elif answer_mode == "local_llm":
-        st.caption("🔧 **Qwen2.5-1.5B-Instruct**")
-        st.caption("Optimized for 16GB RAM + MPS GPU")
-        st.caption("~3GB download on first use")
+        st.caption("🔧 **Qwen2.5-0.5B-Instruct**")
+        st.info("📂 Place model files in: `models/Qwen2.5-0.5B-Instruct/`")
+        
+        gen_check = AnswerGenerator(mode="local_llm")
+        if gen_check.check_local_model_exists():
+            st.success("✅ Model files found locally!")
+        else:
+            st.warning("⚠️ Model files not found.")
+            st.markdown("""
+            **Manual Setup:**
+            1. Create `models/` folder.
+            2. Download Qwen2.5-0.5B-Instruct files.
+            3. Place them inside `models/Qwen2.5-0.5B-Instruct/`.
+            """)
 
     st.markdown("---")
 
