@@ -42,7 +42,7 @@ from src.evaluation import (
 
 st.set_page_config(
     page_title="NUST Academic Policy QA System",
-    page_icon="🎓",
+    page_icon="NUST",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -244,7 +244,7 @@ st.markdown("""
 @st.cache_resource(show_spinner=False)
 def load_system():
     """Load and index the handbooks."""
-    with st.spinner("🔄 Loading handbooks and building indexes..."):
+    with st.spinner(" Loading handbooks and building indexes..."):
         df = ingest_handbooks()
         preprocess_dataframe(df)
 
@@ -264,7 +264,7 @@ df, retriever, index_timings = load_system()
 # ═══════════════════════════════════════════════════════════════════
 
 with st.sidebar:
-    st.markdown("### ⚙️ Configuration")
+    st.markdown("### ️ Configuration")
 
     method = st.selectbox(
         "Retrieval Method",
@@ -276,29 +276,29 @@ with st.sidebar:
     top_k = st.slider("Top-K Results", min_value=1, max_value=20, value=5)
 
     st.markdown("---")
-    st.markdown("### 🤖 Answer Generation")
+    st.markdown("###  Answer Generation")
 
     answer_mode = st.selectbox(
         "Generation Mode",
         ["extractive", "groq"],
         index=1,
         format_func=lambda x: {
-            "extractive": "🔍 Retrieval Based (Extractive)",
-            "groq": "⚡ Groq API (Llama-3.3-70B - Free)",
+            "extractive": " Retrieval Based (Extractive)",
+            "groq": " Groq API (Llama-3.3-70B - Free)",
         }[x],
         help="Choose how answers are generated from retrieved chunks",
     )
 
     if answer_mode == "groq":
-        st.success("⚡ Groq API Key Configured")
+        st.success(" Groq API Key Configured")
         st.caption("Using Llama-3.3-70B for fast, free answers.")
     elif answer_mode == "extractive":
-        st.caption("🔍 **Retrieval Based Mode**")
+        st.caption(" **Retrieval Based Mode**")
         st.caption("Directly extracts and formats relevant sentences from the handbooks without synthesizing a new answer.")
 
     st.markdown("---")
 
-    st.markdown("### 📊 System Info")
+    st.markdown("###  System Info")
     stats = retriever.get_stats()
     st.markdown(f"""
     <div class="metric-card">
@@ -317,13 +317,13 @@ with st.sidebar:
 
     if "pagerank" in stats:
         st.markdown("---")
-        st.markdown("### 🔗 PageRank")
+        st.markdown("###  PageRank")
         pr = stats["pagerank"]
         st.metric("Sections", pr["num_nodes"])
         st.metric("Cross-references", pr["num_edges"])
 
     st.markdown("---")
-    st.markdown("### ⏱️ Index Build Times")
+    st.markdown("### ️ Index Build Times")
     for key, val in index_timings.items():
         st.text(f"{key}: {val:.0f} ms")
 
@@ -332,15 +332,15 @@ with st.sidebar:
 # Main Content
 # ═══════════════════════════════════════════════════════════════════
 
-st.markdown('<h1 class="main-title">🎓 NUST Academic Policy QA</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-title"> NUST Academic Policy QA</h1>', unsafe_allow_html=True)
 st.markdown('<p class="subtitle">Scalable Retrieval System using LSH, SimHash & TF-IDF</p>', unsafe_allow_html=True)
 
 # Tabs
 tab_qa, tab_compare, tab_eval, tab_pagerank = st.tabs([
-    "💬 Ask a Question",
-    "🔄 Method Comparison",
-    "📊 Evaluation Dashboard",
-    "🔗 PageRank Analysis",
+    " Ask a Question",
+    " Method Comparison",
+    " Evaluation Dashboard",
+    " PageRank Analysis",
 ])
 
 
@@ -383,7 +383,7 @@ with tab_qa:
         # For LLM modes, always use dual-source retrieval
         use_dual = True
 
-        with st.spinner("🔍 Retrieving from both handbooks & generating answer..."):
+        with st.spinner(" Retrieving from both handbooks & generating answer..."):
             if use_dual:
                 dual_result = retriever.retrieve_dual_source(
                     query, method=method, top_k_per_source=top_k
@@ -412,7 +412,7 @@ with tab_qa:
         formatted_answer = answer_data['answer'].replace("### ", "<strong>").replace("\n", "<br>")
         if "<strong>" in formatted_answer: # Close strong tag if we opened it (simple heuristic for the headers)
              formatted_answer = formatted_answer.replace("<br>", "</strong><br>", 1)
-             formatted_answer = formatted_answer.replace("<strong>📗", "</strong><br><br><strong>📗")
+             formatted_answer = formatted_answer.replace("<strong>", "</strong><br><br><strong>")
 
         st.markdown(f"""<div class="answer-card">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
@@ -428,7 +428,7 @@ with tab_qa:
 </div>""", unsafe_allow_html=True)
 
         # Timing metrics
-        st.markdown("#### ⏱️ Performance Metrics")
+        st.markdown("#### ️ Performance Metrics")
         timing_cols = st.columns(4)
         timing_labels = ["Total", "TF-IDF", "MinHash LSH", "SimHash"]
         timing_keys = ["total_ms", "tfidf_ms", "minhash_ms", "simhash_ms"]
@@ -479,10 +479,10 @@ with tab_qa:
                 """, unsafe_allow_html=True)
 
         # Show chunks grouped by source
-        st.markdown("#### 📄 Retrieved Chunks")
+        st.markdown("####  Retrieved Chunks")
         ug_tab, pg_tab, all_tab = st.tabs([
-            f"📘 UG Handbook ({len(ug_results)})",
-            f"📗 PG Handbook ({len(pg_results)})",
+            f" UG Handbook ({len(ug_results)})",
+            f" PG Handbook ({len(pg_results)})",
             f"📋 All ({len(all_results)})",
         ])
         with ug_tab:
@@ -509,7 +509,7 @@ with tab_qa:
 # ═══════════════════════════════════════════════════════════════════
 
 with tab_compare:
-    st.markdown("### 🔄 Side-by-Side Method Comparison")
+    st.markdown("###  Side-by-Side Method Comparison")
     st.markdown("Compare retrieval results from all methods for the same query.")
 
     compare_query = st.text_input(
@@ -526,7 +526,7 @@ with tab_compare:
             all_results[m] = retriever.retrieve(compare_query, method=m, top_k=5)
 
         # Latency comparison
-        st.markdown("#### ⏱️ Latency Comparison")
+        st.markdown("#### ️ Latency Comparison")
         lat_cols = st.columns(4)
         for i, m in enumerate(methods_list):
             with lat_cols[i]:
@@ -553,7 +553,7 @@ with tab_compare:
 # ═══════════════════════════════════════════════════════════════════
 
 with tab_eval:
-    st.markdown("### 📊 Evaluation Dashboard")
+    st.markdown("###  Evaluation Dashboard")
     st.markdown("Run comprehensive evaluations comparing all retrieval methods.")
 
     if st.button("🚀 Run Full Evaluation", key="run_eval", type="primary"):
@@ -622,7 +622,7 @@ with tab_eval:
 # ═══════════════════════════════════════════════════════════════════
 
 with tab_pagerank:
-    st.markdown("### 🔗 PageRank Section Importance")
+    st.markdown("###  PageRank Section Importance")
     st.markdown("Handbook sections ranked by importance using the PageRank algorithm over cross-references.")
 
     if retriever.pagerank and retriever.pagerank._is_fitted:

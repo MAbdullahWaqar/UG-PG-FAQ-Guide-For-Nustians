@@ -32,7 +32,7 @@ def main():
     # 1. Data Ingestion & Preprocessing
     # -----------------------------------------------------------------------
     print("=" * 60)
-    print("📄 STEP 1: Data Ingestion & Preprocessing")
+    print(" STEP 1: Data Ingestion & Preprocessing")
     print("=" * 60)
 
     df = ingest_handbooks()
@@ -40,24 +40,24 @@ def main():
 
     # Save processed data
     df.to_pickle(os.path.join(results_dir, "processed_chunks.pkl"))
-    print(f"\n📦 Saved {len(df)} chunks to {results_dir}/processed_chunks.pkl")
+    print(f"\n Saved {len(df)} chunks to {results_dir}/processed_chunks.pkl")
 
     # -----------------------------------------------------------------------
     # 2. Build Index
     # -----------------------------------------------------------------------
     print("\n" + "=" * 60)
-    print("🔨 STEP 2: Building Indexes")
+    print(" STEP 2: Building Indexes")
     print("=" * 60)
 
     retriever = HybridRetriever()
     index_timings = retriever.fit(df)
 
-    print("\n⏱️  Indexing Times:")
+    print("\n️  Indexing Times:")
     for key, val in index_timings.items():
         print(f"   {key}: {val:.1f} ms")
 
     stats = retriever.get_stats()
-    print(f"\n📊 System Stats:")
+    print(f"\n System Stats:")
     for key, val in stats.items():
         print(f"   {key}: {val}")
 
@@ -65,7 +65,7 @@ def main():
     # 3. Precision & Recall Evaluation
     # -----------------------------------------------------------------------
     print("\n" + "=" * 60)
-    print("📏 STEP 3: Precision & Recall Evaluation")
+    print(" STEP 3: Precision & Recall Evaluation")
     print("=" * 60)
 
     eval_df = evaluate_precision_recall(retriever)
@@ -76,28 +76,28 @@ def main():
         "precision": "mean",
         "recall": "mean",
     }).round(3)
-    print("\n📊 Average Precision & Recall:")
+    print("\n Average Precision & Recall:")
     print(summary.to_string())
 
     # -----------------------------------------------------------------------
     # 4. Latency Evaluation
     # -----------------------------------------------------------------------
     print("\n" + "=" * 60)
-    print("⏱️  STEP 4: Latency Evaluation")
+    print("️  STEP 4: Latency Evaluation")
     print("=" * 60)
 
     latency_df = evaluate_latency(retriever)
     latency_df.to_csv(os.path.join(results_dir, "latency.csv"), index=False)
 
     lat_summary = latency_df.groupby("method")["avg_latency_ms"].mean().round(2)
-    print("\n⏱️  Average Latency (ms):")
+    print("\n️  Average Latency (ms):")
     print(lat_summary.to_string())
 
     # -----------------------------------------------------------------------
     # 5. Memory Evaluation
     # -----------------------------------------------------------------------
     print("\n" + "=" * 60)
-    print("💾 STEP 5: Memory Evaluation")
+    print(" STEP 5: Memory Evaluation")
     print("=" * 60)
 
     mem = evaluate_memory(retriever)
@@ -108,18 +108,18 @@ def main():
     # 6. Parameter Sensitivity Analysis
     # -----------------------------------------------------------------------
     print("\n" + "=" * 60)
-    print("🔧 STEP 6: Parameter Sensitivity Analysis")
+    print(" STEP 6: Parameter Sensitivity Analysis")
     print("=" * 60)
 
-    print("\n🔹 MinHash num_perm sensitivity:")
+    print("\n MinHash num_perm sensitivity:")
     minhash_sens_df = analyze_minhash_sensitivity(df)
     minhash_sens_df.to_csv(os.path.join(results_dir, "minhash_sensitivity.csv"), index=False)
 
-    print("\n🔹 LSH threshold sensitivity:")
+    print("\n LSH threshold sensitivity:")
     lsh_sens_df = analyze_lsh_bands_sensitivity(df)
     lsh_sens_df.to_csv(os.path.join(results_dir, "lsh_sensitivity.csv"), index=False)
 
-    print("\n🔹 SimHash Hamming threshold sensitivity:")
+    print("\n SimHash Hamming threshold sensitivity:")
     simhash_sens_df = analyze_simhash_sensitivity(df)
     simhash_sens_df.to_csv(os.path.join(results_dir, "simhash_sensitivity.csv"), index=False)
 
@@ -127,7 +127,7 @@ def main():
     # 7. Scalability Test
     # -----------------------------------------------------------------------
     print("\n" + "=" * 60)
-    print("📈 STEP 7: Scalability Test")
+    print(" STEP 7: Scalability Test")
     print("=" * 60)
 
     scale_df = scalability_test(df)
@@ -137,7 +137,7 @@ def main():
     # 8. Generate Plots
     # -----------------------------------------------------------------------
     print("\n" + "=" * 60)
-    print("📊 STEP 8: Generating Plots")
+    print(" STEP 8: Generating Plots")
     print("=" * 60)
 
     generate_static_plots(
@@ -151,17 +151,17 @@ def main():
     # 9. Qualitative Test
     # -----------------------------------------------------------------------
     print("\n" + "=" * 60)
-    print("🧪 STEP 9: Qualitative Test (Sample Queries)")
+    print(" STEP 9: Qualitative Test (Sample Queries)")
     print("=" * 60)
 
     from src.answer_generator import AnswerGenerator
     generator = AnswerGenerator(mode="extractive")
 
     for q in GROUND_TRUTH_QUERIES[:5]:
-        print(f"\n❓ Query: {q['query']}")
+        print(f"\n Query: {q['query']}")
         result = retriever.retrieve(q["query"], method="hybrid", top_k=5)
         answer = generator.generate(q["query"], result["results"])
-        print(f"📝 Answer ({answer['method']}): {answer['answer'][:300]}...")
+        print(f" Answer ({answer['method']}): {answer['answer'][:300]}...")
         print(f"   Top chunk: {result['results'][0]['chunk_id']} (score: {result['results'][0]['score']:.4f})")
         if result["results"][0].get("page_start"):
             print(f"   Source: {result['results'][0].get('source', 'N/A')} p.{result['results'][0].get('page_start')}")
@@ -181,8 +181,8 @@ def main():
         json.dump(summary_data, f, indent=2)
 
     print("\n" + "=" * 60)
-    print("✅ ALL EXPERIMENTS COMPLETE")
-    print(f"📁 Results saved to {results_dir}/")
+    print(" ALL EXPERIMENTS COMPLETE")
+    print(f" Results saved to {results_dir}/")
     print("=" * 60)
 
 

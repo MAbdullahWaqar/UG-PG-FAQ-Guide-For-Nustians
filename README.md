@@ -8,6 +8,41 @@ This project is a **principled, highly scalable Question-Answering (QA) system**
 
 ##  1. System Pipeline Overview
 
+```text
+┌───────────────────────────────────────────────────────────────────┐
+│                   NUST Academic Policy QA Pipeline                │
+├───────────┬───────────────────────────────────────────────────────┤
+│           │                                                       │
+│ 1. Input  │  UG Handbook (PDF)          PG Handbook (PDF)         │
+│           │        │                           │                  │
+│           │        └────────────┬──────────────┘                  │
+│           │                     ↓                                 │
+│ 2. Parse  │     Extract Text & Tables (pdfplumber)                │
+│           │     Chunking (200-500 words, 50-word overlap)         │
+│           │                     ↓                                 │
+│ 3. Clean  │     Tokenize, Lemmatize, Synonym Expansion (NLTK)     │
+│           │     Generate 3-word Shingles                          │
+│           │                     ↓                                 │
+│ 4. Index  │ ┌──────────────┬────────────────┬─────────────────┐   │
+│           │ │ Exact Match  │  Approximate   │   Approximate   │   │
+│           │ │    TF-IDF    │  MinHash LSH   │    SimHash      │   │
+│           │ │ (Scikit)     │ (Datasketch)   │  (Bitwise MD5)  │   │
+│           │ └──────┬───────┴────────┬───────┴─────────┬───────┘   │
+│           │        │                │                 │           │
+│ 5. Query  │ ┌──────┴────────────────┴─────────────────┴───────┐   │
+│           │ │      Reciprocal Rank Fusion (Hybrid RRF)        │   │
+│           │ │        + PageRank Importance Boosting           │   │
+│           │ └───────────────────────┬─────────────────────────┘   │
+│           │                         ↓                             │
+│ 6. Output │ ┌───────────────────────┴─────────────────────────┐   │
+│           │ │                Answer Generator                 │   │
+│           │ │   [Extractive Mode]        [Groq Llama 3 API]   │   │
+│           │ └───────────────────────┬─────────────────────────┘   │
+│           │                         ↓                             │
+│           │                 Streamlit Web UI                      │
+└───────────┴───────────────────────────────────────────────────────┘
+```
+
 The system operates through a sequential, data-intensive pipeline designed to handle large text corpora efficiently:
 
 1. **Data Ingestion:** Raw PDFs are parsed, cleaned, and split into semantically meaningful chunks (200-500 words).

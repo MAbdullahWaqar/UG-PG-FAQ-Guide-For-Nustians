@@ -33,8 +33,8 @@ IMPORTANT RULES:
 1. ONLY use information from the provided context — NEVER make up information.
 2. ALWAYS distinguish between UG (Undergraduate/Bachelor's) and PG (Postgraduate/Master's/PhD) policies when BOTH sources are provided.
 3. Structure your answer clearly:
-   - Start with "📘 For Undergraduate (Bachelor's) Students:" and list the relevant UG policy.
-   - Then "📗 For Postgraduate (Master's/PhD) Students:" and list the relevant PG policy.
+   - Start with " For Undergraduate (Bachelor's) Students:" and list the relevant UG policy.
+   - Then " For Postgraduate (Master's/PhD) Students:" and list the relevant PG policy.
    - If a policy is the same for both, state that explicitly.
    - If the context only covers one level (UG or PG), answer only for that level.
 4. Cite specific sections and page numbers (e.g., "(UG Handbook, p.23)").
@@ -80,10 +80,10 @@ class AnswerGenerator:
                 from groq import Groq
                 self._groq_client = Groq(api_key=self.api_key)
             except ImportError:
-                print("⚠️  Groq not installed. Falling back to extractive mode.")
+                print("️  Groq not installed. Falling back to extractive mode.")
                 self.mode = "extractive"
         else:
-            print("⚠️  No Groq API key provided. Falling back to extractive mode.")
+            print("️  No Groq API key provided. Falling back to extractive mode.")
             self.mode = "extractive"
 
 
@@ -169,9 +169,9 @@ class AnswerGenerator:
 
             answer_parts = []
             if ug_sentences:
-                answer_parts.append("### 📘 For Undergraduate (Bachelor's) Students:\n" + "\n".join(ug_sentences))
+                answer_parts.append("###  For Undergraduate (Bachelor's) Students:\n" + "\n".join(ug_sentences))
             if pg_sentences:
-                answer_parts.append("### 📗 For Postgraduate (Master's/PhD) Students:\n" + "\n".join(pg_sentences))
+                answer_parts.append("###  For Postgraduate (Master's/PhD) Students:\n" + "\n".join(pg_sentences))
             
             if not answer_parts:
                 answer = "No highly relevant specific rules were extracted from the handbooks."
@@ -282,7 +282,7 @@ Provide a clear, structured answer that distinguishes between UG (Bachelor's) an
             )
             answer = response.choices[0].message.content.strip()
         except Exception as e:
-            print(f"⚠️  Groq API error: {e}. Falling back to extractive.")
+            print(f"️  Groq API error: {e}. Falling back to extractive.")
             return self._generate_extractive(query, results)
 
         return {
