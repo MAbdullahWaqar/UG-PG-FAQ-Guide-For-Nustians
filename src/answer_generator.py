@@ -24,7 +24,7 @@ except LookupError:
 
 
 # ---------------------------------------------------------------------------
-# System prompt for grounded academic QA
+# System prompts
 # ---------------------------------------------------------------------------
 
 SYSTEM_PROMPT = """You are an academic policy assistant for NUST (National University of Sciences & Technology). You answer student questions about academic policies based ONLY on the provided handbook excerpts.
@@ -42,44 +42,36 @@ IMPORTANT RULES:
 6. Use bullet points for multiple rules or requirements.
 7. If the context doesn't contain enough information, say so clearly."""
 
-
 class AnswerGenerator:
     """
     Generates answers from retrieved chunks.
 
     Supports two modes:
-    - Local LLM: Uses Qwen2.5-1.5B-Instruct running locally on Apple Silicon MPS
+    - Retrieval Based (Extractive): Extracts and formats the most relevant sentences directly from the handbooks.
     - Groq: Uses Llama-3.1-70b-versatile via Groq API (requires free key)
     """
 
     def __init__(
         self,
-        mode: str = "local_llm",
+        mode: str = "extractive",
         api_key: str | None = None,
-        local_model_name: str = "models/Qwen2.5-0.5B-Instruct",
     ):
         """
         Args:
-            mode: One of "local_llm", "groq"
+            mode: One of "extractive", "groq"
             api_key: Groq API key (only for mode="groq")
-            local_model_name: HuggingFace model ID for local LLM
         """
         self.mode = mode
         self.api_key = api_key or os.environ.get("GROQ_API_KEY")
-        self.local_model_name = local_model_name
 
         # Lazy-loaded resources
         self._groq_client = None
-        self._local_model = None
-        self._local_tokenizer = None
-        self._device = None
+        # Lazy-loaded resources
+        self._groq_client = None
 
         # Initialize based on mode
         if self.mode == "groq":
             self._init_groq()
-        elif self.mode == "local_llm":
-            # Model is loaded lazily on first generate() call
-            pass
 
     def _init_groq(self):
         """Initialize Groq client."""
@@ -88,80 +80,12 @@ class AnswerGenerator:
                 from groq import Groq
                 self._groq_client = Groq(api_key=self.api_key)
             except ImportError:
-                print("⚠️  Groq not installed. Falling back to local_llm mode.")
-                self.mode = "local_llm"
+                print("⚠️  Groq not installed. Falling back to extractive mode.")
+                self.mode = "extractive"
         else:
-            print("⚠️  No Groq API key provided. Falling back to local_llm mode.")
-            self.mode = "local_llm"
+            print("⚠️  No Groq API key provided. Falling back to extractive mode.")
+            self.mode = "extractive"
 
-    def _init_local_llm(self):
-        """
-        Initialize the local Qwen2.5-3B-Instruct model.
-        Uses Apple Silicon MPS for GPU acceleration.
-        """
-        if self._local_model is not None:
-            return  # Already loaded
-
-        import torch
-        from transformers import AutoModelForCausalLM, AutoTokenizer
-
-        print(f"🤖 Loading local LLM: {self.local_model_name}")
-        print("   This may take a minute on first download (~6GB)...")
-
-        # Determine device
-        if torch.backends.mps.is_available():
-            self._device = torch.device("mps")
-            print("   → Using Apple Silicon MPS GPU acceleration")
-        else:
-            self._device = torch.device("cpu")
-            print("   → Using CPU (MPS not available)")
-
-        # Load tokenizer
-        self._local_tokenizer = AutoTokenizer.from_pretrained(
-            self.local_model_name,
-            trust_remote_code=True,
-            local_files_only=True,
-        )
-
-        # Load model in float16 for efficiency on M-series chips
-        self._local_model = AutoModelForCausalLM.from_pretrained(
-            self.local_model_name,
-            torch_dtype=torch.float16,
-            trust_remote_code=True,
-            local_files_only=True,
-        ).to(self._device)
-
-        print(f"   ✅ Model loaded successfully on {self._device}")
-
-    def check_local_model_exists(self) -> bool:
-        """
-        Check if the local model weights are actually present.
-        Supports both local paths and HuggingFace Hub names.
-        """
-        import os
-        if os.path.isdir(self.local_model_name):
-            # Check for essential model files in the local directory
-            if os.path.exists(os.path.join(self.local_model_name, "config.json")):
-                return True
-            
-            # Check one level deeper (sometimes users clone into a subfolder)
-            subdirs = [d for d in os.listdir(self.local_model_name) if os.path.isdir(os.path.join(self.local_model_name, d))]
-            for sd in subdirs:
-                sd_path = os.path.join(self.local_model_name, sd)
-                if os.path.exists(os.path.join(sd_path, "config.json")):
-                    self.local_model_name = sd_path # Update to the actual root
-                    return True
-            return False
-
-        from huggingface_hub import try_to_load_from_cache
-        try:
-            path = try_to_load_from_cache(
-                repo_id=self.local_model_name,
-                filename="model.safetensors"
-            )
-            return path is not None and isinstance(path, str) and not path.endswith(".incomplete")
-        except Exception:
-            return False
 
     def generate(self, query: str, retrieved_results: list[dict], top_sentences: int = 5) -> dict:
         """
@@ -173,23 +97,7 @@ class AnswerGenerator:
                 "evidence": [],
                 "method": "none",
             }
-
-        # Determine best mode based on availability
-        effective_mode = self.mode
-
-        if effective_mode == "local_llm":
-            if not self.is_model_loaded and not self.check_local_model_exists():
-                print(f"⚠️  Local model {self.local_model_name} not found or incomplete.")
-                if self.api_key:
-                    print("   → Falling back to Groq API.")
-                    effective_mode = "groq"
-                else:
-                    print("   → Falling back to Extractive mode.")
-                    effective_mode = "extractive"
-
-        if effective_mode == "local_llm":
-            return self._generate_local_llm(query, retrieved_results)
-        elif effective_mode == "groq" and self.api_key:
+        if self.mode == "groq" and self.api_key:
             return self._generate_groq(query, retrieved_results)
         else:
             return self._generate_extractive(query, retrieved_results)
@@ -200,10 +108,9 @@ class AnswerGenerator:
 
     def _generate_extractive(self, query: str, results: list[dict], top_n: int = 5) -> dict:
         """
-        Extract the most relevant sentences from retrieved chunks.
-        Uses sentence-level TF-IDF similarity to rank sentences.
+        Extract the most relevant sentences from retrieved chunks and format them
+        structurally to distinguish between UG and PG, mimicking the Groq mode.
         """
-        # Collect all sentences from retrieved chunks
         all_sentences = []
         sentence_sources = []
 
@@ -217,7 +124,7 @@ class AnswerGenerator:
                 sentences = text.split(". ")
             for sent in sentences:
                 sent = sent.strip()
-                if len(sent) > 20:  # Skip very short fragments
+                if len(sent) > 20:
                     all_sentences.append(sent)
                     sentence_sources.append({
                         "chunk_id": r.get("chunk_id", ""),
@@ -230,42 +137,55 @@ class AnswerGenerator:
             return {
                 "answer": "Retrieved chunks did not contain enough text to generate an answer.",
                 "evidence": [],
-                "method": "extractive",
+                "method": "Retrieval Based",
             }
 
-        # Rank sentences by TF-IDF similarity to query
         try:
             vectorizer = TfidfVectorizer()
             corpus = [query] + all_sentences
             tfidf_matrix = vectorizer.fit_transform(corpus)
             sims = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:]).flatten()
 
-            # Get top-N sentence indices
             top_indices = sims.argsort()[::-1][:top_n]
 
-            # Build answer
-            answer_sentences = []
+            ug_sentences = []
+            pg_sentences = []
             evidence = []
+            
             for idx in top_indices:
-                if sims[idx] > 0.01:  # Only include somewhat relevant sentences
-                    answer_sentences.append(all_sentences[idx])
+                if sims[idx] > 0.01:
+                    sent = all_sentences[idx]
+                    src = sentence_sources[idx]["source"]
                     evidence.append({
-                        "sentence": all_sentences[idx],
+                        "sentence": sent,
                         "relevance_score": float(sims[idx]),
                         **sentence_sources[idx],
                     })
+                    
+                    if src == "ug":
+                        ug_sentences.append(f"- {sent}")
+                    else:
+                        pg_sentences.append(f"- {sent}")
 
-            answer = " ".join(answer_sentences) if answer_sentences else all_sentences[0]
+            answer_parts = []
+            if ug_sentences:
+                answer_parts.append("### 📘 For Undergraduate (Bachelor's) Students:\n" + "\n".join(ug_sentences))
+            if pg_sentences:
+                answer_parts.append("### 📗 For Postgraduate (Master's/PhD) Students:\n" + "\n".join(pg_sentences))
+            
+            if not answer_parts:
+                answer = "No highly relevant specific rules were extracted from the handbooks."
+            else:
+                answer = "\n\n".join(answer_parts)
 
         except Exception:
-            # Fallback: just return first few sentences
             answer = " ".join(all_sentences[:top_n])
             evidence = [{"sentence": s, "relevance_score": 0.0} for s in all_sentences[:top_n]]
 
         return {
             "answer": answer,
             "evidence": evidence,
-            "method": "extractive",
+            "method": "Retrieval Based",
         }
 
     # ------------------------------------------------------------------
@@ -335,73 +255,6 @@ class AnswerGenerator:
 
         return context, evidence
 
-    def _generate_local_llm(self, query: str, results: list[dict]) -> dict:
-        """
-        Generate answer using local Qwen2.5-3B-Instruct model.
-        Runs on Apple Silicon MPS for fast inference.
-        Uses dual-source context to give structured UG vs PG answers.
-        """
-        import torch
-
-        # Lazy load model on first call
-        self._init_local_llm()
-
-        # Use dual-source context for structured UG vs PG answers
-        context, evidence = self._build_dual_source_context(results)
-
-        user_message = f"""Here are excerpts from NUST's UG (Undergraduate) and PG (Postgraduate) handbooks:
-
-{context}
-
-Student's Question: {query}
-
-Provide a clear, structured answer that distinguishes between UG (Bachelor's) and PG (Master's/PhD) policies where applicable. Use the exact numbers, grades, and percentages from the handbooks:"""
-
-        # Build chat messages in Qwen format
-        messages = [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": user_message},
-        ]
-
-        try:
-            # Apply chat template
-            text = self._local_tokenizer.apply_chat_template(
-                messages,
-                tokenize=False,
-                add_generation_prompt=True,
-            )
-
-            model_inputs = self._local_tokenizer(
-                [text], return_tensors="pt"
-            ).to(self._local_model.device)
-
-            # Generate with conservative settings for factual accuracy
-            with torch.no_grad():
-                generated_ids = self._local_model.generate(
-                    **model_inputs,
-                    max_new_tokens=400,
-                    temperature=0.3,
-                    top_p=0.9,
-                    repetition_penalty=1.2,
-                    do_sample=True,
-                )
-
-            # Decode — only the new tokens (skip input)
-            output_ids = generated_ids[0][len(model_inputs.input_ids[0]):]
-            answer = self._local_tokenizer.decode(output_ids, skip_special_tokens=True).strip()
-
-            # Clean up memory
-            del model_inputs, generated_ids, output_ids
-
-        except Exception as e:
-            print(f"⚠️  Local LLM error: {e}. Falling back to extractive.")
-            return self._generate_extractive(query, results)
-
-        return {
-            "answer": answer,
-            "evidence": evidence,
-            "method": f"local LLM ({self.local_model_name.split('/')[-1]})",
-        }
 
     def _generate_groq(self, query: str, results: list[dict]) -> dict:
         """
@@ -429,8 +282,8 @@ Provide a clear, structured answer that distinguishes between UG (Bachelor's) an
             )
             answer = response.choices[0].message.content.strip()
         except Exception as e:
-            print(f"⚠️  Groq API error: {e}. Falling back to local_llm.")
-            return self._generate_local_llm(query, results)
+            print(f"⚠️  Groq API error: {e}. Falling back to extractive.")
+            return self._generate_extractive(query, results)
 
         return {
             "answer": answer,
@@ -438,37 +291,12 @@ Provide a clear, structured answer that distinguishes between UG (Bachelor's) an
             "method": "Groq (Llama-3.1-70b)",
         }
 
-    # ------------------------------------------------------------------
-    # Resource Management
-    # ------------------------------------------------------------------
-
-    def unload_model(self):
-        """Unload the local LLM from memory to free GPU/RAM."""
-        if self._local_model is not None:
-            import torch
-            del self._local_model
-            del self._local_tokenizer
-            self._local_model = None
-            self._local_tokenizer = None
-            gc.collect()
-            if torch.backends.mps.is_available():
-                torch.mps.empty_cache()
-            print("🗑️  Local LLM unloaded from memory.")
-
-    @property
-    def is_model_loaded(self) -> bool:
-        """Check if the local LLM is currently loaded."""
-        return self._local_model is not None
-
     @property
     def model_info(self) -> dict:
         """Return information about the current model configuration."""
         info = {"mode": self.mode}
-        if self.mode == "local_llm":
-            info["model_name"] = self.local_model_name
-            info["loaded"] = self.is_model_loaded
-            if self._device:
-                info["device"] = str(self._device)
+        if self.mode == "extractive":
+            info["model_name"] = "Retrieval Based"
         elif self.mode == "groq":
             info["model_name"] = "llama-3.3-70b-versatile"
             info["api_key_set"] = bool(self.api_key)

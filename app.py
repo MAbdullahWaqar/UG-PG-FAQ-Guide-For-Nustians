@@ -254,15 +254,6 @@ def load_system():
         return df, retriever, index_timings
 
 
-@st.cache_resource(show_spinner=False)
-def load_local_llm():
-    """Load the local LLM from the models/ directory."""
-    gen = AnswerGenerator(mode="local_llm")
-    # Check if exists before forcing init to avoid crash/hang
-    if gen.check_local_model_exists():
-        with st.spinner("🤖 Loading local LLM weights into memory..."):
-            gen._init_local_llm()
-    return gen
 
 
 df, retriever, index_timings = load_system()
@@ -289,10 +280,10 @@ with st.sidebar:
 
     answer_mode = st.selectbox(
         "Generation Mode",
-        ["local_llm", "groq"],
+        ["extractive", "groq"],
         index=1,
         format_func=lambda x: {
-            "local_llm": "🤖 Local LLM (Qwen2.5-0.5B)",
+            "extractive": "🔍 Retrieval Based (Extractive)",
             "groq": "⚡ Groq API (Llama-3.3-70B - Free)",
         }[x],
         help="Choose how answers are generated from retrieved chunks",
@@ -301,21 +292,9 @@ with st.sidebar:
     if answer_mode == "groq":
         st.success("⚡ Groq API Key Configured")
         st.caption("Using Llama-3.3-70B for fast, free answers.")
-    elif answer_mode == "local_llm":
-        st.caption("🔧 **Qwen2.5-0.5B-Instruct**")
-        st.info("📂 Place model files in: `models/Qwen2.5-0.5B-Instruct/`")
-        
-        gen_check = AnswerGenerator(mode="local_llm")
-        if gen_check.check_local_model_exists():
-            st.success("✅ Model files found locally!")
-        else:
-            st.warning("⚠️ Model files not found.")
-            st.markdown("""
-            **Manual Setup:**
-            1. Create `models/` folder.
-            2. Download Qwen2.5-0.5B-Instruct files.
-            3. Place them inside `models/Qwen2.5-0.5B-Instruct/`.
-            """)
+    elif answer_mode == "extractive":
+        st.caption("🔍 **Retrieval Based Mode**")
+        st.caption("Directly extracts and formats relevant sentences from the handbooks without synthesizing a new answer.")
 
     st.markdown("---")
 
@@ -396,9 +375,8 @@ with tab_qa:
 
     if query:
         # Select the appropriate answer generator based on sidebar mode
-        if answer_mode == "local_llm":
-            with st.spinner("🤖 Loading local LLM (3GB total RAM)..."):
-                gen = load_local_llm()
+        if answer_mode == "extractive":
+            gen = AnswerGenerator(mode="extractive")
         elif answer_mode == "groq":
             gen = AnswerGenerator(mode="groq")
 
@@ -429,34 +407,25 @@ with tab_qa:
         if method == "hybrid":
             method_label = "HYBRID (RRF)"
 
-        # Answer display — use markdown for LLM answers (they have emoji headers)
-        if answer_mode in ("local_llm", "groq"):
-            st.markdown(f"""
-            <div class="answer-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <span style="font-size: 0.9rem; color: rgba(255,255,255,0.6); font-weight: 500;">Generated Answer</span>
-                    <span class="method-badge {badge_class}">{method_label}</span>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-            # Render LLM answer with markdown for proper emoji/heading formatting
-            st.markdown(answer_data['answer'])
-            st.caption(f"Method: {answer_data['method']} · Latency: {timings.get('total_ms', 0):.1f}ms")
-        else:
-            st.markdown(f"""
-            <div class="answer-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <span style="font-size: 0.9rem; color: rgba(255,255,255,0.6); font-weight: 500;">Generated Answer</span>
-                    <span class="method-badge {badge_class}">{method_label}</span>
-                </div>
-                <p style="font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,0.9); margin: 0;">
-                    {answer_data['answer']}
-                </p>
-                <div style="margin-top: 12px; font-size: 0.75rem; color: rgba(255,255,255,0.35);">
-                    Method: {answer_data['method']} · Latency: {timings.get('total_ms', 0):.1f}ms
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
+        # Answer display — embed answer inside the card HTML
+        # We replace some basic markdown to ensure it formats well inside the HTML div
+        formatted_answer = answer_data['answer'].replace("### ", "<strong>").replace("\n", "<br>")
+        if "<strong>" in formatted_answer: # Close strong tag if we opened it (simple heuristic for the headers)
+             formatted_answer = formatted_answer.replace("<br>", "</strong><br>", 1)
+             formatted_answer = formatted_answer.replace("<strong>📗", "</strong><br><br><strong>📗")
+
+        st.markdown(f"""<div class="answer-card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <span style="font-size: 0.9rem; color: rgba(255,255,255,0.6); font-weight: 500;">Generated Answer</span>
+        <span class="method-badge {badge_class}">{method_label}</span>
+    </div>
+    <div style="font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,0.9); margin: 0; white-space: pre-wrap;">
+{formatted_answer}
+    </div>
+    <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; color: rgba(255,255,255,0.4);">
+        Method: {answer_data['method']} &nbsp;·&nbsp; Latency: {timings.get('total_ms', 0):.1f}ms
+    </div>
+</div>""", unsafe_allow_html=True)
 
         # Timing metrics
         st.markdown("#### ⏱️ Performance Metrics")
