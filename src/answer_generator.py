@@ -120,6 +120,7 @@ class AnswerGenerator:
         self._local_tokenizer = AutoTokenizer.from_pretrained(
             self.local_model_name,
             trust_remote_code=True,
+            local_files_only=True,
         )
 
         # Load model in float16 for efficiency on M-series chips
@@ -127,6 +128,7 @@ class AnswerGenerator:
             self.local_model_name,
             torch_dtype=torch.float16,
             trust_remote_code=True,
+            local_files_only=True,
         ).to(self._device)
 
         print(f"   ✅ Model loaded successfully on {self._device}")
