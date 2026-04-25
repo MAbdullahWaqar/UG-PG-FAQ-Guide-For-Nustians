@@ -1,4 +1,4 @@
-# 🎓 Scalable Academic Policy QA System (Big Data Architecture)
+#  Scalable Academic Policy QA System (Big Data Architecture)
 
 This project is a **principled, highly scalable Question-Answering (QA) system** designed to retrieve and answer queries based on the NUST Undergraduate (UG) and Postgraduate (PG) Handbooks. 
 
